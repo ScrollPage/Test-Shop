@@ -9,7 +9,7 @@ export const Category = () => {
     const CheckboxGroup = Checkbox.Group;
 
     const plainOptions = ['Apple', 'Samsung', 'HTC', 'Lenovo', 'Nokia'];
-    const [indeterminate, setIndeterminate] = useState(false)
+    const [indeterminate, setIndeterminate] = useState(!!checkedList.length && checkedList.length < plainOptions.length)
     const [checkAll, setCheckAll] = useState(checkedList.length === plainOptions.length ? true : false)
 
     const onChange = (e) => {
