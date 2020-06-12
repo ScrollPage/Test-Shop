@@ -1,23 +1,10 @@
-import React, { useContext, Fragment } from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
-import { Button } from 'antd'
 
-import firebase from '../../config/firebase'
-import { AuthContext } from '../../context/auth/AuthState'
-import { AlertContext } from '../../context/alert/AlertContext'
 import { Backdrop } from './Backdrop'
 
-export function Drower({onClose, isOpen}) {
-
-    const { currentUser } = useContext(AuthContext)
-    const { show } = useContext(AlertContext)
-
-    const onLogout = () => {
-        onClose()
-        firebase.logout()
-        show('Вы успешно вышли!', 'success')
-    }
+export function Drower({ onClose, isOpen }) {
 
     return (
         <Fragment>
@@ -33,17 +20,15 @@ export function Drower({onClose, isOpen}) {
                         <NavLink to="/about" className="nav-link" onClick={() => onClose()}>О нас</NavLink>
                     </li>
                     <li>
-                        {currentUser !== null
-                            ? <Button size="small" type="link" danger onClick={onLogout}>Выйти</Button>
-                            : <NavLink to="/log" className="nav-link" onClick={() => onClose()}>Войти</NavLink>
-                        }
+                        {/* <Button size="small" type="link" danger onClick={onLogout}>Выйти</Button> */}
+                        <NavLink to="/log" className="nav-link" onClick={() => onClose()}>Войти</NavLink>
                     </li>
                 </ul>
             </div>
             {
-                isOpen 
-                ? <Backdrop onClick={() => onClose()}/>
-                : null
+                isOpen
+                    ? <Backdrop onClick={() => onClose()} />
+                    : null
             }
         </Fragment>
     )
