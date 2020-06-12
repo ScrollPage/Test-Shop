@@ -5,8 +5,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import useReactRouter from 'use-react-router'
 import { motion } from 'framer-motion'
-
-import firebase from '../config/firebase'
+import axios from 'axios'
 import { Form, Input, Button } from 'antd'
 import { AlertContext } from '../context/alert/AlertContext'
 
@@ -43,12 +42,7 @@ export const Log = () => {
         },
         validationSchema,
         onSubmit: (values, { setSubmitting, resetForm }) => {
-            firebase
-                .login(values.email, values.password)
-                .catch(e => {
-                    show('Пользователя с введенными данными не существует!', 'danger')
-                    console.log('Log error: ', e)
-                })
+            onLogin(values.email, values.password)
             setSubmitting(true)
             setTimeout(() => {
                 resetForm()
@@ -60,6 +54,18 @@ export const Log = () => {
     });
 
     const { handleSubmit, handleChange, handleBlur, isSubmitting, errors, touched, values } = formik
+
+    const onLogin = async (email, password) => {
+        axios.post("http://localhost:8000/account/login", {
+            username: email, password
+        })
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
 
     return (
         <motion.div

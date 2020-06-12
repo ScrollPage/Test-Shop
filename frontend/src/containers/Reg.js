@@ -69,26 +69,15 @@ export const Reg = () => {
     const { handleSubmit, handleChange, handleBlur, isSubmitting, errors, touched, values } = formik
 
     const onRegister = async (email, password, username) => {
-        axios.defaults.xsrfHeaderName = "X-CSRFToken"
-        axios.defaults.xsrfCookieName = 'csrftoken'
-        // $httpProvider.defaults.xsrfCookieName = 'csrftoken';
-        // $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
-        // try {
-            // firebase.register(email, password, username)
-            // const response = axios.post("http://localhost:8000/account/register", {email, password, username}, {credentials: true})
-            // console.log(response.data)
-            axios.post("http://localhost:8000/account/register", {
-                email, password, username
-              }, {useCredentails: true})
-              .then((response) => {
-                console.log(response);
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-        // } catch (e) {
-            // show('Что-то пошло не так!', 'success')
-        // }
+        axios.post("http://localhost:8000/account/register", {
+            email, password, username
+        })
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
     }
 
     return (
