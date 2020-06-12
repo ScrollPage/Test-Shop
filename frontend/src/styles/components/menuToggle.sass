@@ -1,0 +1,17 @@
+.menuToggle
+    position: fixed
+    left: 40px
+    top: 10px
+    font-size: 20px
+    cursor: pointer
+    color: $black
+    z-index: 2100
+    transition: opacity, left .22s ease-in
+    @include media('>tablet')
+        display: none
+    &:hover 
+        opacity: .7
+    &.open 
+        left: 320px
+        color: $white
+    

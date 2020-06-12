@@ -1,0 +1,73 @@
+@import '~bootstrap/scss/bootstrap'
+@import './breakpoints.scss'
+@import './varriables.sass'
+
+// containers
+@import './containers/log.sass'
+@import './containers/reg.sass'
+
+// // components
+@import './components/loader.sass'
+@import './components/card.sass'
+@import './components/header.sass'
+@import './components/paginator.sass'
+@import './components/body.sass'
+@import './components/cases.sass'
+@import './components/backdrop.sass'
+@import './components/menuToggle.sass'
+@import './components/drower.sass'
+@import './components/alert.sass'
+@import './components/introOverlay.sass'
+@import './components/category.sass'
+
+.cont 
+    width: 1560px
+    min-width: 1560px
+    margin: 0 auto
+    height: 100%
+    @include media("<=1560px") 
+        width: 1280px
+        min-width: 1280px
+    @include media("<=desktop") 
+        width: 1080px
+        min-width: 1080px
+    @include media("<=1080px") 
+        width: 100%
+        min-width: 100%
+    .ro 
+        display: flex
+        height: 100%
+        padding: 0 32px
+        @include media("<=phone") 
+            padding: 0 16px
+    .v-center 
+        align-items: center
+    .space-between 
+        justify-content: space-between
+
+.cont-fluid 
+    width: 100%
+    height: 100%
+    .ro 
+        display: flex
+        height: 100%
+
+.Routes
+    padding-top: 60px
+
+.main
+    margin-top: -60px
+
+        
+    
+
+
+
+
+
+
+            
+
+
+
+
