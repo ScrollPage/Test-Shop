@@ -134,5 +134,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "frontend/static/frontend/images/")
 APPEND_SLASH = False
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:8080'
+    'http://localhost:3000'
 ]
