@@ -13,12 +13,6 @@ class MyAccountManager(BaseUserManager):
             email = self.normalize_email(email),
             username = username
         )
-        
-        user.is_admin = True
-        user.is_staff = True
-        user.is_superuser = True
-        user.is_active = True
-
 
         user.set_password(password)
         user.save(using = self._db)
@@ -52,7 +46,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default = False)
     is_superuser = models.BooleanField(default = False)
     avatar = models.ImageField(upload_to="user_avatars/%Y/%m/%d", blank=True)
-    is_active = models.BooleanField(default = False)
+    is_active = models.BooleanField(default = True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
