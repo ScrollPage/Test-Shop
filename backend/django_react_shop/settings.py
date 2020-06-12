@@ -39,11 +39,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api.apps.ApiConfig',
     'rest_framework',
-    'frontend',
+    'rest_framework.authtoken',
     'corsheaders',
     'debug_toolbar',
     'account.apps.AccountConfig'
 ]
+
+AUTH_USER_MODEL = 'account.Account'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 
 MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',

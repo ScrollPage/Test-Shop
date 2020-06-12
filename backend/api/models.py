@@ -17,7 +17,7 @@ class Product(models.Model):
 	memory = models.CharField(max_length = 100)
 
 class ProductCount(models.Model):
-	total = models.IntegerField(default = 57)
+	total = models.IntegerField(default = 0)
 
 
 @receiver(post_save, sender = Product)
