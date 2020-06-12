@@ -34,13 +34,6 @@ export const Items = () => {
 
     return (
         <Layout>
-            <Paginator
-                totalItemsCount={totalItemsCount}
-                pageSize={pageSize}
-                // currentPage={currentPage}
-                // pageChanged={pageChanged}
-                portionSize={4}
-            />
             <div className="card-group row">
                 {
                     loading
@@ -50,6 +43,11 @@ export const Items = () => {
                             : renderCards()
                 }
             </div>
+            <Paginator
+                totalItemsCount={totalItemsCount}
+                pageSize={pageSize}
+                portionSize={4}
+            />
         </Layout>
     )
 }

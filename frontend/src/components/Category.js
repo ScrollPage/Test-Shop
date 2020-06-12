@@ -27,7 +27,7 @@ export const Category = () => {
     }
 
     return (
-        <div className="category mt-3">
+        <div className="category mt-3 mb-3">
             <h3>Категории</h3>
             <hr />
             <div>

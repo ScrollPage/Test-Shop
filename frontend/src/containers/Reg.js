@@ -79,7 +79,7 @@ export const Reg = () => {
             // console.log(response.data)
             axios.post("http://localhost:8000/account/register", {
                 email, password, username
-              })
+              }, {useCredentails: true})
               .then((response) => {
                 console.log(response);
               })
