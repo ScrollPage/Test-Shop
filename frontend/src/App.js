@@ -7,7 +7,7 @@ import { Alert } from './components/Alert'
 import { AlertState } from './context/alert/AlertState'
 import { ItemsState } from './context/items/ItemsState'
 import { BasketState } from './context/basket/BasketState';
-import { AuthState } from './context/auth/AuthState'
+// import { AuthState } from './context/auth/AuthState'
 
 // import setGlobalCSRF from './helpers/setGlobalCSRF';
 
@@ -20,7 +20,7 @@ export function App() {
     }, [])
 
     return (
-        <AuthState>
+        // <AuthState>
             <AlertState>
                 <ItemsState>
                     <BasketState>
@@ -36,6 +36,6 @@ export function App() {
                     </BasketState>
                 </ItemsState>
             </AlertState>
-        </AuthState>
+        // </AuthState>
     )
 }
