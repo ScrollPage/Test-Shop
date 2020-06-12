@@ -1,3 +1,4 @@
+from rest_framework import generics
 from account.api.serializers import RegistrationSerializer
 from account.models import Account
 
