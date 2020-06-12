@@ -36,19 +36,10 @@ class ProductListView(generics.ListAPIView):
 		return queryset
 
 
-class SingleProductView(generics.ListAPIView):
+class SingleProductView(generics.RetrieveAPIView):
+    
+	queryset = Product.objects.all()
 	serializer_class = ProductSerializer
-
-	def get_queryset(self):
-		uid = self.kwargs["uid"]
-		try:
-			uid = int(uid)
-		except:
-			uid = 1
-
-		queryset = Product.objects.filter(id = uid).all()
-
-		return queryset
 
 class ProductsCountView(generics.ListAPIView):
 	serializer_class = CountSerializer
