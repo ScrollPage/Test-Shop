@@ -1,25 +1,20 @@
-// import React, {createContext, useEffect, useState} from 'react'
-// import PropTypes from 'prop-types'
-// import firebase from '../../config/firebase'
+import React, {createContext, useEffect, useState} from 'react'
+import PropTypes from 'prop-types'
 
-// export const AuthContext = createContext()
+export const AuthContext = createContext()
 
-// export const AuthState = ({children}) => {
+export const AuthState = ({children}) => {
 
-//     const [currentUser, setCurrentUser] = useState(null)
+    const [currentUser, setCurrentUser] = useState(null)
 
-//     useEffect(() => {
-//         firebase.authChange(setCurrentUser)
-//     }, [])
+    return (
+        <AuthContext.Provider value={{currentUser}}>
+           {children}
+         </AuthContext.Provider>
+    )
+} 
 
-//     return (
-//         <AuthContext.Provider value={{currentUser}}>
-//             {children}
-//         </AuthContext.Provider>
-//     )
-// } 
-
-// AuthState.propTypes = {
-//     children: PropTypes.element
-// }
+AuthState.propTypes = {
+    children: PropTypes.element
+}
 
