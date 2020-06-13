@@ -1,10 +1,14 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
 
 import { Backdrop } from './Backdrop'
+import { AuthContext } from '../../context/auth/AuthContext'
 
 export function Drower({ onClose, isOpen }) {
+
+    const { token, onLogout } = useContext(AuthContext)
+    const isAuthenticated = !!token
 
     return (
         <Fragment>
@@ -20,8 +24,11 @@ export function Drower({ onClose, isOpen }) {
                         <NavLink to="/about" className="nav-link" onClick={() => onClose()}>О нас</NavLink>
                     </li>
                     <li>
-                        {/* <Button size="small" type="link" danger onClick={onLogout}>Выйти</Button> */}
-                        <NavLink to="/log" className="nav-link" onClick={() => onClose()}>Войти</NavLink>
+                        {
+                            isAuthenticated 
+                             ? <NavLink exact to="/" className="nav-link active-none" onClick={() => {onClose(); onLogout();}}>Выйти</NavLink> 
+                             : <NavLink to="/log" className="nav-link" onClick={() => {onClose();}}>Войти</NavLink>
+                        }
                     </li>
                 </ul>
             </div>

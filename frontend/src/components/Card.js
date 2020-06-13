@@ -13,7 +13,7 @@ export const Card = ({ item, addItemToBasket }) => {
     return (
         <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{duration: 1}} className="col-sm-6 col-lg-4 book-list" key={item.id}>
             <div className="card mb-3">
-                <img src={`https://picsum.photos/id/${item.id}/200/250`} alt={item.name} className="card-img-top" />
+                {/* <img src={`https://picsum.photos/id/${item.id}/200/250`} alt={item.name} className="card-img-top" /> */}
                 <div className="card-body">
                     <strong className="pull-right">{item.price}Р</strong>
                     <h5 className="card-title">
