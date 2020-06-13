@@ -9,13 +9,14 @@ import { BasketContext } from '../context/basket/BasketContext'
 
 export const Items = () => {
 
-    const { items, totalItemsCount, pageSize, loading, fetchItems, checkedList, currentPage } = useContext(ItemsContext)
+    const { items, totalItemsCount, pageSize, loading, fetchItems, checkedList, currentPage} = useContext(ItemsContext)
     const { addItemToBasket } = useContext(BasketContext)
 
     useEffect(() => {
         fetchItems()
         store.set('checkedList', checkedList)
         store.set('currentPage', currentPage)
+        // store.set('search', search)
         // eslint-disable-next-line
     }, [checkedList, currentPage])
 

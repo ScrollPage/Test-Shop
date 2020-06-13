@@ -5,7 +5,8 @@ import {
     SET_CURRENT_PAGE,
     SET_TOTAL_COUNT,
     FETCH_ITEM_BY_ID_SUCCESS,
-    SET_CHECKED_LIST
+    SET_CHECKED_LIST,
+    SET_SEARCH
 } from '../types'
 
 const handlers = {
@@ -16,6 +17,7 @@ const handlers = {
     [SET_CURRENT_PAGE]: (state, {payload}) => ({...state, currentPage: payload}),
     [SET_TOTAL_COUNT]: (state, {payload}) => ({...state, totalItemsCount: payload}),
     [SET_CHECKED_LIST]: (state, {payload}) => ({...state, checkedList: payload}),
+    [SET_SEARCH]: (state, {payload}) => ({...state, search: payload === '' ? null : payload}),
     DEFAULT: state => state
 } 
 

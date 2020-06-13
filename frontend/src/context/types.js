@@ -17,6 +17,9 @@ export const AUTH_LOGOUT = 'AUTH_LOGOUT'
 
 export const SET_CHECKED_LIST = 'SET_CHECKED_LIST'
 
+export const SET_SEARCH = 'SET_SEARCH'
+
+
 
 
 
