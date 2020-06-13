@@ -1,16 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import useReactRouter from 'use-react-router'
 import { motion } from 'framer-motion'
-import axios from 'axios'
-// import CSRFToken from '../hoc/csrftoken'
 import { Form, Input, Button } from 'antd'
-// import { AlertContext } from '../context/alert/AlertContext'
-
-// import setGlobalCSRF from 'helpers/setGlobalCSRF';
+import { AuthContext } from '../context/auth/AuthContext'
 
 const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -45,7 +41,7 @@ const errorMessege = (touched, messege) => {
 export const Reg = () => {
 
     const { history } = useReactRouter()
-    // const { show } = useContext(AlertContext)
+    const { authRegister } = useContext(AuthContext)
 
     const formik = useFormik({
         initialValues: {
@@ -56,7 +52,7 @@ export const Reg = () => {
         },
         validationSchema,
         onSubmit: (values, { setSubmitting, resetForm }) => {
-            onRegister(values.email, values.password, values.username)
+            authRegister(values.email, values.password, values.username)
             setSubmitting(true)
             setTimeout(() => {
                 resetForm()
@@ -67,18 +63,6 @@ export const Reg = () => {
     });
 
     const { handleSubmit, handleChange, handleBlur, isSubmitting, errors, touched, values } = formik
-
-    const onRegister = async (email, password, username) => {
-        axios.post("http://localhost:8000/account/register", {
-            email, password, username
-        })
-        .then((response) => {
-            console.log(response);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-    }
 
     return (
         <motion.div

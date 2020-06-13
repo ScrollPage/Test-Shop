@@ -5,9 +5,8 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import useReactRouter from 'use-react-router'
 import { motion } from 'framer-motion'
-import axios from 'axios'
 import { Form, Input, Button } from 'antd'
-import { AlertContext } from '../context/alert/AlertContext'
+import { AuthContext } from '../context/auth/AuthContext'
 
 const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -33,7 +32,7 @@ const errorMessege = (touched, messege) => {
 export const Log = () => {
 
     const { history } = useReactRouter()
-    const { show } = useContext(AlertContext)
+    const { authLogin } = useContext(AuthContext)
 
     const formik = useFormik({
         initialValues: {
@@ -42,30 +41,17 @@ export const Log = () => {
         },
         validationSchema,
         onSubmit: (values, { setSubmitting, resetForm }) => {
-            onLogin(values.email, values.password)
+            authLogin(values.email, values.password)
             setSubmitting(true)
             setTimeout(() => {
                 resetForm()
                 setSubmitting(false)
                 history.push('/')
-                show('Вы успешно зашли!', 'success')
             }, 500)
         }
     });
 
     const { handleSubmit, handleChange, handleBlur, isSubmitting, errors, touched, values } = formik
-
-    const onLogin = async (email, password) => {
-        axios.post("http://localhost:8000/account/login", {
-            username: email, password
-        })
-        .then((response) => {
-            console.log(response);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-    }
 
     return (
         <motion.div

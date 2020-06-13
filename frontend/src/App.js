@@ -7,11 +7,7 @@ import { Alert } from './components/Alert'
 import { AlertState } from './context/alert/AlertState'
 import { ItemsState } from './context/items/ItemsState'
 import { BasketState } from './context/basket/BasketState';
-// import { AuthState } from './context/auth/AuthState'
-
-// import setGlobalCSRF from './helpers/setGlobalCSRF';
-
-// setGlobalCSRF(window.__csrf_token);
+import { AuthState } from './context/auth/AuthState'
 
 export function App() {
     useEffect(() => {
@@ -20,8 +16,8 @@ export function App() {
     }, [])
 
     return (
-        // <AuthState>
-            <AlertState>
+        <AlertState>
+            <AuthState>
                 <ItemsState>
                     <BasketState>
                         <BrowserRouter>
@@ -35,7 +31,7 @@ export function App() {
                         </BrowserRouter>
                     </BasketState>
                 </ItemsState>
-            </AlertState>
-        // </AuthState>
+            </AuthState>
+        </AlertState>
     )
 }

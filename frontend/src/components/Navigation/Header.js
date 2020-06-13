@@ -1,12 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import { Drower } from './Drower'
 import { MenuToggle } from './MenuToggle'
 
+import { AuthContext } from '../../context/auth/AuthContext'
+
 export const Header = () => {
 
     const [menu, setMenu] = useState(false)
+    const { token, onLogout } = useContext(AuthContext)
+    const isAuthenticated = !!token
 
     return (
         <div className="header">
@@ -26,8 +30,11 @@ export const Header = () => {
                             <NavLink to="/about" className="nav-link">О нас</NavLink>
                         </div>
                         <div className="header-item">
-                            {/* <Button size="small" type="link" danger onClick={onLogout}>Выйти</Button> */}
-                            <NavLink to="/log" className="nav-link">Войти</NavLink>
+                        {
+                            isAuthenticated 
+                             ? <NavLink exact to="/" className="nav-link active-none" onClick={() => onLogout()}>Выйти</NavLink> 
+                             : <NavLink to="/log" className="nav-link">Войти</NavLink>
+                        }
                         </div>
                     </div>
                 </div>
