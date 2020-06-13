@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from rest_framework import generics
-from rest_framework.filters import SearchFilter
 from api.serializers import ProductSerializer, CountSerializer
 from api.models import Product, ProductCount
 from api.help_classes import Categories
@@ -8,8 +7,6 @@ from api.help_funcs import f, transform_cat
 
 class ProductListView(generics.ListAPIView):
 	serializer_class = ProductSerializer
-	filter_backends = (SearchFilter,)
-	search_fileds = ('name', 'description')
 
 	def get_queryset(self):
 		page = self.kwargs["page"]
@@ -35,7 +32,6 @@ class ProductListView(generics.ListAPIView):
 				if search in product.name:
 					queryset1.append(product)
 			queryset = queryset1
-
   
 		if len(categoryId) == 5:
 			queryset = f(page, amount, queryset)
@@ -46,7 +42,6 @@ class ProductListView(generics.ListAPIView):
 			queryset = f(page, amount, queryset1)
 
 		return queryset
-
 
 class SingleProductView(generics.RetrieveAPIView):
     
