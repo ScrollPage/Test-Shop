@@ -40,16 +40,20 @@ export const Items = () => {
                 {
                     loading
                         ? <Loader />
-                        : items.length === 0 
+                        : items.length === 0
                             ? <p>Нет товаров по выбранным категориям</p>
                             : renderCards()
                 }
             </div>
-            <Paginator
-                totalItemsCount={totalItemsCount}
-                pageSize={pageSize}
-                portionSize={4}
-            />
+            {
+                loading
+                    ? null
+                    : <Paginator
+                        totalItemsCount={totalItemsCount}
+                        pageSize={pageSize}
+                        portionSize={4}
+                    />
+            }
         </Layout>
     )
 }

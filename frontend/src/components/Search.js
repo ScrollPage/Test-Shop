@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import { AlertContext } from '../context/alert/AlertContext'
 import { ItemsContext } from '../context/items/ItemsContext'
 
 export const Search = () => {
