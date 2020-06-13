@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import * as R from 'ramda'
 
@@ -10,11 +10,8 @@ export const BasketCart = () => {
     const { basket } = useContext(BasketContext)
 
     return (
-        <Fragment>
-            <h3>Корзина</h3>
-            <Link to="/basket" className="btn btn-lg btn-block btn-outline-primary">
-                {basket.length} товаров - {R.sum(basket)}&nbsp;₽
-            </Link>
-        </Fragment>
+        <Link to="/basket" className="btn btn-lg btn-block btn-outline-primary">
+            {basket.length} товаров - {R.sum(basket)}&nbsp;₽
+        </Link>
     )
 }

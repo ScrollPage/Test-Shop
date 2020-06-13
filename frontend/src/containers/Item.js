@@ -12,7 +12,7 @@ import { BasketContext } from '../context/basket/BasketContext'
 export const Item = () => {
 
     const { history } = useReactRouter()
-    const { fetchItemById, item, loading } = useContext(ItemsContext)
+    const { fetchItemById, item, loading, totalItemsCount } = useContext(ItemsContext)
     const { addItemToBasket } = useContext(BasketContext)
     const match = useRouteMatch('/items/:id')
 
@@ -31,6 +31,11 @@ export const Item = () => {
             </div>
         )
     }
+
+    const getImage = () => {
+        const img = "../assets/player.jpg"
+        return require(`${img}`)
+    }
     
     return (
         <motion.div
@@ -48,8 +53,12 @@ export const Item = () => {
                             ? <Loader />
                             :
                             <div className="jumbotron text-center">
+                                {console.log(item.image)}
                                 <img
-                                    src={`https://picsum.photos/id/${item.id}/300/300`}
+                                    // src={require(`..${item.image}`)}
+                                    // src="assets/player.jpg"
+                                    // src={require("../uploads/Lumia1520-Front-Back-png.png")}
+                                    // src={getImage(item.image)}
                                     style={{ height: '250px' }}
                                     className="mb-4"
                                     alt={item.name}>

@@ -8,25 +8,25 @@ export const Basket = () => {
     // const { basket } = useContext(BasketContext)
 
     const renderSidebar = () => (
-        <div>
+        <>
             <Button className="mb-2">Вернуться в каталог</Button>
-            <Button className="mb-2">Очистить корзину</Button>
-            <Button className="mb-2">Оплатить</Button>
+            <Button danger className="mb-2">Очистить корзину</Button>
+            <Button type="primary" className="mb-2">Оплатить</Button>
             <div className="total-price mt-3 text-center">
                 <h4>Итого: 4800$</h4>
             </div>
-        </div>
+        </>
     )
 
     const columns = [
         { title: 'Название', dataIndex: 'name', key: 'name' },
         { title: 'Цена', dataIndex: 'price', key: 'price' },
-        { title: 'Количество', dataIndex: 'amount', key: 'amount' },
+        { title: 'Кол-во', dataIndex: 'amount', key: 'amount' },
         {
             title: 'Из корзины',
             dataIndex: '',
             key: 'x',
-            render: () => <a>Убрать</a>,
+            render: () => <a>Убрать</a>
         },
     ];
 
@@ -70,7 +70,7 @@ export const Basket = () => {
         >
             <div className="container mt-3 basket">
                 <div className="row">
-                    <div className="col-9">
+                    <div className="col-md-9">
                         <Table
                             columns={columns}
                             expandable={{
@@ -80,7 +80,7 @@ export const Basket = () => {
                             dataSource={data}
                         />
                     </div>
-                    <div className="col-3 mt-4">
+                    <div className="col-md-3 mt-4 mb-4">
                         {renderSidebar()}
                     </div>
                 </div>

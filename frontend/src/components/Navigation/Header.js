@@ -29,12 +29,17 @@ export const Header = () => {
                         <div className="header-item">
                             <NavLink to="/about" className="nav-link">О нас</NavLink>
                         </div>
-                        <div className="header-item">
-                        {
-                            isAuthenticated 
-                             ? <NavLink exact to="/" className="nav-link active-none" onClick={() => onLogout()}>Выйти</NavLink> 
-                             : <NavLink to="/log" className="nav-link">Войти</NavLink>
-                        }
+                        <div className="header-right">
+                            <div className="header-item">
+                                <NavLink to="/basket" className="nav-link">Корзина</NavLink>
+                            </div>
+                            <div className="header-item">
+                                {
+                                    isAuthenticated
+                                        ? <NavLink exact to="/" className="nav-link active-none" onClick={() => onLogout()}>Выйти</NavLink>
+                                        : <NavLink to="/log" className="nav-link">Войти</NavLink>
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>

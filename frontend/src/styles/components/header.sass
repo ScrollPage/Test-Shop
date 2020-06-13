@@ -7,6 +7,9 @@
     z-index: 7
     background: $white
     border-bottom: 1px solid lighten($black, 70%)
+    &-right
+        display: flex
+        margin-left: auto
     &-logo
         display: flex
         justify-content: center
@@ -30,10 +33,6 @@
             font-size: 1rem
             border-bottom: 1.5px solid $white
             transition:  0.4s
-        &:nth-child(4)
-            margin-left: auto
-            span 
-                font-size: 1rem
         .active
             border-bottom: 1.5px solid $blue
         .active-none
