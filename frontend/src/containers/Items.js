@@ -41,7 +41,7 @@ export const Items = () => {
                     loading
                         ? <Loader />
                         : items.length === 0
-                            ? <p>Нет товаров по выбранным категориям</p>
+                            ? <p>Нет товаров по заданному запросу</p>
                             : renderCards()
                 }
             </div>

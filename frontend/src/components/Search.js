@@ -12,11 +12,11 @@ export const Search = () => {
                 value={search === null ? '' : search}
                 type="text"
                 className="form-control"
-                placeholder="..."
+                placeholder="Поиск..."
                 aria-describedby="basic-addon2"
             />
             <div className="input-group-append">
-                <span className="input-group-text" id="basic-addon2">Search</span>
+                <span className="input-group-text" id="basic-addon2" onClick={() => setSearch(null)}>Очистить</span>
             </div>
         </div>
     )

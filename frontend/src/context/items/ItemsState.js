@@ -55,14 +55,14 @@ export const ItemsState = ({ children }) => {
     const fetchItemById = async id => {
         setLoading()
         try {
-            const response = await axios.get(`http://localhost:8000/items/api/id/${id}/`)
+            const response = await axios.get(`http://localhost:8000/items/api/id/${id}`)
             fetchItemByIdSuccess(response.data)
         } catch (e) {
             fetchError(e)
         }
     }
 
-    const fetchItemByIdSuccess = (item) => dispatch({ type: FETCH_ITEM_BY_ID_SUCCESS, payload: item[0] })
+    const fetchItemByIdSuccess = (item) => dispatch({ type: FETCH_ITEM_BY_ID_SUCCESS, payload: item })
 
     const fetchItemsSuccess = (items) => dispatch({ type: FETCH_ITEMS_SUCCESS, payload: items })
 
