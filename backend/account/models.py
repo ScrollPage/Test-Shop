@@ -5,6 +5,7 @@ from django.dispatch import receiver
 from django.conf import settings
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import PermissionsMixin
+from django.core.mail import send_mail
 
 class MyAccountManager(BaseUserManager):
 
@@ -47,6 +48,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default = False)
     avatar = models.ImageField(upload_to="user_avatars/%Y/%m/%d", blank=True)
     is_active = models.BooleanField(default = True)
+    conf_token =  models.CharField(max_length = 100, default = '')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -64,5 +66,17 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
 @receiver(post_save, sender = settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance = None, created = False, **kwargs):
+    import uuid, hashlib
     if created:
+        if instance.is_superuser is False:
+            salt = uuid.uuid4().hex + instance.username
+            instance.conf_token = hashlib.sha256(salt.encode('utf-8')).hexdigest()
+            instance.save()
+            send_mail(
+                "Подтверждение регистрации",
+                f"Перейдите по ссылке, чтобы завершить регистрацию: http://localhost:8000/account/authorization_confirm/{instance.conf_token}",
+                settings.EMAIL_HOST_USER, 
+                [instance.email,], 
+                fail_silently=False
+            ) 
         Token.objects.create(user = instance)

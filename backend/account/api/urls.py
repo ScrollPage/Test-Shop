@@ -5,4 +5,5 @@ from rest_framework.authtoken.views import obtain_auth_token
 urlpatterns = [
     path('register', api_views.RegistrationView.as_view(), name = 'register'),
     path('login', obtain_auth_token, name = 'login'),
+    path('authorization_confirm/<token>', api_views.AuthorizationConfirm.as_view(), name = 'confirm')
 ]
