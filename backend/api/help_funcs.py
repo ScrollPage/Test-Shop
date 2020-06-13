@@ -8,11 +8,10 @@ def f(page, amount, queryset):
 
 	return queryset[amount*i : amount*(i + 1)]
 
-def transform_cat(categoryId):
+def transform_cat(categoryId, queryset):
 	new_category_arr = []
 	for cat in categoryId:
 		new_category_arr.append(Categories(cat).cat)
-	queryset = Product.objects.all()
 	queryset1 = []
 	for product in queryset:
 		if product.categoryId in new_category_arr:
