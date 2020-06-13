@@ -26,7 +26,7 @@ export const ItemsState = ({ children }) => {
         loading: false,
         error: null,
         checkedList: store.get('checkedList') === undefined ? ['Apple','Samsung','HTC','Lenovo','Nokia'] : store.get('checkedList'),
-        search: null
+        search: store.get('search') === undefined ? null : store.get('search')
         }
 
     const [state, dispatch] = useReducer(ItemsReducer, initialState)
@@ -39,7 +39,7 @@ export const ItemsState = ({ children }) => {
             let urlLen = `http://localhost:8000/api/len/${state.checkedList}/${state.search}/`
             if (state.checkedList.length === 0) {
                 url = `http://localhost:8000/api/null/${state.currentPage}/${state.pageSize}/${state.search}/`
-                urlLen = `http://localhost:8000/api/len/null/`
+                urlLen = `http://localhost:8000/api/len/${state.search}/`
                 fl = false
             }
             const response = await axios.get(url)
@@ -76,12 +76,9 @@ export const ItemsState = ({ children }) => {
 
     const setCheckedList = (checkedList) => dispatch({type: SET_CHECKED_LIST, payload: checkedList})
 
-    const setSearch = (search) => {
-        fetchItems()
-        dispatch({type: SET_SEARCH, payload: search})
-    }
+    const setSearch = (search) => dispatch({type: SET_SEARCH, payload: search})    
 
-    const { items, item, pageSize, currentPage, totalItemsCount, loading, checkedList } = state
+    const { items, item, pageSize, currentPage, totalItemsCount, loading, checkedList, search } = state
 
     return (
         <ItemsContext.Provider value={{
@@ -91,7 +88,7 @@ export const ItemsState = ({ children }) => {
             setCurrentPage,
             setTotalCount,
             setCheckedList,
-            items, item, pageSize, currentPage, totalItemsCount, loading, checkedList
+            items, item, pageSize, currentPage, totalItemsCount, loading, checkedList, search
         }}>
             {children}
         </ItemsContext.Provider>

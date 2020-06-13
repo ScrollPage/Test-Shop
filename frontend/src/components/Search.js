@@ -1,36 +1,16 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import { AlertContext } from '../context/alert/AlertContext'
 import { ItemsContext } from '../context/items/ItemsContext'
 
 export const Search = () => {
 
-    const [value, setValue] = useState('')
-    const alert = useContext(AlertContext)
-    const { setSearch, setCurrentPage } = useContext(ItemsContext)
-
-    const onSubmit = event => {
-        console.log(value)
-        if (event.key !== 'Enter') {
-            return
-        }
-
-        if (value.trim()) {
-            setSearch(value)
-            setCurrentPage(1)
-            alert.hide()
-
-        } else {
-            console.log('Пусто')
-            alert.show('Введите поисковый запрос!', 'primary')
-        }
-    }
+    const { search, setSearch, setCurrentPage } = useContext(ItemsContext)
 
     return (
         <div className="input-group mt-4">
             <input
-                onChange={event => setValue(event.target.value)}
-                value={value}
-                onKeyPress={onSubmit}
+                onChange={event => {setSearch(event.target.value); setCurrentPage(1);}}
+                value={search === null ? '' : search}
                 type="text"
                 className="form-control"
                 placeholder="..."
