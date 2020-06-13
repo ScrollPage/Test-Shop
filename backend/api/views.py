@@ -25,7 +25,7 @@ class ProductListView(generics.ListAPIView):
 
 		categoryId = categoryId.split(",")
 		queryset = Product.objects.all()
-		queryset = make_searched(queryset)
+		queryset = make_searched(search, queryset)
   
 		if len(categoryId) == 5:
 			queryset = f(page, amount, queryset)
