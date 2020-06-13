@@ -12,6 +12,7 @@ class ProductListView(generics.ListAPIView):
 		page = self.kwargs["page"]
 		amount = self.kwargs["amount"]
 		categoryId = self.kwargs["categoryId"]
+		search = self.kwargs["search"]
 
 		try:
 			page = int(page) - 1
@@ -23,18 +24,24 @@ class ProductListView(generics.ListAPIView):
 			amount = 6
 
 		categoryId = categoryId.split(",")
+		queryset = Product.objects.all()
 
+		if search != "null":
+			queryset1 = []
+			for product in queryset:
+				if search in product.name:
+					queryset1.append(product)
+			queryset = queryset1
+  
 		if len(categoryId) == 5:
-			queryset = Product.objects.all()
 			queryset = f(page, amount, queryset)
 		elif categoryId[0] == "null":
 			queryset = []
 		else:
-			queryset1 = transform_cat(categoryId)
+			queryset1 = transform_cat(categoryId, queryset)
 			queryset = f(page, amount, queryset1)
 
 		return queryset
-
 
 class SingleProductView(generics.RetrieveAPIView):
     
@@ -42,6 +49,7 @@ class SingleProductView(generics.RetrieveAPIView):
 	serializer_class = ProductSerializer
 
 class ProductsCountView(generics.ListAPIView):
+    
 	serializer_class = CountSerializer
 
 	def get_queryset(self):

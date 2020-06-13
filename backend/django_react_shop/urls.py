@@ -23,7 +23,7 @@ import debug_toolbar
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("api/<categoryId>/<page>/<amount>/", views.ProductListView.as_view(), name="api_post_list"),
+    path("api/<categoryId>/<page>/<amount>/<search>/", views.ProductListView.as_view(), name="api_post_list"),
     path("items/api/id/<pk>", views.SingleProductView.as_view(), name = "single_product_view"),
     path("api/len/<categoryId>/", views.ProductsCountView.as_view(), name = "products_count_view"),
     path('account/', include('account.api.urls')),
