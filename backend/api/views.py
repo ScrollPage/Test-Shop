@@ -12,7 +12,7 @@ class ProductListView(generics.ListAPIView):
 		page = self.kwargs["page"]
 		amount = self.kwargs["amount"]
 		categoryId = self.kwargs["categoryId"]
-		search = self.kwargs["search"]
+		search = self.kwargs["search"].lower()
 
 		try:
 			page = int(page) - 1
@@ -29,7 +29,7 @@ class ProductListView(generics.ListAPIView):
 		if search != "null":
 			queryset1 = []
 			for product in queryset:
-				if search in product.name:
+				if search in product.name.lower():
 					queryset1.append(product)
 			queryset = queryset1
   
