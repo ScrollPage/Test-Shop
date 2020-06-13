@@ -42,6 +42,7 @@ class SingleProductView(generics.RetrieveAPIView):
 	serializer_class = ProductSerializer
 
 class ProductsCountView(generics.ListAPIView):
+    
 	serializer_class = CountSerializer
 
 	def get_queryset(self):
