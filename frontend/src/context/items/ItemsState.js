@@ -12,7 +12,8 @@ import {
     SET_CURRENT_PAGE,
     SET_TOTAL_COUNT,
     FETCH_ITEM_BY_ID_SUCCESS,
-    SET_CHECKED_LIST
+    SET_CHECKED_LIST,
+    SET_SEARCH
 } from '../types'
 
 export const ItemsState = ({ children }) => {
@@ -24,7 +25,8 @@ export const ItemsState = ({ children }) => {
         totalItemsCount: 0,
         loading: false,
         error: null,
-        checkedList: store.get('checkedList') === undefined ? ['Apple','Samsung','HTC','Lenovo','Nokia'] : store.get('checkedList')
+        checkedList: store.get('checkedList') === undefined ? ['Apple','Samsung','HTC','Lenovo','Nokia'] : store.get('checkedList'),
+        search: null
         }
 
     const [state, dispatch] = useReducer(ItemsReducer, initialState)
@@ -33,10 +35,10 @@ export const ItemsState = ({ children }) => {
         setLoading()
         try {
             let fl = true
-            let url = `http://localhost:8000/api/${state.checkedList}/${state.currentPage}/${state.pageSize}/`
-            let urlLen = `http://localhost:8000/api/len/${state.checkedList}/`
+            let url = `http://localhost:8000/api/${state.checkedList}/${state.currentPage}/${state.pageSize}/${state.search}/`
+            let urlLen = `http://localhost:8000/api/len/${state.checkedList}/${state.search}/`
             if (state.checkedList.length === 0) {
-                url = `http://localhost:8000/api/null/${state.currentPage}/${state.pageSize}/`
+                url = `http://localhost:8000/api/null/${state.currentPage}/${state.pageSize}/${state.search}/`
                 urlLen = `http://localhost:8000/api/len/null/`
                 fl = false
             }
@@ -74,10 +76,16 @@ export const ItemsState = ({ children }) => {
 
     const setCheckedList = (checkedList) => dispatch({type: SET_CHECKED_LIST, payload: checkedList})
 
+    const setSearch = (search) => {
+        fetchItems()
+        dispatch({type: SET_SEARCH, payload: search})
+    }
+
     const { items, item, pageSize, currentPage, totalItemsCount, loading, checkedList } = state
 
     return (
         <ItemsContext.Provider value={{
+            setSearch,
             fetchItems,
             fetchItemById,
             setCurrentPage,
