@@ -3,7 +3,7 @@ from rest_framework import generics
 from api.serializers import ProductSerializer, CountSerializer
 from api.models import Product, ProductCount
 from api.help_classes import Categories
-from api.help_funcs import f, transform_cat
+from api.help_funcs import f, transform_cat, make_searched
 
 class ProductListView(generics.ListAPIView):
 	serializer_class = ProductSerializer
@@ -25,13 +25,7 @@ class ProductListView(generics.ListAPIView):
 
 		categoryId = categoryId.split(",")
 		queryset = Product.objects.all()
-
-		if search != "null":
-			queryset1 = []
-			for product in queryset:
-				if search in product.name.lower():
-					queryset1.append(product)
-			queryset = queryset1
+		queryset = make_searched(queryset)
   
 		if len(categoryId) == 5:
 			queryset = f(page, amount, queryset)
@@ -54,21 +48,23 @@ class ProductsCountView(generics.ListAPIView):
 
 	def get_queryset(self):
 		categoryId = self.kwargs["categoryId"]
+		search = self.kwargs["search"].lower()
 		categoryId = categoryId.split(",")
+
 		
 		if len(categoryId) == 5:
-			queryset = ProductCount.objects.all()
+			queryset = Product.objects.all()
+			queryset = make_searched(search, queryset)
 		elif categoryId[0] == "null":
-			queryset = [
-				{
-					"total": 0,
-				}
-			]
+			queryset = []
 		else:
-			queryset1 = transform_cat(categoryId)
-			queryset = [
+			queryset = Product.objects.all()
+			queryset = transform_cat(categoryId, queryset)
+			queryset = make_searched(search, queryset)
+		
+		queryset = [
 				{
-					"total": len(queryset1),
+					"total": len(queryset),
 				}
 			]
 
