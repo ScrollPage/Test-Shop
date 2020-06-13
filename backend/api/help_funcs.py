@@ -18,3 +18,12 @@ def transform_cat(categoryId, queryset):
 			queryset1.append(product)
 	
 	return queryset1
+
+def make_searched(search, queryset):
+	if search != "null":
+		queryset1 = []
+		for product in queryset:
+			if search in product.name.lower():
+				queryset1.append(product)
+		queryset = queryset1
+	return queryset
