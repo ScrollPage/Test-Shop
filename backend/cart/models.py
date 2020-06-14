@@ -5,9 +5,10 @@ from account.models import Account
 
 
 class OrderItem(models.Model):
-    product = models.OneToOneField(Product, on_delete = models.SET_NULL, null = True)
+    product = models.ForeignKey(Product, on_delete = models.SET_NULL, null = True)
     is_ordered = models.BooleanField(default = False)
     date_added = models.DateTimeField(auto_now = True)
+    amount = models.IntegerField(default = 1)
 
     def __str__(self):
         return self.product.name
