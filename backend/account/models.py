@@ -64,3 +64,28 @@ class Account(AbstractBaseUser, PermissionsMixin):
         except ValueError:
             return None
 
+class MyToken(models.Model):
+    user = models.ForeignKey(Account, on_delete = models.CASCADE, default = None)
+    token = models.CharField(max_length = 100, default = '')
+    created = models.DateTimeField(auto_now_add = True)
+    is_used = models.BooleanField(default = False)
+
+
+@receiver(post_save, sender = settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance = None, created = False, **kwargs):
+    import uuid, hashlib
+    if created:
+        if instance.is_superuser is False:
+            m = MyToken.objects.create(user = instance)
+            username = instance.username
+            salt = uuid.uuid4().hex + username
+            m.token = hashlib.sha256(salt.encode('utf-8')).hexdigest()
+            send_mail(
+                "Подтверждение регистрации",
+                f"Перейдите по ссылке, чтобы завершить регистрацию: {settings.DJANGO_DOMEN}/account/authorization_confirm/{m.token}",
+                settings.EMAIL_HOST_USER, 
+                [instance.email,], 
+                fail_silently=False
+            )
+            m.save()
+        Token.objects.create(user = instance)
