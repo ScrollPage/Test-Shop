@@ -56,7 +56,7 @@ export const Item = () => {
                                 {console.log(item.image)}
                                 <img
                                     // src={require(`..${item.image}`)}
-                                    // src="assets/player.jpg"
+                                    // src={'..' + item.image}
                                     // src={require("../uploads/Lumia1520-Front-Back-png.png")}
                                     // src={getImage(item.image)}
                                     style={{ height: '250px' }}
