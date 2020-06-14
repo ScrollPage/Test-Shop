@@ -46,7 +46,7 @@ export const Items = () => {
                 }
             </div>
             {
-                loading
+                loading || items.length === 0
                     ? null
                     : <Paginator
                         totalItemsCount={totalItemsCount}

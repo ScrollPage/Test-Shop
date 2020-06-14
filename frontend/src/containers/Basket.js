@@ -1,34 +1,23 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 // import { BasketContext } from '../context/basket/BasketContext'
-import { Button, Table } from 'antd'
+import { Button } from 'antd'
+import { BasketItem } from '../components/BasketItem' 
 
 export const Basket = () => {
 
     // const { basket } = useContext(BasketContext)
 
     const renderSidebar = () => (
-        <>
+        <div className="basket-sidebar">
+            <div className="total-price text-center">
+                <h4>ИТОГО: 4800$</h4>
+            </div>
             <Button className="mb-2">Вернуться в каталог</Button>
             <Button danger className="mb-2">Очистить корзину</Button>
-            <Button type="primary" className="mb-2">Оплатить</Button>
-            <div className="total-price mt-3 text-center">
-                <h4>Итого: 4800$</h4>
-            </div>
-        </>
+            <Button type="primary" className="mb-2">Оформить заказ</Button>
+        </div>
     )
-
-    const columns = [
-        { title: 'Название', dataIndex: 'name', key: 'name' },
-        { title: 'Цена', dataIndex: 'price', key: 'price' },
-        { title: 'Кол-во', dataIndex: 'amount', key: 'amount' },
-        {
-            title: 'Из корзины',
-            dataIndex: '',
-            key: 'x',
-            render: () => <a>Убрать</a>
-        },
-    ];
 
     const data = [
         {
@@ -70,17 +59,17 @@ export const Basket = () => {
         >
             <div className="container mt-3 basket">
                 <div className="row">
-                    <div className="col-md-9">
-                        <Table
-                            columns={columns}
-                            expandable={{
-                                expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>
-                                // rowExpandable: record => record.name !== 'Not Expandable',
-                            }}
-                            dataSource={data}
-                        />
+                    <div className="col-md-9 mt">
+                        <div className="basket-items">
+                            <div className="basket-title">
+                                <h4>4 ТОВАРА В КОРЗИНЕ</h4>
+                            </div>
+                            {data.map(item => (
+                                <BasketItem key={item.key+item.name} data={item}/>
+                            ))}
+                        </div>
                     </div>
-                    <div className="col-md-3 mt-4 mb-4">
+                    <div className="col-md-3 mb-4">
                         {renderSidebar()}
                     </div>
                 </div>

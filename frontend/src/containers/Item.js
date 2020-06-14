@@ -12,7 +12,7 @@ import { BasketContext } from '../context/basket/BasketContext'
 export const Item = () => {
 
     const { history } = useReactRouter()
-    const { fetchItemById, item, loading, totalItemsCount } = useContext(ItemsContext)
+    const { fetchItemById, item, loading} = useContext(ItemsContext)
     const { addItemToBasket } = useContext(BasketContext)
     const match = useRouteMatch('/items/:id')
 
@@ -27,15 +27,15 @@ export const Item = () => {
                 <BasketCart />
                 <h1 className="display-4 mb-4">{item.name}</h1>
                 {/* <p>{item.description}</p> */}
-                <Button className="mb-4" size="large" type="primary" onClick={() => addItemToBasket(item.price)}>Добавить в корзину</Button>
+                <Button className="mb-4" size="large" type="primary" onClick={() => addItemToBasket(item)}>Добавить в корзину</Button>
             </div>
         )
     }
 
-    const getImage = () => {
-        const img = "../assets/player.jpg"
-        return require(`${img}`)
-    }
+    // const getImage = () => {
+    //     const img = "../assets/player.jpg"
+    //     return require(`${img}`)
+    // }
     
     return (
         <motion.div
@@ -53,9 +53,10 @@ export const Item = () => {
                             ? <Loader />
                             :
                             <div className="jumbotron text-center">
-                                {console.log(item.image)}
+                                {/* {console.log(item.image)} */}
                                 <img
-                                    src={require(`..${item.image}`)}
+                                    // src={require(`..${item.image}`)}
+                                    // src={require(`../uploads/${item.image}`)}
                                     // src={`..${item.image}`}
                                     // src={require("../uploads/Lumia1520-Front-Back-png.png")}
                                     // src={getImage(item.image)}

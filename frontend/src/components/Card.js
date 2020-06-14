@@ -25,7 +25,7 @@ export const Card = ({ item, addItemToBasket }) => {
                     <div className="card-bottom">
                         <Button
                             type="primary"
-                            onClick={() => addItemToBasket(item.price)}
+                            onClick={() => addItemToBasket(item)}
                         >Купить сейчас</Button>
                         <Button
                             className="mt-2"

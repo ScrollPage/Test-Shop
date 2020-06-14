@@ -37,7 +37,7 @@ export const Category = () => {
                         onChange={onCheckAllChange}
                         checked={checkAll}
                     >
-                        All
+                        Все
                     </Checkbox>
                 </div>
                 <hr />

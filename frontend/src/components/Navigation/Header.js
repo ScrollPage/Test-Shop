@@ -36,9 +36,9 @@ export const Header = () => {
                                 </div>
                                 : null
                         }
-                        <div className="header-item">
+                        {/* <div className="header-item">
                             <NavLink to="/account" className="nav-link">Личный кабинет</NavLink>
-                        </div>
+                        </div> */}
                         <div className="header-right">
                             <div className="header-item">
                                 <NavLink to="/basket" className="nav-link">Корзина</NavLink>
