@@ -27,7 +27,6 @@ class AuthorizationConfirm(View):
             t.delete()
             return redirect(settings.REACT_DOMEN)
         u = Account.objects.get(email = t.user)
-        print(u)
         u.is_active = True
         t.delete()
         return redirect(settings.REACT_DOMEN)
