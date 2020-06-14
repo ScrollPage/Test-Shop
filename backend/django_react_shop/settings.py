@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'debug_toolbar',
-    'account.apps.AccountConfig'
+    'account.apps.AccountConfig',
+    'cart.apps.CartConfig'
 ]
 
 AUTH_USER_MODEL = 'account.Account'
@@ -143,9 +144,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "frontend/static/frontend/images/")
 
 APPEND_SLASH = False
 
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000'
-]
+CORS_ORIGIN_ALLOW_ALL = True
 
 REACT_DOMEN = 'http://localhost:3000'
 DJANGO_DOMEN = 'http://localhost:8000'
