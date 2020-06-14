@@ -68,7 +68,6 @@ class MyToken(models.Model):
     user = models.ForeignKey(Account, on_delete = models.CASCADE, default = None)
     token = models.CharField(max_length = 100, default = '')
     created = models.DateTimeField(auto_now_add = True)
-    is_used = models.BooleanField(default = False)
 
 
 @receiver(post_save, sender = settings.AUTH_USER_MODEL)

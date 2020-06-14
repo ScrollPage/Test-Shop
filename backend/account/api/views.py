@@ -1,10 +1,12 @@
 from rest_framework import generics
 from account.api.serializers import RegistrationSerializer
-from account.models import Account
+from account.models import Account, MyToken
 from rest_framework import generics
 from django.views import View
 from django.shortcuts import redirect
 from django.conf import settings
+from django.utils import timezone
+from datetime import timedelta
 
 
 class RegistrationView(generics.CreateAPIView):
@@ -16,9 +18,13 @@ class RegistrationView(generics.CreateAPIView):
 class AuthorizationConfirm(View):
     
     def get(self, request, *args, **kwargs):
-        token = self.kwargs['token']
-        user = Account.objects.get(conf_token = token)
-        user.is_active = True
-        user.conf_token = ''
-        user.save()
+        t = MyToken.objects.get(token = self.kwargs['token'])
+        time_now = timezone.now()
+        if t.created > (time_now + timedelta(hours = 2)):
+            t.delete()
+            return redirect(settings.REACT_DOMEN)
+        u = Account.objects.get(email = t.user)
+        print(u)
+        u.is_active = True
+        t.delete()
         return redirect(settings.REACT_DOMEN)
