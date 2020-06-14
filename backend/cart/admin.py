@@ -6,5 +6,5 @@ class OrderAdmin(admin.ModelAdmin):
 	list_display = ('owner', 'is_ordered', 'total')
 
 @admin.register(OrderItem)
-class OrerItemAdmin(admin.ModelAdmin):
-	list_display = ('product', 'date_added')
+class OrderItemAdmin(admin.ModelAdmin):
+	list_display = ('product', 'amount')
