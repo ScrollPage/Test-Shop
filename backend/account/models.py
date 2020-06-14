@@ -64,19 +64,3 @@ class Account(AbstractBaseUser, PermissionsMixin):
         except ValueError:
             return None
 
-@receiver(post_save, sender = settings.AUTH_USER_MODEL)
-def create_auth_token(sender, instance = None, created = False, **kwargs):
-    import uuid, hashlib
-    if created:
-        if instance.is_superuser is False:
-            salt = uuid.uuid4().hex + instance.username
-            instance.conf_token = hashlib.sha256(salt.encode('utf-8')).hexdigest()
-            instance.save()
-            send_mail(
-                "Подтверждение регистрации",
-                f"Перейдите по ссылке, чтобы завершить регистрацию: {settings.DJANGO_DOMEN}/account/authorization_confirm/{instance.conf_token}",
-                settings.EMAIL_HOST_USER, 
-                [instance.email,], 
-                fail_silently=False
-            ) 
-        Token.objects.create(user = instance)
