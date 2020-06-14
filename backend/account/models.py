@@ -74,7 +74,7 @@ def create_auth_token(sender, instance = None, created = False, **kwargs):
             instance.save()
             send_mail(
                 "Подтверждение регистрации",
-                f"Перейдите по ссылке, чтобы завершить регистрацию: {settings.DJANGO_DOMEN}/account/authorization_confirm/{instance.conf_token}",
+                f"Перейдите по ссылке, чтобы завершить регистрацию: http://localhost:8000/account/authorization_confirm/{instance.conf_token}",
                 settings.EMAIL_HOST_USER, 
                 [instance.email,], 
                 fail_silently=False

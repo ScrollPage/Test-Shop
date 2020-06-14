@@ -114,10 +114,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-REACT_DOMEN = 'http://localhost:3000'
-
-DJANGO_DOMEN = 'http://localhost:8000'
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
