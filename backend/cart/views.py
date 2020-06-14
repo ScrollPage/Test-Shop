@@ -13,13 +13,15 @@ def add_to_cart(request):
     u = get_object_or_404(Account, email = data['email'])
     p = Product.objects.get(id = data['uid'])
     user_order = Order.get_or_create(owner = u)
-    order_item = user_order.items.get(product = p)
-    amount = int(data['amount'])
-    if order_item:
+    try:
+        order_item = user_order.items.get(product = p)
+        amount = int(data['amount'])
         order_item.amount += amount
-        order_item.save()
-    else:
-        user_order.create(OrderItem, producr = p, amount = amount)
+    except:
+        order_item = user_order.items.create()
+        order_item.amount = amount
+        order_item.product = p
+    order_item.save()
     
     user_order.total += p.price * amount
     ref_code = user.order.ref_code
