@@ -55,8 +55,8 @@ export const Item = () => {
                             <div className="jumbotron text-center">
                                 {console.log(item.image)}
                                 <img
-                                    // src={require(`..${item.image}`)}
-                                    // src={'..' + item.image}
+                                    src={require(`..${item.image}`)}
+                                    // src={`..${item.image}`}
                                     // src={require("../uploads/Lumia1520-Front-Back-png.png")}
                                     // src={getImage(item.image)}
                                     style={{ height: '250px' }}
