@@ -14,7 +14,7 @@ class RegistrationView(generics.CreateAPIView):
     queryset = Account.objects.all()
     serializer_class =  RegistrationSerializer
     
-
+# confirms an acc and adds a cart to the confirmed acc
 class AuthorizationConfirm(View):
     
     def get(self, request, *args, **kwargs):
@@ -28,5 +28,6 @@ class AuthorizationConfirm(View):
             return redirect(settings.REACT_DOMEN)
         u = Account.objects.get(email = t.user)
         u.is_active = True
+        u.save()
         t.delete()
         return redirect(settings.REACT_DOMEN)
