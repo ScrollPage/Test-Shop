@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons'
+import { UserOutlined, LockOutlined, MailOutlined, PhoneOutlined, TeamOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
@@ -12,12 +12,15 @@ const validationSchema = Yup.object().shape({
     email: Yup.string()
         .email('Некорректный E-mail')
         .required('Введите E-mail'),
-    username: Yup.string()
-        .matches(
-            '^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$',
-            'Только строчные и прописные, первый символ буква'
-        )
-        .required('Введите логин'),
+    firstName: Yup.string()
+        .min(3, 'Слишком короткое имя')
+        .required('Введите имя'),
+    lastName: Yup.string()
+        .min(3, 'Слишком короткая фамилия')
+        .required('Введите фамилию'),
+    number: Yup.string()
+        .min(11, 'Короткий номер телефона')
+        .required('Введите телефон'),
     password: Yup.string()
         .matches(
             '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})',
@@ -46,13 +49,15 @@ export const Reg = () => {
     const formik = useFormik({
         initialValues: {
             email: '',
-            username: '',
+            firstName: '',
+            lastName: '',
+            number: '',
             password: '',
             confirmPassword: ''
         },
         validationSchema,
         onSubmit: (values, { setSubmitting, resetForm }) => {
-            authRegister(values.email, values.password, values.username)
+            authRegister(values.email, values.firstName, values.lastName, values.number, values.password)
             setSubmitting(true)
             setTimeout(() => {
                 resetForm()
@@ -96,17 +101,49 @@ export const Reg = () => {
                         />
                     </Form.Item>
                     <Form.Item
-                        name="username"
+                        name="firstName"
                         hasFeedback
-                        help={errorMessege(touched.username, errors.username)}
-                        validateStatus={!touched.username ? null : errors.username ? "error" : "success"}
+                        help={errorMessege(touched.firstName, errors.firstName)}
+                        validateStatus={!touched.firstName ? null : errors.firstName ? "error" : "success"}
                     >
                         <Input
-                            id="reg__username"
-                            name="username"
-                            placeholder="Логин"
+                            id="reg__firstName"
+                            name="firstName"
+                            placeholder="Имя"
                             prefix={<UserOutlined />}
-                            value={values.username}
+                            value={values.firstName}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+                    </Form.Item>
+                    <Form.Item
+                        name="lastName"
+                        hasFeedback
+                        help={errorMessege(touched.lastName, errors.lastName)}
+                        validateStatus={!touched.lastName ? null : errors.lastName ? "error" : "success"}
+                    >
+                        <Input
+                            id="reg__lastName"
+                            name="lastName"
+                            placeholder="Фамилия"
+                            prefix={<TeamOutlined />}
+                            value={values.lastName}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+                    </Form.Item>
+                    <Form.Item
+                        name="number"
+                        hasFeedback
+                        help={errorMessege(touched.number, errors.number)}
+                        validateStatus={!touched.number ? null : errors.number ? "error" : "success"}
+                    >
+                        <Input
+                            id="reg__number"
+                            name="number"
+                            placeholder="Телефон"
+                            prefix={<PhoneOutlined />}
+                            value={values.number}
                             onChange={handleChange}
                             onBlur={handleBlur}
                         />

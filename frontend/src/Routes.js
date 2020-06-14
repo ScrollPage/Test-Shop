@@ -10,6 +10,7 @@ import { Basket } from './containers/Basket';
 import { Reg } from './containers/Reg';
 import { Log } from './containers/Log';
 import { About } from './containers/About';
+import { Account } from './containers/Account';
 import { Logout } from './components/Navigation/Logout';
 import { AuthContext } from './context/auth/AuthContext';
 
@@ -34,6 +35,7 @@ export const Routes = () => {
             <Route path="/reg" component={Reg} />
             <Route path="/log" component={Log} />
             <Route path="/about" component={About} />
+            <Route path="/account" component={Account} /> 
             <Redirect to={"/"} />
         </Switch>
     )
@@ -49,13 +51,13 @@ export const Routes = () => {
                 <Route path="/log" component={Log} />
                 <Route path="/about" component={About} />
                 <Route path="/logout" component={Logout} />
+                
                 <Redirect to={"/"} />
             </Switch>
         )
     }
 
     return (
-
         <AnimatePresence exitBeforeEnter >
             {routes}
         </AnimatePresence>
