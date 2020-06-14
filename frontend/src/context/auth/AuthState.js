@@ -39,7 +39,7 @@ export const AuthState = ({ children }) => {
 
     const authRegister = (email, firstName, lastName, number, password) => {
         axios.post("http://localhost:8000/account/register", {
-            username: email, first_name: firstName, last_name: lastName, phone_number: number, password
+            email: email, first_name: firstName, last_name: lastName, phone_number: number, password: password
         })
             .then((response) => {
                 show('На ваш E-mail пришло письмо с подтверждением!', 'success')
