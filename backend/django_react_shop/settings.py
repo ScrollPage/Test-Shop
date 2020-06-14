@@ -146,3 +146,14 @@ APPEND_SLASH = False
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000'
 ]
+
+REACT_DOMEN = 'http://localhost:3000'
+DJANGO_DOMEN = 'http://localhost:8000'
+
+EMAIL_HOST = 'smtp.gmail.com' 
+EMAIL_HOST_USER = 'reqww00@gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TSL = True
+EMAIL_HOST_PASSWORD = 'CFHFYXF228hec;'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
