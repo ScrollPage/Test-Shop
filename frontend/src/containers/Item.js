@@ -12,7 +12,7 @@ export const Item = () => {
 
     const { history } = useReactRouter()
     const { fetchItemById, item, loading} = useContext(ItemsContext)
-    const { addItemToBasket } = useContext(BasketContext)
+    const { addItemToBasket, removeItemToBasket } = useContext(BasketContext)
     const match = useRouteMatch('/items/:id')
 
     const [ amount, setAmount ] = useState(0)
@@ -34,6 +34,7 @@ export const Item = () => {
                     <Button onClick={() => setAmount(amount + 1)}>+</Button>
                 </div>
                 <Button className="mb-4" size="large" type="primary" onClick={() => amount === 0 ? null : addItemToBasket(item, amount)}>Добавить в корзину</Button>
+                <Button className="mb-4" size="large" type="primary" onClick={() => removeItemToBasket(item)}>Удалить из корзины</Button>
             </div>
         )
     }

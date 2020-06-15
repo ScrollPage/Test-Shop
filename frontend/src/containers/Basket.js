@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 // import { BasketContext } from '../context/basket/BasketContext'
 import useReactRouter from 'use-react-router'
 import { Button } from 'antd'
 import { BasketItem } from '../components/BasketItem' 
+import { BasketContext } from '../context/basket/BasketContext'
 
 export const Basket = () => {
 
-    // const { basket } = useContext(BasketContext)
+    const { clearItemToBasket } = useContext(BasketContext)
     const { history } = useReactRouter()
 
     const renderSidebar = () => (
@@ -15,7 +16,7 @@ export const Basket = () => {
                 <h4>ИТОГО: 4800$</h4>
             </div>
             <Button className="mb-2" onClick={() => history.push("/items")}>Вернуться в каталог</Button>
-            <Button danger className="mb-2">Очистить корзину</Button>
+            <Button danger className="mb-2" onClick={() => clearItemToBasket()}>Очистить корзину</Button>
             <Button type="primary" className="mb-2">Оформить заказ</Button>
         </div>
     )

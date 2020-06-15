@@ -8,13 +8,9 @@ from django.http import HttpResponse
 
 @csrf_exempt
 def add_to_cart(request):
-    print(request)
     email = request.POST.get('email', False)
-    print(email)
     uid = request.POST.get('uid', False)
-    print(uid)
     amount = int(request.POST.get('amount', False))
-    print(amount)
     u = get_object_or_404(Account, email = email)
     p = Product.objects.get(id = uid)
     user_order = Order.objects.get_or_create(owner = u)[0]
@@ -41,21 +37,25 @@ def delete_from_cart(request):
     data = request.POST
     u = get_object_or_404(Account, email = data['email'])
     p = Product.objects.get(id = data['uid'])
-    user_order = Order.get_or_create(owner = u)
+    user_order = Order.objects.get_or_create(owner = u)[0]
     order_item = user_order.items.get(product = p)
     amount = int(data['amount'])
     if order_item.amount <= amount:
         order_item.delete()
     else:
-        order_item.amount -= amount
+        order_item.amount -= p.price * amount
         order_item.save()
     
-    order_item.amount -= p.price * amount
+    return HttpResponse('ok')
+
 
 @csrf_exempt
 def clear_cart(request):
     data = request.POST
-    order_to_clear = Order.objects.get(owner = data['email'])
+    email = data.get('email')
+    order_to_clear = Order.objects.get(owner = email)
     for item in order_to_clear.get_all_atems():
         item.delete()
+    
+    return HttpResponse('ok')
 

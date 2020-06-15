@@ -30,9 +30,46 @@ export const BasketState = ({ children }) => {
             });
     }
 
+    const removeItemToBasket = (item, amount = 1) => {
+        const data = { uid: item.id, amount: amount, email: store.get('email') }
+        console.log(data)
+        const options = {
+            method: 'POST',
+            url: "http://localhost:8000/cart/remove",
+            data: qs.stringify(data)
+        }
+        axios(options)
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    const clearItemToBasket = () => {
+        const data = { email: store.get('email') }
+        console.log(data)
+        const options = {
+            method: 'POST',
+            url: "http://localhost:8000/cart/clear",
+            data: qs.stringify(data)
+        }
+        axios(options)
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     return (
         <BasketContext.Provider value={{
-            addItemToBasket, basket: state
+            addItemToBasket,
+            removeItemToBasket,
+            clearItemToBasket,
+            basket: state
         }}>
             {children}
         </BasketContext.Provider>
