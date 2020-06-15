@@ -4,6 +4,7 @@ import {ADD_ITEM_TO_BASKET} from '../types'
 import {BasketContext} from './BasketContext'
 import {BasketReducer} from './BasketReducer'
 import store from 'store'
+import axios from 'axios'
 
 export const BasketState = ({children}) => {
 

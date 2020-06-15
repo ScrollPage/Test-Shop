@@ -51,7 +51,7 @@ export const Item = () => {
                                     // src={require(`../uploads/${item.image}`)}
                                     // src={`..${item.image}`}
                                     // src={require("../uploads/Lumia1520-Front-Back-png.png")}
-                                    src={getImage()}
+                                    // src={getImage()}
                                     style={{ height: '250px' }}
                                     className="mb-4"
                                     alt={item.name}>
