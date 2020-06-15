@@ -6,18 +6,16 @@ from account.models import Account
 
 class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete = models.CASCADE, null = True)
-    amount = models.IntegerField(default = 1)
-
-    def __str__(self):
-        return self.product.name
+    amount = models.IntegerField(default = 0)
 
 class Order(models.Model):
-    ref_code = models.CharField(max_length = 15)
+    ref_code = models.CharField(max_length = 64)
     owner = models.ForeignKey(Account, on_delete = models.CASCADE, null = True)
     is_ordered = models.BooleanField(default = False)
     items = models.ManyToManyField(OrderItem)
     #payment_details = models.ForeignKey(Payment, null = True)
-    date_ordered = models.DateTimeField(auto_now = True, null = True)
+    date_ordered = models.DateTimeField(null = True)
+    date_created = models.DateTimeField(auto_now_add = True, null = True)
     status = models.CharField(max_length = 50, default = 'In progress')
     total = models.IntegerField(default = 0)
 
