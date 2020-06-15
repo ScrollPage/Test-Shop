@@ -17,7 +17,8 @@ class Order(models.Model):
     date_ordered = models.DateTimeField(null = True)
     date_created = models.DateTimeField(auto_now_add = True, null = True)
     status = models.CharField(max_length = 50, default = 'In progress')
-    total = models.IntegerField(default = 0)
+    total_price = models.IntegerField(default = 0)
+    total_count = models.IntegerField(default = 0)
 
     def __str__(self):
         return f'{self.owner}, {self.ref_code}'
