@@ -4,7 +4,7 @@ import useReactRouter from 'use-react-router'
 import { Button } from 'antd'
 import { BasketItem } from '../components/BasketItem' 
 import { BasketContext } from '../context/basket/BasketContext'
-import { Loading, Loader } from '../components/Loader'
+import { Loader } from '../components/Loader'
 
 export const Basket = () => {
 

@@ -20,7 +20,7 @@ export const BasketState = ({ children }) => {
         try {
             const url = `http://localhost:8000/cart/api/get_order/${store.get('email')}`
             const response = await axios.get(url)
-            console.log(response.data[0].items) 
+            console.log(response.data[0]) 
             fetchBasketSuccess(response.data[0].items)
         } catch(e) {
             console.log(e)
