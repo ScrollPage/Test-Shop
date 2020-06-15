@@ -36,15 +36,21 @@ def add_to_cart(request):
 @csrf_exempt
 def delete_from_cart(request):
     data = request.POST
-    u = get_object_or_404(Account, email = data['email'])
-    p = Product.objects.get(id = data['uid'])
+    email = data['email']
+    uid = data['uid']
+    amount = int(data['amount'])
+    u = get_object_or_404(Account, email = email)
+    p = Product.objects.get(id = uid)
     user_order = Order.objects.get_or_create(owner = u)[0]
     order_item = user_order.items.get(product = p)
-    amount = int(data['amount'])
     if order_item.amount <= amount:
         order_item.delete()
     else:
-        order_item.amount -= p.price * amount
+        print(order_item.amount)
+        order_item.amount -= amount
+        print(order_item.amount)
+        user_order.total -= p.price * amount
+        user_order.save()
         order_item.save()
     
     return HttpResponse('ok')
@@ -53,10 +59,14 @@ def delete_from_cart(request):
 @csrf_exempt
 def clear_cart(request):
     data = request.POST
-    email = data.get('email')
-    order_to_clear = Order.objects.get(owner = email)
-    for item in order_to_clear.get_all_atems():
-        item.delete()
+    email = data['email']
+    u = Account.objects.get(email = email)
+    order_to_clear = Order.objects.get(owner = u)
+    for item in order_to_clear.get_all_items():
+       item.delete()
+    
+    order_to_clear.total = 0
+    order_to_clear.save() 
     
     return HttpResponse('ok')
 
