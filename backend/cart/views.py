@@ -6,9 +6,8 @@ from cart.help_funcs import generate_token
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 
-@csrf_exempt
 def add_to_cart(request):
-    print(request)
+    print(request.POST)
     email = request.POST.get('email', False)
     print(email)
     uid = request.POST.get('uid', False)

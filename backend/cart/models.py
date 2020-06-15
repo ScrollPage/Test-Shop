@@ -8,8 +8,7 @@ class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete = models.CASCADE, null = True)
     amount = models.IntegerField(default = 1)
 
-    def __str__(self):
-        return self.product.name
+
 
 class Order(models.Model):
     ref_code = models.CharField(max_length = 15)
