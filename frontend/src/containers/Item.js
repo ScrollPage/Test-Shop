@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from 'react'
 import { useRouteMatch } from 'react-router-dom'
 import useReactRouter from 'use-react-router'
-import { motion } from 'framer-motion'
 
 import { Button } from 'antd'
 import { Loader } from '../components/Loader'
@@ -32,19 +31,13 @@ export const Item = () => {
         )
     }
 
-    // const getImage = () => {
-    //     const img = "../assets/player.jpg"
-    //     return require(`${img}`)
-    // }
+    const getImage = () => {
+        const img = "../assets/player.jpg"
+        return require(`${img}`)
+    }
     
     return (
-        <motion.div
-            className="container mt-3"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{duration: 0.4}}
-        >
+        <div className="container mt-3">
             <div className="row">
                 <div className="col-md-9">
                     <div>
@@ -53,13 +46,12 @@ export const Item = () => {
                             ? <Loader />
                             :
                             <div className="jumbotron text-center">
-                                {/* {console.log(item.image)} */}
                                 <img
                                     // src={require(`..${item.image}`)}
                                     // src={require(`../uploads/${item.image}`)}
                                     // src={`..${item.image}`}
                                     // src={require("../uploads/Lumia1520-Front-Back-png.png")}
-                                    // src={getImage(item.image)}
+                                    src={getImage()}
                                     style={{ height: '250px' }}
                                     className="mb-4"
                                     alt={item.name}>
@@ -74,7 +66,7 @@ export const Item = () => {
                     {item && renderSidebar()}
                 </div>
             </div>
-        </motion.div>
+        </div>
 
     )
 }

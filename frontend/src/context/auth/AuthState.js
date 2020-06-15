@@ -25,6 +25,7 @@ export const AuthState = ({ children }) => {
                 const expirationDate = new Date(new Date().getTime() + 60 * 1000)
                 store.set('token', response.data.token)
                 store.set('expirationDate', expirationDate)
+                store.set('email', email)
 
                 authSuccess(response.data.token)
                 autoLogout(60)
@@ -74,6 +75,7 @@ export const AuthState = ({ children }) => {
     const logout = () => {
         store.remove('token')
         store.remove('expirationDate')
+        store.remove('email')
         dispatch({
             type: AUTH_LOGOUT
         })

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Basket } from '../containers/Basket'
 import Img from '../assets/player.jpg'
 import { Button } from 'antd'
 import { CloseOutlined } from '@ant-design/icons';

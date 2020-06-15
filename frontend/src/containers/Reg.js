@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import useReactRouter from 'use-react-router'
-import { motion } from 'framer-motion'
 import { Form, Input, Button } from 'antd'
 import { AuthContext } from '../context/auth/AuthContext'
 
@@ -70,13 +69,7 @@ export const Reg = () => {
     const { handleSubmit, handleChange, handleBlur, isSubmitting, errors, touched, values } = formik
 
     return (
-        <motion.div
-            className="reg"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
-        >
+        <div className="reg" >
             <div>
                 <div className="reg__top">
                     <h3>Зарегистрироваться</h3>
@@ -189,6 +182,6 @@ export const Reg = () => {
                 </Form>
                 <Link to='/log'><p>Войти</p></Link>
             </div>
-        </motion.div>
+        </div>
     )
 }
