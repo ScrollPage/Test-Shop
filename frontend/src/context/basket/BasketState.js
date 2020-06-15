@@ -11,7 +11,18 @@ export const BasketState = ({children}) => {
         store.get('store') === undefined ? [] : store.get('store')
     )
 
-    const addItemToBasket = (item) => dispatch({type: ADD_ITEM_TO_BASKET, payload: item})
+    const addItemToBasket = (item) => {
+        dispatch({type: ADD_ITEM_TO_BASKET, payload: item})
+        axios.post("http://localhost:8000/add", {
+            uid: item.id, amount: 1, email: store.get('email')
+        })
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 
     return(
         <BasketContext.Provider value={{

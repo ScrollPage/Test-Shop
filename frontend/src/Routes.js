@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react'
-import { Route, Switch, useLocation } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { Redirect } from 'react-router-dom'
-import { AnimatePresence } from 'framer-motion'
 
 import { Main } from './containers/Main';
 import { Items } from './containers/Items';
@@ -21,13 +20,11 @@ export const Routes = () => {
 
     useEffect(() => {
         autoLogin()
-    // eslint-disable-next-line
+        // eslint-disable-next-line
     }, [])
 
-    const location = useLocation();
-
     let routes = (
-        <Switch location={location} key={location.pathname}>
+        <Switch>
             <Route path="/" component={Main} exact />
             <Route path="/items" component={Items} exact />
             <Route path="/items/:id" component={Item} />
@@ -35,14 +32,13 @@ export const Routes = () => {
             <Route path="/reg" component={Reg} />
             <Route path="/log" component={Log} />
             <Route path="/about" component={About} />
-            <Route path="/account" component={Account} /> 
             <Redirect to={"/"} />
         </Switch>
     )
 
     if (isAuthenticated) {
         routes = (
-            <Switch location={location} key={location.pathname}>
+            <Switch>
                 <Route path="/" component={Main} exact />
                 <Route path="/items" component={Items} exact />
                 <Route path="/items/:id" component={Item} />
@@ -51,15 +47,13 @@ export const Routes = () => {
                 <Route path="/log" component={Log} />
                 <Route path="/about" component={About} />
                 <Route path="/logout" component={Logout} />
-                
+                <Route path="/account" component={Account} />
                 <Redirect to={"/"} />
             </Switch>
         )
     }
 
     return (
-        <AnimatePresence exitBeforeEnter >
-            {routes}
-        </AnimatePresence>
+        routes
     )
 }

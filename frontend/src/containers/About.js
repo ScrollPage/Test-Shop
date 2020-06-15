@@ -19,18 +19,12 @@ export const About = () => {
     }
 
     return (
-        <motion.div
-            className="jumbotron"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4, when: 'beforeChildren' }}
-        >
+        <div className="jumbotron">
             <div className="container">
                 <motion.h1 variants={itemTransition} initial="out" animate="in" exit="out" className="display-4">Информация</motion.h1>
                 <motion.p variants={itemTransition} initial="out" animate="in" exit="out" className="lead">Версия приложения: <strong>1.0.0</strong></motion.p>
                 <motion.p variants={itemTransition} initial="out" animate="in" exit="out" className="lead">Автор: <strong>0r20</strong></motion.p>
             </div>
-        </motion.div>
+        </div>
     )
 }
