@@ -3,7 +3,8 @@ import Img from '../assets/player.jpg'
 import { Button } from 'antd'
 import { CloseOutlined } from '@ant-design/icons';
 
-export const BasketItem = ({ data }) => {
+export const BasketItem = ({ data, remove, add }) => {
+
     return (
         <div className="basket-item">
             <div className="basket-img">
@@ -12,7 +13,7 @@ export const BasketItem = ({ data }) => {
             <div className="basket-info">
                 <div className="basket-up">
                     <div className="basket-price">
-                        <p>{data.product.price}</p>
+                        <p>{data.product.price*data.amount}&nbsp;Р</p>
                     </div>
                     <div className="basket-name">
                         <p>{data.product.name}</p>
@@ -20,12 +21,12 @@ export const BasketItem = ({ data }) => {
                 </div>
                 <div className="basket-amount">
                     <p>Количество:</p>
-                    <Button>-</Button>
+                    <Button onClick={() => remove(data.product)}>-</Button>
                     <p>{data.amount}</p>
-                    <Button>+</Button>
+                    <Button onClick={() => add(data.product)}>+</Button>
                 </div>
             </div>
-            <div className="basket-delete">
+            <div className="basket-delete" onClick={() => remove(data.product, data.amount)}>
                 <CloseOutlined />
             </div>
         </div>
