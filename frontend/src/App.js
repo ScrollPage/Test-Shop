@@ -9,6 +9,11 @@ import { ItemsState } from './context/items/ItemsState'
 import { BasketState } from './context/basket/BasketState';
 import { AuthState } from './context/auth/AuthState'
 
+// import axios from 'axios'
+// axios.defaults.xsrfHeaderName = 'X-CSRFToken'
+// axios.defaults.xsrfCookieName = 'csrftoken'
+// axios.defaults.withCredentials = true
+
 export function App() {
     useEffect(() => {
         let vh = window.innerHeight * 0.01;

@@ -149,6 +149,22 @@ CORS_ORIGIN_ALLOW_ALL = True
 REACT_DOMEN = 'http://localhost:3000'
 DJANGO_DOMEN = 'http://localhost:8000'
 
+# Это я добавил
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = (
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    'access-control-allow-origin'
+)
+# вот до сюда
+
 EMAIL_HOST = 'smtp.gmail.com' 
 EMAIL_HOST_USER = 'reqww00@gmail.com'
 EMAIL_PORT = 587
