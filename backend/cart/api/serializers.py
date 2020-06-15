@@ -11,7 +11,8 @@ class OrderSerializer(serializers.ModelSerializer):
             'status', 
             'is_ordered', 
             'items', 
-            'total', 
+            'total_price', 
+            'total_count',
             'date_ordered', 
             'date_created'
         ]

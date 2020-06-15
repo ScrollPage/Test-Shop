@@ -25,7 +25,8 @@ def add_to_cart(request):
     order_item.amount += amount
     order_item.save()
     
-    user_order.total += p.price * amount
+    user_order.total_price += p.price * amount
+    user_order.total_count += amount
     ref_code = user_order.ref_code
     if ref_code == '':
         user_order.ref_code = generate_token(u.email)
@@ -47,7 +48,8 @@ def delete_from_cart(request):
             order_item.delete()
         else:
             order_item.amount -= amount
-            user_order.total -= p.price * amount
+            user_order.total_price -= p.price * amount
+            user_order.total_count -= amount
             user_order.save()
             order_item.save()
     
@@ -62,7 +64,8 @@ def clear_cart(request):
     for item in order_to_clear.get_all_items():
        item.delete()
     
-    order_to_clear.total = 0
+    order_to_clear.total_price = 0
+    order_to_clear.total_count = 0
     order_to_clear.save() 
     
     return HttpResponse('ok')
