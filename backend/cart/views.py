@@ -48,10 +48,11 @@ def delete_from_cart(request):
             order_item.delete()
         else:
             order_item.amount -= amount
-            user_order.total_price -= p.price * amount
-            user_order.total_count -= amount
-            user_order.save()
             order_item.save()
+
+        user_order.total_price -= p.price * amount
+        user_order.total_count -= amount
+        user_order.save()
     
     return HttpResponse('ok')
 
