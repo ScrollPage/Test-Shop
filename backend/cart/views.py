@@ -8,7 +8,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def add_to_cart(request):
-    print(request)
     print(request.POST)
     email = request.POST.get('email', False)
     print(email)
