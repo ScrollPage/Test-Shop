@@ -5,7 +5,7 @@ from account.models import Account
 
 
 class OrderItem(models.Model):
-    product = models.ForeignKey(Product, on_delete = models.SET_NULL, null = True)
+    product = models.ForeignKey(Product, on_delete = models.CASCADE, null = True)
     amount = models.IntegerField(default = 1)
 
     def __str__(self):
@@ -13,7 +13,7 @@ class OrderItem(models.Model):
 
 class Order(models.Model):
     ref_code = models.CharField(max_length = 15)
-    owner = models.ForeignKey(Account, on_delete = models.SET_NULL, null = True)
+    owner = models.ForeignKey(Account, on_delete = models.CASCADE, null = True)
     is_ordered = models.BooleanField(default = False)
     items = models.ManyToManyField(OrderItem)
     #payment_details = models.ForeignKey(Payment, null = True)

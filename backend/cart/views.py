@@ -37,7 +37,7 @@ def delete_from_cart(request):
     user_order = Order.get_or_create(owner = u)
     order_item = user_order.items.get(product = p)
     amount = int(data['amount'])
-    if order_item.amount < amount:
+    if order_item.amount <= amount:
         order_item.delete()
     else:
         order_item.amount -= amount
