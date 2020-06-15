@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react'
 import PropTypes from 'prop-types'
-import { FETCH_BASKET_SUCCESS, SET_LOADING_BASKET } from '../types'
+import { FETCH_BASKET_SUCCESS, SET_LOADING_BASKET, SET_PARAMS, SET_FLAG } from '../types'
 import { BasketContext } from './BasketContext'
 import { BasketReducer } from './BasketReducer'
 import store from 'store'
@@ -10,7 +10,10 @@ export const BasketState = ({ children }) => {
 
     const initialState = {
         loading: false,
-        basket: []
+        basket: [], 
+        price: 0, 
+        count: 0,
+        flag: false
     } 
 
     const [state, dispatch] = useReducer(BasketReducer, initialState)
@@ -20,8 +23,10 @@ export const BasketState = ({ children }) => {
         try {
             const url = `http://localhost:8000/cart/api/get_order/${store.get('email')}`
             const response = await axios.get(url)
-            console.log(response.data[0]) 
-            fetchBasketSuccess(response.data[0].items)
+            const data = response.data[0]
+            console.log(data) 
+            fetchBasketSuccess(data.items)
+            setParams(data.total_price, data.total_count)
         } catch(e) {
             console.log(e)
         } 
@@ -31,6 +36,10 @@ export const BasketState = ({ children }) => {
     const fetchBasketSuccess = (basket) => dispatch({ type: FETCH_BASKET_SUCCESS, payload: basket })
 
     const setLoading = () => dispatch({ type: SET_LOADING_BASKET }) 
+
+    const setFlag = () => dispatch({ type: SET_FLAG }) 
+
+    const setParams = (price, count) => dispatch({ type: SET_PARAMS, payload: { price, count } })
 
     const addItemToBasket = (item, amount = 1) => {
         const data = { uid: item.id, amount: amount, email: store.get('email') }
@@ -43,6 +52,7 @@ export const BasketState = ({ children }) => {
         axios(options)
             .then((response) => {
                 console.log(response.data)
+                setFlag()
             })
             .catch((error) => {
                 console.log(error);
@@ -60,6 +70,7 @@ export const BasketState = ({ children }) => {
         axios(options)
             .then((response) => {
                 console.log(response.data)
+                setFlag()
             })
             .catch((error) => {
                 console.log(error);
@@ -77,13 +88,14 @@ export const BasketState = ({ children }) => {
         axios(options)
             .then((response) => {
                 console.log(response.data)
+                setFlag()
             })
             .catch((error) => {
                 console.log(error);
             });
     }
 
-    const { loading, basket } = state
+    const { loading, basket, price, count, flag } = state
 
     return (
         <BasketContext.Provider value={{
@@ -91,7 +103,8 @@ export const BasketState = ({ children }) => {
             removeItemToBasket,
             clearItemToBasket,
             fetchBasket,
-            loading, basket
+            setFlag,
+            loading, basket, price, count, flag
         }}>
             {children}
         </BasketContext.Provider>

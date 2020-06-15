@@ -12,7 +12,7 @@ export const AuthState = ({ children }) => {
     const { show } = useContext(AlertContext)
 
     const initialState = {
-        token: null
+        token: store.get('token') === undefined ? null : store.get('token')
     }
 
     const [state, dispatch] = useReducer(AuthReducer, initialState)
@@ -28,7 +28,7 @@ export const AuthState = ({ children }) => {
                 store.set('email', email)
 
                 authSuccess(response.data.token)
-                autoLogout(60)
+                // autoLogout(72000)
                 show('Вы успешно вошли!', 'success')
                 console.log(response.data)
             })

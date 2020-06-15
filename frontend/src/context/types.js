@@ -21,6 +21,8 @@ export const SET_SEARCH = 'SET_SEARCH'
 
 export const SET_LOADING_BASKET = 'SET_LOADING_BASKET'
 export const FETCH_BASKET_SUCCESS = 'FETCH_BASKET_SUCCESS'
+export const SET_PARAMS = 'SET_PARAMS'
+export const SET_FLAG = 'SET_FLAG'
 
 
 
