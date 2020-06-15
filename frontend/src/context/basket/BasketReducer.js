@@ -1,9 +1,11 @@
 import {
-    ADD_ITEM_TO_BASKET
+    SET_LOADING_BASKET, 
+    FETCH_BASKET_SUCCESS
 } from '../types'
 
 const handlers = {
-    [ADD_ITEM_TO_BASKET]: (state, {payload}) => ([...state, payload]),
+    [SET_LOADING_BASKET]: (state) => ({...state, loading: true}),
+    [FETCH_BASKET_SUCCESS]: (state, {payload}) => ({...state, loading: false, basket: payload}),
     DEFAULT: state => state 
 }
 

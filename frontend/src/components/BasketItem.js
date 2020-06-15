@@ -12,10 +12,10 @@ export const BasketItem = ({ data }) => {
             <div className="basket-info">
                 <div className="basket-up">
                     <div className="basket-price">
-                        <p>{data.price}</p>
+                        <p>{data.product.price}</p>
                     </div>
                     <div className="basket-name">
-                        <p>{data.name}</p>
+                        <p>{data.product.name}</p>
                     </div>
                 </div>
                 <div className="basket-amount">

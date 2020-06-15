@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react'
 import PropTypes from 'prop-types'
-import { ADD_ITEM_TO_BASKET } from '../types'
+import { FETCH_BASKET_SUCCESS, SET_LOADING_BASKET } from '../types'
 import { BasketContext } from './BasketContext'
 import { BasketReducer } from './BasketReducer'
 import store from 'store'
@@ -8,12 +8,31 @@ import axios from 'axios'
 import qs from 'qs';
 export const BasketState = ({ children }) => {
 
-    const [state, dispatch] = useReducer(BasketReducer,
-        store.get('store') === undefined ? [] : store.get('store')
-    )
+    const initialState = {
+        loading: false,
+        basket: []
+    } 
+
+    const [state, dispatch] = useReducer(BasketReducer, initialState)
+
+    const fetchBasket = async () => {
+        setLoading()
+        try {
+            const url = `http://localhost:8000/cart/api/get_order/${store.get('email')}`
+            const response = await axios.get(url)
+            console.log(response.data[0].items) 
+            fetchBasketSuccess(response.data[0].items)
+        } catch(e) {
+            console.log(e)
+        } 
+
+    }
+
+    const fetchBasketSuccess = (basket) => dispatch({ type: FETCH_BASKET_SUCCESS, payload: basket })
+
+    const setLoading = () => dispatch({ type: SET_LOADING_BASKET }) 
 
     const addItemToBasket = (item, amount = 1) => {
-        dispatch({ type: ADD_ITEM_TO_BASKET, payload: item })
         const data = { uid: item.id, amount: amount, email: store.get('email') }
         console.log(data)
         const options = {
@@ -64,12 +83,15 @@ export const BasketState = ({ children }) => {
             });
     }
 
+    const { loading, basket } = state
+
     return (
         <BasketContext.Provider value={{
             addItemToBasket,
             removeItemToBasket,
             clearItemToBasket,
-            basket: state
+            fetchBasket,
+            loading, basket
         }}>
             {children}
         </BasketContext.Provider>
