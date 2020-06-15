@@ -3,10 +3,10 @@ from api.models import Product
 from account.models import Account
 from cart.models import Order, OrderItem
 from cart.help_funcs import generate_token
-from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.decorators.csrf import csrf_exempt
 
 
-@ensure_csrf_cookie
+@csrf_exempt
 def add_to_cart(request):
     data = request.POST.get()
     print(data)
@@ -29,7 +29,7 @@ def add_to_cart(request):
         user_order.ref_code = generate_token(u.email)
     user.order.save()
 
-@ensure_csrf_cookie
+@csrf_exempt
 def delete_from_cart(request):
     data = request.POST.get()
     u = get_object_or_404(Account, email = data['email'])
@@ -45,7 +45,7 @@ def delete_from_cart(request):
     
     order_item.amount -= p.price * amount
 
-@ensure_csrf_cookie
+@csrf_exempt
 def clear_cart(request):
     data = request.POST.get()
     order_to_clear = Order.objects.get(owner = data['email'])
