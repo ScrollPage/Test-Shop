@@ -1,4 +1,4 @@
-from rest_framework import serializers
+from rest_framework import serializers 
 from account.models import Account
 
 class RegistrationSerializer(serializers.ModelSerializer):

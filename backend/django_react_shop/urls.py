@@ -27,6 +27,8 @@ urlpatterns = [
     path("items/api/id/<pk>", views.SingleProductView.as_view(), name = "single_product_view"),
     path("api/len/<categoryId>/<search>/", views.ProductsCountView.as_view(), name = "products_count_view"),
     path('account/', include('account.api.urls')),
+    path('cart/', include('cart.urls')),
+    path('cart/api/', include('cart.api.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

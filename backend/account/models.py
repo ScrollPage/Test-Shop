@@ -6,6 +6,7 @@ from django.conf import settings
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import PermissionsMixin
 from django.core.mail import send_mail
+from cart.help_funcs import generate_token
 
 class MyAccountManager(BaseUserManager):
 
@@ -76,16 +77,16 @@ class MyToken(models.Model):
     token = models.CharField(max_length = 100, default = '')
     created = models.DateTimeField(auto_now_add = True)
 
+    def __str__(self):
+        return self.token
+
 
 @receiver(post_save, sender = settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance = None, created = False, **kwargs):
-    import uuid, hashlib
     if created:
         if instance.is_superuser is False:
             m = MyToken.objects.create(user = instance)
-            first_name = instance.first_name
-            salt = uuid.uuid4().hex + first_name
-            m.token = hashlib.sha256(salt.encode('utf-8')).hexdigest()
+            m.token = generate_token(instance.first_name)
             send_mail(
                 "Подтверждение регистрации",
                 f"Перейдите по ссылке, чтобы завершить регистрацию: {settings.DJANGO_DOMEN}/account/authorization_confirm/{m.token}",
