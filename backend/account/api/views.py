@@ -7,6 +7,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.conf import settings
 from django.utils import timezone
 from datetime import timedelta
+from cart.models import Order
 
 
 class RegistrationView(generics.CreateAPIView):
@@ -29,5 +30,6 @@ class AuthorizationConfirm(View):
         u = Account.objects.get(email = t.user)
         u.is_active = True
         u.save()
+        Order.objects.create(owner = u)
         t.delete()
         return redirect(settings.REACT_DOMEN)
