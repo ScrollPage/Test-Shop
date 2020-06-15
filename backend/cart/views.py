@@ -8,14 +8,19 @@ from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def add_to_cart(request):
-    data = request.POST.get()
-    print(data)
-    u = get_object_or_404(Account, email = data['email'])
-    p = Product.objects.get(id = data['uid'])
+    print(request)
+    print(request.POST)
+    email = request.POST.get('email', False)
+    print(email)
+    uid = request.POST.get('uid', False)
+    print(uid)
+    amount = request.POST.get('amount', False)
+    print(amount)
+    u = get_object_or_404(Account, email = email)
+    p = Product.objects.get(id = uid)
     user_order = Order.get_or_create(owner = u)
     try:
         order_item = user_order.items.get(product = p)
-        amount = int(data['amount'])
         order_item.amount += amount
     except:
         order_item = user_order.items.create()
@@ -31,7 +36,7 @@ def add_to_cart(request):
 
 @csrf_exempt
 def delete_from_cart(request):
-    data = request.POST.get()
+    data = request.POST
     u = get_object_or_404(Account, email = data['email'])
     p = Product.objects.get(id = data['uid'])
     user_order = Order.get_or_create(owner = u)
@@ -47,7 +52,7 @@ def delete_from_cart(request):
 
 @csrf_exempt
 def clear_cart(request):
-    data = request.POST.get()
+    data = request.POST
     order_to_clear = Order.objects.get(owner = data['email'])
     for item in order_to_clear.get_all_atems():
         item.delete()
