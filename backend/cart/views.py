@@ -7,24 +7,22 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 
 def add_to_cart(request):
-    print(request.POST)
-    email = request.POST.get('email', False)
-    print(email)
-    uid = request.POST.get('uid', False)
-    print(uid)
-    amount = int(request.POST.get('amount', False))
-    print(amount)
+    data = request.POST
+    email = data['email']
+    uid = data['uid']
+    amount = int(data['amount'])
     u = get_object_or_404(Account, email = email)
     p = Product.objects.get(id = uid)
     user_order = Order.objects.get_or_create(owner = u)[0]
-    print(user_order)
-    try:
-        order_item = user_order.items.get(product = p)
-        order_item.amount += amount
-    except:
+
+    order_item = user_order.items.filter(product = p).first()
+    if order_item:
+        pass
+    else:
         order_item = user_order.items.create()
-        order_item.amount = amount
         order_item.product = p
+
+    order_item.amount += amount
     order_item.save()
     
     user_order.total += p.price * amount
