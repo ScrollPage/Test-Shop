@@ -13,7 +13,7 @@ def add_to_cart(request):
     amount = int(data['amount'])
     u = get_object_or_404(Account, email = email)
     p = Product.objects.get(id = uid)
-    user_order = Order.objects.get_or_create(owner = u)[0]
+    user_order = Order.objects.get(owner = u)
 
     order_item = user_order.items.filter(product = p).first()
     if order_item:
@@ -41,7 +41,7 @@ def delete_from_cart(request):
     amount = int(data['amount'])
     u = get_object_or_404(Account, email = email)
     p = Product.objects.get(id = uid)
-    user_order = Order.objects.get_or_create(owner = u)[0]
+    user_order = Order.objects.get(owner = u)
     order_item = user_order.items.filter(product = p).first()
     if order_item:
         if order_item.amount <= amount:
