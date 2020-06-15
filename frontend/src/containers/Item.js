@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import { useRouteMatch } from 'react-router-dom'
 import useReactRouter from 'use-react-router'
 
@@ -15,6 +15,8 @@ export const Item = () => {
     const { addItemToBasket } = useContext(BasketContext)
     const match = useRouteMatch('/items/:id')
 
+    const [ amount, setAmount ] = useState(0)
+
     useEffect(() => {
         fetchItemById(match.params.id)
         // eslint-disable-next-line
@@ -24,9 +26,14 @@ export const Item = () => {
         return (
             <div className="mt-4">
                 <BasketCart />
-                <h1 className="display-4 mb-4">{item.name}</h1>
-                {/* <p>{item.description}</p> */}
-                <Button className="mb-4" size="large" type="primary" onClick={() => addItemToBasket(item)}>Добавить в корзину</Button>
+                <h4 className="mt-4 mb-4">{item.name}</h4>
+                <p>Выберите количество:</p>
+                <div className="item-amount">
+                    <Button onClick={() => amount === 0 ? null : setAmount(amount - 1)}>-</Button>
+                    <p>{amount}</p>
+                    <Button onClick={() => setAmount(amount + 1)}>+</Button>
+                </div>
+                <Button className="mb-4" size="large" type="primary" onClick={() => amount === 0 ? null : addItemToBasket(item, amount)}>Добавить в корзину</Button>
             </div>
         )
     }

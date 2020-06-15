@@ -12,10 +12,10 @@ export const BasketState = ({ children }) => {
         store.get('store') === undefined ? [] : store.get('store')
     )
 
-    const addItemToBasket = (item) => {
+    const addItemToBasket = (item, amount = 1) => {
         dispatch({ type: ADD_ITEM_TO_BASKET, payload: item })
-        const data = { uid: item.id, amount: 1, email: store.get('email') }
-
+        const data = { uid: item.id, amount: amount, email: store.get('email') }
+        console.log(data)
         const options = {
             method: 'POST',
             url: "http://localhost:8000/cart/add",
