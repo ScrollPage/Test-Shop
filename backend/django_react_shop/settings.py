@@ -152,6 +152,7 @@ DJANGO_DOMEN = 'http://localhost:8000'
 # Это я добавил
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
+# CSRF_COOKIE_NAME = "csrftoken"
 # вот до сюда
 
 EMAIL_HOST = 'smtp.gmail.com' 
