@@ -4,18 +4,21 @@ from account.models import Account
 from cart.models import Order, OrderItem
 from cart.help_funcs import generate_token
 from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
 
+@csrf_exempt
 def add_to_cart(request):
     print(request)
     email = request.POST.get('email', False)
     print(email)
     uid = request.POST.get('uid', False)
     print(uid)
-    amount = request.POST.get('amount', False)
+    amount = int(request.POST.get('amount', False))
     print(amount)
     u = get_object_or_404(Account, email = email)
     p = Product.objects.get(id = uid)
-    user_order = Order.get_or_create(owner = u)
+    user_order = Order.objects.get_or_create(owner = u)[0]
+    print(user_order)
     try:
         order_item = user_order.items.get(product = p)
         order_item.amount += amount
@@ -26,10 +29,12 @@ def add_to_cart(request):
     order_item.save()
     
     user_order.total += p.price * amount
-    ref_code = user.order.ref_code
+    ref_code = user_order.ref_code
     if ref_code == '':
         user_order.ref_code = generate_token(u.email)
-    user.order.save()
+    user_order.save()
+
+    return HttpResponse('ok')
 
 @csrf_exempt
 def delete_from_cart(request):

@@ -53,7 +53,9 @@ export const BasketState = ({ children }) => {
                 url: "http://localhost:8000/cart/add",
                 data: {
                     csrfmiddlewaretoken: getCookie('csrftoken'),
-                    uid: item.id, amount: 1, email: store.get('email') 
+                    'uid': item.id, 
+                    'amount': 1, 
+                    'email': store.get('email') 
                 },
                 dataType: "text",
 
