@@ -33,7 +33,6 @@ def add_to_cart(request):
 
     return HttpResponse('ok')
 
-@csrf_exempt
 def delete_from_cart(request):
     data = request.POST
     email = data['email']
@@ -42,21 +41,19 @@ def delete_from_cart(request):
     u = get_object_or_404(Account, email = email)
     p = Product.objects.get(id = uid)
     user_order = Order.objects.get_or_create(owner = u)[0]
-    order_item = user_order.items.get(product = p)
-    if order_item.amount <= amount:
-        order_item.delete()
-    else:
-        print(order_item.amount)
-        order_item.amount -= amount
-        print(order_item.amount)
-        user_order.total -= p.price * amount
-        user_order.save()
-        order_item.save()
+    order_item = user_order.items.filter(product = p).first()
+    if order_item:
+        if order_item.amount <= amount:
+            order_item.delete()
+        else:
+            order_item.amount -= amount
+            user_order.total -= p.price * amount
+            user_order.save()
+            order_item.save()
     
     return HttpResponse('ok')
 
 
-@csrf_exempt
 def clear_cart(request):
     data = request.POST
     email = data['email']
