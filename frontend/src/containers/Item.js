@@ -31,10 +31,6 @@ export const Item = () => {
         )
     }
 
-    const getImage = () => {
-        const img = "../assets/player.jpg"
-        return require(`${img}`)
-    }
     
     return (
         <div className="container mt-3">

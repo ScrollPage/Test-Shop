@@ -14,7 +14,8 @@ export const BasketState = ({children}) => {
 
     const addItemToBasket = (item) => {
         dispatch({type: ADD_ITEM_TO_BASKET, payload: item})
-        axios.post("http://localhost:8000/add", {
+        console.log(item.id, store.get('email'))
+        axios.post("http://localhost:8000/cart/add", {
             uid: item.id, amount: 1, email: store.get('email')
         })
             .then((response) => {
