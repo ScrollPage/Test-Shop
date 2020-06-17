@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'debug_toolbar',
     'account.apps.AccountConfig',
-    'cart.apps.CartConfig'
+    'cart.apps.CartConfig',
+    'feedback.apps.FeedbackConfig',
 ]
 
 AUTH_USER_MODEL = 'account.Account'

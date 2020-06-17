@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
+from random import randint
 
 class Product(models.Model):
 	categoryId = models.IntegerField(default = 0)
@@ -15,6 +16,8 @@ class Product(models.Model):
 	display = models.CharField(max_length = 100)
 	battery = models.CharField(max_length = 100)
 	memory = models.CharField(max_length = 100)
+	rating = models.FloatField(default = 0)
+	reviews = models.IntegerField(default = 0)
 
 class ProductCount(models.Model):
 	total = models.IntegerField(default = 0)

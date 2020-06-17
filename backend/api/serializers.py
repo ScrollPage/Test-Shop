@@ -18,6 +18,8 @@ class ProductSerializer(serializers.ModelSerializer):
 			'display', 
 			'battery', 
 			'memory',
+			'rating',
+			'reviews',
 		]
 
 class CountSerializer(serializers.ModelSerializer):

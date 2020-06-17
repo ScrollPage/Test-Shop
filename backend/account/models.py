@@ -7,6 +7,7 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import PermissionsMixin
 from django.core.mail import send_mail
 from cart.help_funcs import generate_token
+from api.models import Product
 
 class MyAccountManager(BaseUserManager):
 
@@ -57,6 +58,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default = False)
     avatar = models.ImageField(upload_to="user_avatars/%Y/%m/%d", blank=True)
     is_active = models.BooleanField(default = True)
+    rated = models.ForeignKey(Product, on_delete = models.DO_NOTHING, null = True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'phone_number']
