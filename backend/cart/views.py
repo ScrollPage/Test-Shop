@@ -44,7 +44,7 @@ def add_to_cart(request):
     if u.email.split('_')[0] == 'unlogged':
         response = HttpResponse(f'{u.email}')
     else:
-        response = 'ok'
+        response = HttpResponse('ok')
 
     return response
 
