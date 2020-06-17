@@ -8,7 +8,7 @@ from django.http import HttpResponse
 
 def add_to_cart(request):
     data = request.POST
-    email = data.get('email', False)
+    email = data['email']
     uid = data['uid']
     amount = int(data['amount'])
 
