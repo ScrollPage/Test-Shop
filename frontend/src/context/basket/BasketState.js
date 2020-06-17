@@ -54,6 +54,9 @@ export const BasketState = ({ children }) => {
         }
         axios(options)
             .then((response) => {
+                if (response.data !== 'ok') {
+                    store.set('email', response.data)
+                }
                 addItemToBasketSuccess(item, amount)
                 setFlag()
             })
