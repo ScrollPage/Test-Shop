@@ -49,7 +49,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(verbose_name = "email", max_length = 60, unique = True)
     first_name = models.CharField(max_length = 30, default = '')
     last_name = models.CharField(max_length = 30, default = '')
-    phone_number = models.IntegerField(default = 0)
+    phone_number = models.CharField(max_length = 11)
     date_joined = models.DateTimeField(verbose_name = "date joined", auto_now_add = True)
     last_login = models.DateTimeField(verbose_name = "last_login", auto_now = True)
     is_admin = models.BooleanField(default = False)
