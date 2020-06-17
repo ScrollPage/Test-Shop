@@ -17,6 +17,7 @@ def add_to_cart(request):
     else:
         u = Account.objects.create_user(email = 'anonym@anonym.com', first_name = '', last_name = '', phone_number = '')
         u.email = f'unlogged_{u.id}@anonym.com'
+        u.is_active = True
         Order.objects.create(owner = u)
         u.save()
 
