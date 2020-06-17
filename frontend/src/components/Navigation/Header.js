@@ -32,7 +32,7 @@ export const Header = () => {
                         {
                             isAuthenticated
                                 ? <div className="header-item">
-                                    <NavLink to="/account" className="nav-link">Личный кабинет</NavLink>
+                                    <NavLink to="/account/info" className="nav-link">Личный кабинет</NavLink>
                                 </div>
                                 : null
                         }

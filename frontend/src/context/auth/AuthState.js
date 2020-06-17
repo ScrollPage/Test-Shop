@@ -5,14 +5,18 @@ import store from 'store'
 import { AuthContext } from './AuthContext'
 import { AuthReducer } from './AuthReducer'
 import { AlertContext } from '../alert/AlertContext'
-import { AUTH_SUCCESS, AUTH_LOGOUT } from '../types'
+import { AUTH_SUCCESS, AUTH_LOGOUT, FETCH_ACCOUNT_SUCCESS } from '../types'
 
 export const AuthState = ({ children }) => {
 
     const { show } = useContext(AlertContext)
 
     const initialState = {
-        token: store.get('token') === undefined ? null : store.get('token')
+        token: store.get('token') === undefined ? null : store.get('token'),
+        email: "",
+        firstName: "",
+        lastName: "",
+        number: ""
     }
 
     const [state, dispatch] = useReducer(AuthReducer, initialState)
@@ -87,7 +91,18 @@ export const AuthState = ({ children }) => {
         })
     }
 
-    const { token } = state
+    const fetchAccount = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8000/account/api/${store.get('email')}`)
+            fetchAccountSuccess(response.data[0])
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
+    const fetchAccountSuccess = (info) => dispatch({type: FETCH_ACCOUNT_SUCCESS, payload: info}) 
+
+    const { token, firstName, lastName, number, email } = state
 
     return (
         <AuthContext.Provider value={{
@@ -98,7 +113,8 @@ export const AuthState = ({ children }) => {
             authSuccess,
             autoLogout,
             logout,
-            token
+            fetchAccount,
+            token, firstName, lastName, number, email
         }}>
             {children}
         </AuthContext.Provider>

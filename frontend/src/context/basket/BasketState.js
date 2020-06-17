@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import {
     FETCH_BASKET_SUCCESS,
     SET_LOADING_BASKET,
-    SET_PARAMS,
     SET_FLAG,
     REMOVE_ITEM_TO_BASKET,
     ADD_ITEM_TO_BASKET,

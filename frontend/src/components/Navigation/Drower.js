@@ -29,7 +29,7 @@ export function Drower({ onClose, isOpen }) {
                     <li>
                         {
                             isAuthenticated
-                             ? <NavLink to="/account" className="nav-link" onClick={() => onClose()}>Кабинет</NavLink>
+                             ? <NavLink to="/account/info" className="nav-link" onClick={() => onClose()}>Кабинет</NavLink>
                              : null
                         }
                     </li>
