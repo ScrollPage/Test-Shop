@@ -2,18 +2,24 @@ import React from 'react'
 import Img from '../assets/player.jpg'
 import { Button } from 'antd'
 import { CloseOutlined } from '@ant-design/icons';
+import { motion } from 'framer-motion'
 
 export const BasketItem = ({ data, remove, add }) => {
-
     return (
-        <div className="basket-item">
+        <motion.div
+            className="basket-item"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1 }}
+        >
             <div className="basket-img">
                 <img src={Img} alt={data.name} />
             </div>
             <div className="basket-info">
                 <div className="basket-up">
                     <div className="basket-price">
-                        <p>{data.product.price*data.amount}&nbsp;Р</p>
+                        <p>{data.product.price * data.amount}&nbsp;Р</p>
                     </div>
                     <div className="basket-name">
                         <p>{data.product.name}</p>
@@ -29,6 +35,6 @@ export const BasketItem = ({ data, remove, add }) => {
             <div className="basket-delete" onClick={() => remove(data.product, data.amount)}>
                 <CloseOutlined />
             </div>
-        </div>
+        </motion.div>
     )
 }

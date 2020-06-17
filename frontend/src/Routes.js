@@ -15,7 +15,7 @@ import { AuthContext } from './context/auth/AuthContext';
 
 export const Routes = () => {
 
-    const { autoLogin, token } = useContext(AuthContext)
+    const { token } = useContext(AuthContext)
     const isAuthenticated = !!token
 
     // useEffect(() => {
