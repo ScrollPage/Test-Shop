@@ -8,7 +8,7 @@ from django.http import HttpResponse
 
 def add_to_cart(request):
     data = request.POST
-    email = data.get('email', False)
+    email = data['email']
     uid = data['uid']
     amount = int(data['amount'])
 
@@ -44,7 +44,7 @@ def add_to_cart(request):
     if u.email.split('_')[0] == 'unlogged':
         response = HttpResponse(f'{u.email}')
     else:
-        response = 'ok'
+        response = HttpResponse('ok')
 
     return response
 
