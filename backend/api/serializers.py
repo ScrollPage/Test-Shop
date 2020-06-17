@@ -21,6 +21,7 @@ class ProductSerializer(serializers.ModelSerializer):
 			'rating',
 			'reviews',
 		]
+		depth = 2
 
 class CountSerializer(serializers.ModelSerializer):
 	class Meta():

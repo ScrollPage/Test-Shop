@@ -9,14 +9,13 @@ def add_rate(request, **kwargs):
     email = data['email']
     rating = data['rating']
 
-    u = Account.get(email = email)
-    p = u.rated.filter(id = uid).all()
+    p = Product.objects.get(id = uid)
+    u = p.rated.filter(email = email).all()
 
-    if p:
+    if len(u) == 1:
         response = HttpRespone('refused')
     else:
-        u.create(Product, id = uid)
-        p = p.first()
+        p.add(Account, email = email)
         count = p.reviews
         new_rating = ((p.rating * count) + rating) / (count + 1)
         p.rating = round(new_rating, 1)
