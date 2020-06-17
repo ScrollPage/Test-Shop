@@ -26,6 +26,9 @@ export const AuthState = ({ children }) => {
                 store.set('token', response.data.token)
                 store.set('expirationDate', expirationDate)
                 store.set('email', email)
+                store.remove('count')
+                store.remove('price')
+                store.remove('basket')
 
                 authSuccess(response.data.token)
                 // autoLogout(72000)
@@ -55,7 +58,7 @@ export const AuthState = ({ children }) => {
 
     const autoLogout = (time) => setTimeout(() => { logout() }, time * 1000)
 
-    const onLogout = () => { show('Вы успешно вышли!', 'success'); logout();}
+    const onLogout = () => { show('Вы успешно вышли!', 'success'); logout(); }
 
     const autoLogin = () => {
         const token = store.get('token')
@@ -76,6 +79,9 @@ export const AuthState = ({ children }) => {
         store.remove('token')
         store.remove('expirationDate')
         store.remove('email')
+        store.remove('count')
+        store.remove('price')
+        store.remove('basket')
         dispatch({
             type: AUTH_LOGOUT
         })

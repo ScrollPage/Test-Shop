@@ -6,6 +6,7 @@ from cart.help_funcs import generate_token
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 
+@csrf_exempt
 def add_to_cart(request):
     data = request.POST
     email = data.get('email', False)
@@ -51,6 +52,7 @@ def add_to_cart(request):
 
     return response
 
+@csrf_exempt
 def delete_from_cart(request):
     data = request.POST
     email = data['email']
@@ -75,7 +77,7 @@ def delete_from_cart(request):
     
     return HttpResponse('ok')
 
-
+@csrf_exempt
 def clear_cart(request):
     data = request.POST
     email = data['email']

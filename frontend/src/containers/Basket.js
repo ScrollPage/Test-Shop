@@ -75,7 +75,7 @@ export const Basket = () => {
                                     exit={{ opacity: 0 }} transition={{ duration: 1 }}
                                 >{count}&nbsp;{count === 1 ? 'ТОВАР' : count % 10 >= 5 || count === 0 ? 'ТОВАРОВ' : 'ТОВАРА'}&nbsp;В КОРЗИНЕ</motion.h4>
                                 {
-                                    loading
+                                    loading 
                                         ? <p>Корзина пуста</p>
                                         : basket.length === 0
                                             ? <p>Корзина пуста</p>
