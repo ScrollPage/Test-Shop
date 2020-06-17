@@ -14,7 +14,16 @@ class RegistrationView(generics.CreateAPIView):
 
     queryset = Account.objects.all()
     serializer_class =  RegistrationSerializer
-    
+
+class UserOverView(generics.ListAPIView):
+
+    serializer_class =  RegistrationSerializer
+
+    def get_queryset(self):
+        email = self.kwargs['email']
+        u = Account.objects.filter(email = email).all()
+        return u
+
 # confirms an acc and adds a cart to the confirmed acc
 class AuthorizationConfirm(View):
     
