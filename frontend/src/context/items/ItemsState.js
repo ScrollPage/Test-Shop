@@ -4,6 +4,7 @@ import axios from 'axios'
 import { ItemsContext } from './ItemsContext'
 import { ItemsReducer } from './ItemsReducer'
 import store from 'store'
+import qs from 'qs';
 
 import {
     SET_LOADING,
@@ -78,6 +79,22 @@ export const ItemsState = ({ children }) => {
 
     const setSearch = (search) => dispatch({type: SET_SEARCH, payload: search})    
 
+    const setRated = (id, email, rating) => {
+        const data = { uid: id, email, rating }
+        const options = {
+            method: 'POST',
+            url: "http://localhost:8000/feedback/rating",
+            data: qs.stringify(data)
+        }
+        axios(options)
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     const { items, item, pageSize, currentPage, totalItemsCount, loading, checkedList, search } = state
 
     return (
@@ -88,6 +105,7 @@ export const ItemsState = ({ children }) => {
             setCurrentPage,
             setTotalCount,
             setCheckedList,
+            setRated,
             items, item, pageSize, currentPage, totalItemsCount, loading, checkedList, search
         }}>
             {children}

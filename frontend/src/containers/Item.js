@@ -7,20 +7,36 @@ import { Loader } from '../components/Loader'
 import { BasketCart } from '../components/BasketCart'
 import { ItemsContext } from '../context/items/ItemsContext'
 import { BasketContext } from '../context/basket/BasketContext'
+import StarRatings from 'react-star-ratings'
 
 export const Item = () => {
 
     const { history } = useReactRouter()
-    const { fetchItemById, item, loading} = useContext(ItemsContext)
-    const { addItemToBasket, removeItemToBasket } = useContext(BasketContext)
+    const { fetchItemById, item, loading } = useContext(ItemsContext)
+    const { addItemToBasket, removeItemToBasket, setRated } = useContext(BasketContext)
     const match = useRouteMatch('/items/:id')
 
     const [ amount, setAmount ] = useState(0)
+    const [ rating, setRating ] = useState(0)
+    const [ reviews, setReviews ] = useState(0)
 
     useEffect(() => {
         fetchItemById(match.params.id)
         // eslint-disable-next-line
     }, [match.params.id])
+
+    useEffect(() => {
+        if (item !== null) {
+            setRating(item.rating)
+            setReviews(item.reviews)
+        }
+        
+    }, [item])
+
+    const changeRating = (newRating, name) => {
+        setRating(newRating)
+        setRated(newRating)
+    }
 
     const renderSidebar = () => {
         return (
@@ -39,7 +55,7 @@ export const Item = () => {
         )
     }
 
-    
+
     return (
         <div className="container mt-3">
             <div className="row">
@@ -62,6 +78,18 @@ export const Item = () => {
                                 </img>
                                 <p className="lead">{item.description}</p>
                                 <hr className="my-4"></hr>
+                                <StarRatings
+                                    rating={rating}
+                                    starRatedColor="gold"
+                                    starHoverColor="gold"
+                                    changeRating={changeRating}
+                                    numberOfStars={5}
+                                    name='rating'
+                                    starDimension="20px"
+                                    starSpacing="1px"
+                                />
+                                <p className="rating">{item.rating}</p>
+                                <p className="review">Всего оценок:&nbsp;{reviews}</p>
                             </div>
                         }
                     </div>
