@@ -3,21 +3,25 @@ import { Link, Switch, Route } from 'react-router-dom'
 import { Orders } from '../components/Orders'
 import { Info } from '../components/Info'
 import { Change } from '../components/Change'
+import useReactRouter from 'use-react-router'
 
 export const Account = () => {
 
+    const { history } = useReactRouter()
+    const path = history.location.pathname
+
     const renderLinks = () => (
         <div className="account-links">
-            <Link to="/account/orders" className="nav-link">Заказы</Link>
-            <Link to="/account/info" className="nav-link">Информация</Link>
-            <Link to="/account/change" className="nav-link">Сменить пароль</Link>
+            <Link to="/account/orders" className={path === "/account/orders" ? "nav-link active" : "nav-link"}>Заказы</Link>
+            <Link to="/account/info" className={path === "/account/info" ? "nav-link active" : "nav-link"}>Информация</Link>
+            <Link to="/account/change" className={path === "/account/change" ? "nav-link active" : "nav-link"}>Сменить пароль</Link>
             {/* <Link>Выход</Link> */}
         </div>
     )
 
     return (
         <div className="account">
-            <div className="container">
+            <div className="container mt-4">
                 <div className="row">
                     <div className="col-md-3">
                         {renderLinks()}

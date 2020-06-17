@@ -15,8 +15,8 @@ const handlers = {
     [SET_PARAMS]: (state, { payload }) => ({ ...state, price: payload.price, count: payload.count }),
     [REMOVE_ITEM_TO_BASKET]: (state, { item, amount }) => ({
         ...state,
-        price: state.price - item.price * amount,
-        count: state.count - amount,
+        price: state.price - item.price * amount < 0 ? 0 : state.price - item.price * amount,
+        count: state.count - amount < 0 ? 0 : state.count - amount,
         basket: state.basket
             .filter(x => {
                 if (x.product.id === item.id && x.amount === amount) {

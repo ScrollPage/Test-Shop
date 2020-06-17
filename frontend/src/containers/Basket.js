@@ -4,7 +4,6 @@ import useReactRouter from 'use-react-router'
 import { Button } from 'antd'
 import { BasketItem } from '../components/BasketItem'
 import { BasketContext } from '../context/basket/BasketContext'
-import { Loader } from '../components/Loader'
 import store from 'store'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -18,11 +17,12 @@ export const Basket = () => {
         }
     }
 
-    const { removeItemToBasket, clearItemToBasket, addItemToBasket, fetchBasket, basket, loading, price, count, flag } = useContext(BasketContext)
+    const { removeItemToBasket, clearItemToBasket, addItemToBasket, fetchBasket, basket, loading, price, count } = useContext(BasketContext)
     const { history } = useReactRouter()
 
     useEffect(() => {
         fetchBasket()
+    // eslint-disable-next
     }, [])
 
     useEffect(() => {
