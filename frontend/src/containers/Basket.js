@@ -2,13 +2,21 @@ import React, { useContext, useEffect } from 'react'
 // import { BasketContext } from '../context/basket/BasketContext'
 import useReactRouter from 'use-react-router'
 import { Button } from 'antd'
-import { BasketItem } from '../components/BasketItem' 
+import { BasketItem } from '../components/BasketItem'
 import { BasketContext } from '../context/basket/BasketContext'
 import { Loader } from '../components/Loader'
 import store from 'store'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export const Basket = () => {
+
+    const containerVar = {
+        show: {
+            transition: {
+                staggerChildren: 0.1
+            }
+        }
+    }
 
     const { removeItemToBasket, clearItemToBasket, addItemToBasket, fetchBasket, basket, loading, price, count, flag } = useContext(BasketContext)
     const { history } = useReactRouter()
@@ -22,14 +30,14 @@ export const Basket = () => {
         store.set('price', price)
         store.set('basket', basket)
     }, [count, price, basket])
-    
+
     const renderSidebar = () => (
         <div className="basket-sidebar">
-            <motion.div 
-                className="total-price text-center" 
-                initial={{opacity: 0}} 
-                animate={{opacity: 1}} 
-                exit={{opacity: 0}} transition={{duration: 1}}
+            <motion.div
+                className="total-price text-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }} transition={{ duration: 1 }}
             >
                 <h4>ИТОГО:&nbsp;{price}&nbsp;Р</h4>
             </motion.div>
@@ -40,13 +48,18 @@ export const Basket = () => {
     )
 
     const renderItems = () => (
-        <motion.div
-
-        >
-            {basket.map(item => (
-            <BasketItem key={item.id} data={item} remove={removeItemToBasket} add={addItemToBasket}/>
-        ))}
-        </motion.div>
+        <AnimatePresence>
+            <motion.div
+                variants={containerVar}
+                initial="hidden"
+                animate="show"
+                exit="hidden"
+            >
+                {basket.map(item => (
+                    <BasketItem key={item.id} data={item} remove={removeItemToBasket} add={addItemToBasket} />
+                ))}
+            </motion.div>
+        </AnimatePresence>
     )
 
     return (
@@ -57,16 +70,16 @@ export const Basket = () => {
                         <div className="basket-items">
                             <div className="basket-title">
                                 <motion.h4
-                                    initial={{opacity: 0}} 
-                                    animate={{opacity: 1}} 
-                                    exit={{opacity: 0}} transition={{duration: 1}}
-                                >{count}&nbsp;{count === 1 ? 'ТОВАР' : count%10 >= 5 || count === 0 ? 'ТОВАРОВ' : 'ТОВАРА' }&nbsp;В КОРЗИНЕ</motion.h4>
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }} transition={{ duration: 1 }}
+                                >{count}&nbsp;{count === 1 ? 'ТОВАР' : count % 10 >= 5 || count === 0 ? 'ТОВАРОВ' : 'ТОВАРА'}&nbsp;В КОРЗИНЕ</motion.h4>
                                 {
-                                loading
-                                ? null
-                                : basket.length === 0
-                                ? <p>Корзина пуста</p>
-                                : renderItems()}
+                                    loading
+                                        ? <p>Корзина пуста</p>
+                                        : basket.length === 0
+                                            ? <p>Корзина пуста</p>
+                                            : renderItems()}
                             </div>
                             {}
                         </div>

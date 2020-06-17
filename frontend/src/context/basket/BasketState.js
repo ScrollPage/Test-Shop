@@ -45,8 +45,6 @@ export const BasketState = ({ children }) => {
 
     const setFlag = () => dispatch({ type: SET_FLAG })
 
-    const setParams = (price, count) => dispatch({ type: SET_PARAMS, payload: { price, count } })
-
     const addItemToBasket = (item, amount = 1) => {
         const data = { uid: item.id, amount: amount, email: store.get('email') }
         const options = {

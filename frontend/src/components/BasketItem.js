@@ -5,13 +5,28 @@ import { CloseOutlined } from '@ant-design/icons';
 import { motion } from 'framer-motion'
 
 export const BasketItem = ({ data, remove, add }) => {
+
+    const listVar = {
+        hidden: { 
+            x: -100,
+            opacity: 0
+         },
+        show: { 
+            x: 0,
+            opacity: 1, 
+            transition: { 
+                duration: 10,
+                type: "spring", 
+                stiffness: 120,
+                damping: 11
+            }
+        }
+    }
+
     return (
         <motion.div
             className="basket-item"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
+            variants={listVar}
         >
             <div className="basket-img">
                 <img src={Img} alt={data.name} />
