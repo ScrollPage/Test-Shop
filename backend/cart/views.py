@@ -70,7 +70,7 @@ def delete_from_cart(request):
         user_order.save()
         response = HttpResponse('successfully removed')
     else:
-        responeso = HttpResponse('no such item in basket')
+        respones = HttpResponse('no such item in basket')
     
     return response
 

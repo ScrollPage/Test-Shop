@@ -32,11 +32,12 @@ class ProductListView(generics.ListAPIView):
 			amount = 6
 
 		categoryId = categoryId.split(",")
+
 		if ordering == 1:
 			queryset = Product.objects.order_by('price').filter(price__range = (mini, maxi))
 		elif ordering == 2:
 			queryset = Product.objects.order_by('-price').filter(price__range = (mini, maxi))
-		elif ordering ==3:
+		elif ordering == 3:
 			queryset = Product.objects.order_by('-rating').filter(price__range = (mini, maxi))
 		else:
 			queryset = Product.objects.all().filter(price__range = (mini, maxi))
