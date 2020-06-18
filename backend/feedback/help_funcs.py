@@ -20,12 +20,11 @@ def get_or_create_anon_user(email):
     
     return (u, o)
 
-def try_add_rate(u, p, rating, email):
+def try_add_rate(u, p, rating):
 
     if u in p.rated.all():
         response = HttpResponse('refused')
     else:
-        u = Account.objects.get(email = email)
         p.rated.add(u)
         count = p.reviews
         new_rating = ((p.rating * count) + rating) / (count + 1)

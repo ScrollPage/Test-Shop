@@ -3,5 +3,5 @@ from feedback import views
 
 urlpatterns =[
     path('rating', views.add_rate, name = 'add_rate'),
-    path('add_comment', views.create_comment, name = 'create_comment')
+    path('comment', views.create_comment, name = 'create_comment')
 ]
