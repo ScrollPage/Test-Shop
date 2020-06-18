@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import * as R from 'ramda'
 import { Link } from 'react-router-dom'
@@ -9,14 +9,9 @@ import StarRatings from 'react-star-ratings'
 
 export const Card = ({ item, addItemToBasket }) => {
 
-    const [rating, setRating] = useState(Math.random() * 10 / 2)
-
-    const changeRating = (newRating, name) => {
-        setRating(newRating)
-    }
-
     const { history } = useReactRouter()
     const shortDescription = `${R.take(20, item.description)}...`
+
 
     return (
         <motion.div
@@ -41,16 +36,16 @@ export const Card = ({ item, addItemToBasket }) => {
                 <hr />
                 <div className="card-body">
                     <StarRatings
-                        rating={rating}
+                        rating={item.rating}
                         starRatedColor="gold"
                         starHoverColor="gold"
-                        changeRating={changeRating}
+                        // changeRating={changeRating}
                         numberOfStars={5}
                         name='rating'
                         starDimension="20px"
                         starSpacing="1px"
                     />
-                    <p className="rating">{rating.toFixed(1)}</p>
+                    <p className="rating">{item.rating}</p>
                     <strong className="pull-right">{item.price}Р</strong>
                     <h5 className="card-title">
                         <Link to={`/items/${item.id}`}>
