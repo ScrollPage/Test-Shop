@@ -46,17 +46,14 @@ export const ItemsState = ({ children }) => {
         try {
             let fl = true
             console.log(currentMin, currentMax)
-            let url = `http://localhost:8000/api/
-            ${state.checkedList}/${state.currentPage}/${state.pageSize}/${state.search}/${state.currentMin}/${state.currentMax}/${state.ordering}/`
-            let urlLen = `http://localhost:8000/api/len/
-            ${state.checkedList}/${state.search}/${state.currentMin}/${state.currentMax}/`
+            let url = `http://localhost:8000/api/${state.checkedList}/${state.currentPage}/${state.pageSize}/${state.search}/${state.currentMin}/${state.currentMax}/${state.ordering}/`
+            let urlLen = `http://localhost:8000/api/len/${state.checkedList}/${state.search}/${state.currentMin}/${state.currentMax}/`
 
             if (state.checkedList.length === 0) {
-                url = `http://localhost:8000/api/null/
-                ${state.currentPage}/${state.pageSize}/${state.search}/${state.currentMin}/${state.currentMax}/${state.ordering}`
+                url = `http://localhost:8000/api/null/${state.currentPage}/${state.pageSize}/${state.search}/${state.currentMin}/${state.currentMax}/${state.ordering}`
 
-                urlLen = `http://localhost:8000/api/len/
-                ${state.search}/${state.currentMin}/${state.currentMax}`
+                urlLen = `http://localhost:8000/api/len/${state.search}/${state.currentMin}/${state.currentMax}`
+                
 
                 fl = false
             }
