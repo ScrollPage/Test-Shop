@@ -30,8 +30,7 @@ export const Item = () => {
         if (item !== null) {
             setRating(item.rating)
             setReviews(item.reviews)
-        }
-        
+        }        
     }, [item])
 
     const changeRating = (newRating, name) => {

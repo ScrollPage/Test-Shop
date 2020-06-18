@@ -7,7 +7,9 @@ import {
     FETCH_ITEM_BY_ID_SUCCESS,
     SET_CHECKED_LIST,
     SET_SEARCH,
-    SET_FLAG_ITEM
+    SET_FLAG_ITEM,
+    SET_ORDERING,
+    SET_SLIDER
 } from '../types'
 
 const handlers = {
@@ -17,6 +19,8 @@ const handlers = {
     [FETCH_ITEM_BY_ID_SUCCESS]: (state, {payload}) => ({...state, item: payload, loading: false}),
     [FETCH_ERROR]: (state, {payload}) => ({...state, error: payload, loading: false}),
     [SET_CURRENT_PAGE]: (state, {payload}) => ({...state, currentPage: payload}),
+    [SET_ORDERING]: (state, {payload}) => ({...state, ordering: payload}),
+    [SET_SLIDER]: (state, {payload}) => ({...state, currentMin: payload.currentMin, currentMax: payload.currentMax}),
     [SET_TOTAL_COUNT]: (state, {payload}) => ({...state, totalItemsCount: payload}),
     [SET_CHECKED_LIST]: (state, {payload}) => ({...state, checkedList: payload}),
     [SET_SEARCH]: (state, {payload}) => ({...state, search: payload === '' ? null : payload}),

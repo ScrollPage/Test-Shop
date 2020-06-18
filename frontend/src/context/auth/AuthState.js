@@ -86,6 +86,8 @@ export const AuthState = ({ children }) => {
         store.remove('count')
         store.remove('price')
         store.remove('basket')
+        store.remove('search')
+        store.remove('ordering')
         dispatch({
             type: AUTH_LOGOUT
         })

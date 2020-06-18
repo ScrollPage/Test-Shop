@@ -15,7 +15,9 @@ import {
     FETCH_ITEM_BY_ID_SUCCESS,
     SET_CHECKED_LIST,
     SET_SEARCH,
-    SET_FLAG_ITEM
+    SET_FLAG_ITEM,
+    SET_ORDERING,
+    SET_SLIDER
 } from '../types'
 
 export const ItemsState = ({ children }) => {
@@ -30,10 +32,11 @@ export const ItemsState = ({ children }) => {
         checkedList: store.get('checkedList') === undefined ? ['Apple','Samsung','HTC','Lenovo','Nokia'] : store.get('checkedList'),
         search: store.get('search') === undefined ? null : store.get('search'),
         flag: false, 
-        min: 0,
-        max: 20000,
-        currentMin: 0,
-        currentMax: 20000
+        min: 13480,
+        max: 19060,
+        currentMin: store.get('currentMin') === undefined ? 0 : store.get('currentMin') ,
+        currentMax: store.get('currentMax') === undefined ? 20000 : store.get('currentMax') ,
+        ordering: store.get('ordering') === undefined ? 0 : store.get('ordering') 
         }
 
     const [state, dispatch] = useReducer(ItemsReducer, initialState)
@@ -42,11 +45,19 @@ export const ItemsState = ({ children }) => {
         setLoading()
         try {
             let fl = true
-            let url = `http://localhost:8000/api/${state.checkedList}/${state.currentPage}/${state.pageSize}/${state.search}/`
-            let urlLen = `http://localhost:8000/api/len/${state.checkedList}/${state.search}/`
+            console.log(currentMin, currentMax)
+            let url = `http://localhost:8000/api/
+            ${state.checkedList}/${state.currentPage}/${state.pageSize}/${state.search}/${state.currentMin}/${state.currentMax}/${state.ordering}/`
+            let urlLen = `http://localhost:8000/api/len/
+            ${state.checkedList}/${state.search}/${state.currentMin}/${state.currentMax}/`
+
             if (state.checkedList.length === 0) {
-                url = `http://localhost:8000/api/null/${state.currentPage}/${state.pageSize}/${state.search}/`
-                urlLen = `http://localhost:8000/api/len/${state.search}/`
+                url = `http://localhost:8000/api/null/
+                ${state.currentPage}/${state.pageSize}/${state.search}/${state.currentMin}/${state.currentMax}/${state.ordering}`
+
+                urlLen = `http://localhost:8000/api/len/
+                ${state.search}/${state.currentMin}/${state.currentMax}`
+
                 fl = false
             }
             const response = await axios.get(url)
@@ -86,6 +97,13 @@ export const ItemsState = ({ children }) => {
 
     const setSearch = (search) => dispatch({type: SET_SEARCH, payload: search})    
 
+    const setOrdering = (ordering) => dispatch({type: SET_ORDERING, payload: ordering})
+
+    const setSlider = (currentMin, currentMax) => {
+        // console.log(currentMin, currentMax)
+        dispatch({type: SET_SLIDER, payload: {currentMin, currentMax}})
+    }
+
     const setFlag = () => dispatch({ type: SET_FLAG_ITEM })
 
     const setRated = async (id, email, rating) => {
@@ -121,7 +139,8 @@ export const ItemsState = ({ children }) => {
             });
     }
 
-    const { items, item, pageSize, currentPage, totalItemsCount, loading, checkedList, search, flag } = state
+    const { items, item, pageSize, currentPage, totalItemsCount, loading, checkedList, search, flag,
+    min, max, currentMin, currentMax, ordering } = state
 
     return (
         <ItemsContext.Provider value={{
@@ -133,7 +152,10 @@ export const ItemsState = ({ children }) => {
             setCheckedList,
             setRated,
             setComment,
-            items, item, pageSize, currentPage, totalItemsCount, loading, checkedList, search, flag
+            setSlider,
+            setOrdering,
+            items, item, pageSize, currentPage, totalItemsCount, loading, checkedList, search, flag,
+            min, max, currentMin, currentMax, ordering
         }}>
             {children}
         </ItemsContext.Provider>

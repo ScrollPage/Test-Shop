@@ -1,22 +1,26 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Select } from 'antd';
+import { ItemsContext } from '../context/items/ItemsContext'
 
 export const SelectUI = () => {
+
+    const { ordering, setOrdering, setCurrentPage } = useContext(ItemsContext)
 
     const { Option } = Select;
 
     function handleChange(value) {
-        console.log(`selected ${value}`);
+        setOrdering(Number(value))
+        setCurrentPage(1)
     }
 
     return (
         <div className="selectui">
             <p>Сортировать: </p>
-            <Select defaultValue="sortDefault" style={{ width: 200 }} onChange={handleChange}>
-                <Option value="sortDefault">По умолчанию</Option>
-                <Option value="SortUpPrice">По возрастанию цены</Option>
-                <Option value="sortLowPrice">По убыванию цены</Option>
-                <Option value="sortRating">По рейтингу</Option>
+            <Select defaultValue={'' + ordering} style={{ width: 200 }} onChange={handleChange}>
+                <Option value="0">По умолчанию</Option>
+                <Option value="1">По возрастанию цены</Option>
+                <Option value="2">По убыванию цены</Option>
+                <Option value="3">По рейтингу</Option>
             </Select>
         </div>
     )

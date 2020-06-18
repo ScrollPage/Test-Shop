@@ -10,17 +10,19 @@ import { SelectUI } from '../components/SelectUI'
 
 export const Items = () => {
 
-    const { items, totalItemsCount, pageSize, loading, fetchItems, checkedList, currentPage, search } = useContext(ItemsContext)
+    const { items, totalItemsCount, pageSize, loading, fetchItems, checkedList, currentPage, search, ordering, currentMin, currentMax } = useContext(ItemsContext)
     const { addItemToBasket } = useContext(BasketContext)
 
     useEffect(() => {
         fetchItems()
-        // console.log(search)
         store.set('checkedList', checkedList)
         store.set('currentPage', currentPage)
         store.set('search', search)
+        store.set('ordering', ordering)
+        store.set('currentMax', currentMax)
+        store.set('currentMin', currentMin)
         // eslint-disable-next-line
-    }, [checkedList, currentPage, search])
+    }, [checkedList, currentPage, search, currentMin, currentMax, ordering])
 
     const renderCards = () => {
         return items.map((item, index) => {
