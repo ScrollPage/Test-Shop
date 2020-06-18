@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404
 def get_or_create_anon_user(email):
     
     if email:
-        u = get_object_or_404(Account, email = email)
+        u = Account.objects.get(email = email)
     else:
         u = Account.objects.create_user(email = 'anonym@anonym.com', first_name = '', last_name = '', phone_number = '')
         u.email = f'unlogged_{u.id}@anonym.com'

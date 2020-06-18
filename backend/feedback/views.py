@@ -31,7 +31,7 @@ def create_comment(request):
         uid = data['uid']
         first_name = data['first_name']
         
-        u = get_or_create_anon_user(email)
+        u = get_or_create_anon_user(email)[0]
         p = Product.objects.get(id = uid)
         print(u in p.rated.all())
         response = try_add_rate(u, p, rating)
