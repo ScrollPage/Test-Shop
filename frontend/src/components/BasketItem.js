@@ -29,7 +29,7 @@ export const BasketItem = ({ data, remove, add }) => {
     return (
         <motion.div
             className="basket-item"
-            variants={listVar}
+            // variants={listVar}
         >
             <div className="basket-img">
                 <img 

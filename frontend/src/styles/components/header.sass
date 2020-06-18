@@ -7,18 +7,6 @@
     z-index: 7
     background: $white
     border-bottom: 1px solid lighten($black, 70%)
-    span 
-        position: absolute
-        height: 20px
-        width: 20px
-        background-color: red
-        border-radius: 50%
-        color: $white
-        display: flex
-        justify-content: center
-        align-items: center
-        top: 5px
-        right: 0
     &-right
         display: flex
         margin-left: auto
@@ -41,6 +29,24 @@
             display: none
         align-items: center
     &-item
+        svg
+            position: absolute
+            font-size: 30px
+            color: $black
+            top: 6px
+            left: 5px
+        p 
+            position: absolute
+            height: 20px
+            width: 20px
+            background-color: red
+            border-radius: 50%
+            color: $white
+            display: flex
+            justify-content: center
+            align-items: center
+            top: -1px
+            right: 0
         position: relative
         a 
             font-size: 1rem
@@ -50,6 +56,9 @@
             border-bottom: 1.5px solid $blue
         .active-none
             border-bottom: 1.5px solid $white
+
+.nav-shipping
+    width: 50px
 
 
             
