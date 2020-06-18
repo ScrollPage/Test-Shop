@@ -34,13 +34,15 @@ class ProductListView(generics.ListAPIView):
 		categoryId = categoryId.split(",")
 
 		if ordering == 1:
-			queryset = Product.objects.order_by('price').filter(price__range = (mini, maxi))
+			queryset = Product.objects.order_by('price')
 		elif ordering == 2:
-			queryset = Product.objects.order_by('-price').filter(price__range = (mini, maxi))
+			queryset = Product.objects.order_by('-price')
 		elif ordering == 3:
-			queryset = Product.objects.order_by('-rating').filter(price__range = (mini, maxi))
+			queryset = Product.objects.order_by('-rating')
 		else:
-			queryset = Product.objects.all().filter(price__range = (mini, maxi))
+			queryset = Product.objects.all()
+
+		queryset = queryset.filter(price__range = (mini, maxi))
 
 		queryset = make_searched(search, queryset)
   
@@ -91,8 +93,6 @@ class ProductsCountView(generics.ListAPIView):
 					'mini': mini,
 					'maxi': maxi,
 				},
-
-		print(queryset)
 
 		return queryset
 
