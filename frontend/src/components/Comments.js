@@ -1,14 +1,19 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useContext } from 'react'
 import StarRatings from 'react-star-ratings'
 import { CloseOutlined } from '@ant-design/icons';
 import { Form, Input, Button } from 'antd';
+import { AlertContext } from '../context/alert/AlertContext'
+import { ItemsContext } from '../context/items/ItemsContext'
 
 export const Comments = ({ item }) => {
 
     const [modal, setModal] = useState(false)
+    const [rating, setRating] = useState(0)
 
-    const [name, setName] = useState('sdfsdf')
-    const [email, setEmail] = useState('')
+    // const [name, setName] = useState('sdfsdf')
+    // const [email, setEmail] = useState('')
+    const { show } = useContext(AlertContext)
+    const { setComment } = useContext(ItemsContext)
 
     const layout = {
         labelCol: { span: 4 },
@@ -16,15 +21,22 @@ export const Comments = ({ item }) => {
     };
 
     const validateMessages = {
-        required: 'Поле не заполнено!',
-        types: {
-            email: 'Некорректный E-mail!',
-        }
+        required: 'Поле не заполнено!'
     };
 
     const onFinish = values => {
         console.log(values);
+        setComment(item.id, values.name, rating, values.introduction)
+        setTimeout(() => {
+            document.body.style.overflowY = 'scroll'
+            setModal(false)
+            show('Ваш комментраий успешно добавлен!', 'success')
+        }, 500)
     };
+
+    const changeRating = (newRating, name) => {
+        setRating(newRating)
+    }
 
 
     const renderModel = () => (
@@ -35,14 +47,23 @@ export const Comments = ({ item }) => {
                 </div>
                 <div className="comments-container">
                     <h4>Оставить отзыв</h4>
+                    <div className="comments-rating">
+                        <StarRatings
+                            rating={rating}
+                            starRatedColor="gold"
+                            starHoverColor="gold"
+                            changeRating={changeRating}
+                            numberOfStars={5}
+                            name='rating'
+                            starDimension="20px"
+                            starSpacing="1px"
+                        />
+                    </div>
                     <Form name="nest-messages" {...layout} onFinish={onFinish} validateMessages={validateMessages}>
-                        <Form.Item value={name} name={['user', 'name']} label="Имя" rules={[{ required: true }]} >
-                            <Input value={name}/>
-                        </Form.Item>
-                        <Form.Item name={['user', 'email']} label="Email" rules={[{ type: 'email' }]}>
+                        <Form.Item name={'name'} label="Имя" rules={[{ required: true }]} >
                             <Input />
                         </Form.Item>
-                        <Form.Item name={['user', 'introduction']} label="Отзыв" rules={[{ required: true, max: 400 }]}>
+                        <Form.Item name={'introduction'} label="Отзыв" rules={[{ required: true, max: 400 }]}>
                             <Input.TextArea />
                         </Form.Item>
                         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }} >
@@ -73,31 +94,30 @@ export const Comments = ({ item }) => {
                 </div>
                 <div className="comments-body">
                     <hr />
-                    {[0, 1, 2, 3].map(comment => (
-                        <Fragment key={comment}>
-                            <div className="comment">
-                                <div className="comment-info">
-                                    <p>КИРИЛЛ</p>
-                                    <p>18.06.2020 21.32</p>
-                                    <StarRatings
-                                        rating={4}
-                                        starRatedColor="gold"
-                                        starHoverColor="gold"
-                                        numberOfStars={5}
-                                        name='rating'
-                                        starDimension="20px"
-                                        starSpacing="1px"
-                                    />
+                    {item && item.comments
+                        .map(comment => (
+                            <Fragment key={comment + comment.first_name}>
+                                <div className="comment">
+                                    <div className="comment-info">
+                                        <p>{comment.first_name}</p>
+                                        <p>{comment.date_commented}</p>
+                                        <StarRatings
+                                            rating={comment.rating}
+                                            starRatedColor="gold"
+                                            starHoverColor="gold"
+                                            numberOfStars={5}
+                                            name='rating'
+                                            starDimension="20px"
+                                            starSpacing="1px"
+                                        />
+                                    </div>
+                                    <div className="comment-text">
+                                        <p>{comment.description}</p>
+                                    </div>
                                 </div>
-                                <div className="comment-text">
-                                    <p>Осталась довольна покупкой. Много функций, возможностей, хорошо выглядит. Решила попробовать, чем все на улице дымят, оказалось, что очень похоже на карманный кальян (кто устал распинать угли и собирать кальяны в домашних условиях - отличное решение).
-                                    Конечно, в руководстве не написано, как правильно им пользоваться, так что смотрите видео на YouTube, не забывайте нажимать на кнопку при затяжке. Перед самым первым употреблением, смачивайте испаритель ароматической жидкостью, чтоб не сгорел.
-                                    Приятно порадовала цена на данном сайте, потому что на других сайтах и в магазинах стоит дороже.</p>
-                                </div>
-                            </div>
-                            <hr />
-                        </Fragment>
-                    ))}
+                                <hr />
+                            </Fragment>
+                        ))}
                 </div>
             </div>
         </>

@@ -36,7 +36,7 @@ def create_comment(request):
         print(u in p.rated.all())
         response = try_add_rate(u, p, rating)
 
-        c = Comment.objets.create(
+        c = Comment.objects.create(
             rating = rating,
             description = desc,
             first_name = first_name
