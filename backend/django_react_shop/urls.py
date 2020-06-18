@@ -29,7 +29,7 @@ urlpatterns = [
     path('account/', include('account.api.urls')),
     path('cart/', include('cart.urls')),
     path('cart/api/', include('cart.api.urls')),
-    path('feedback/api/', include('feedback.urls')),
+    path('feedback/', include('feedback.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
