@@ -53,7 +53,7 @@ export const ItemsState = ({ children }) => {
             fetchError(e)
         }
     }
-    
+
     const fetchItemById = async id => {
         setLoading()
         try {
@@ -96,6 +96,22 @@ export const ItemsState = ({ children }) => {
             });
     }
 
+    const setComment = async (id, firstName, rating, description) => {
+        const data = { uid: id, email: store.get('email'), rating, first_name: firstName, description }
+        const options = {
+            method: 'POST',
+            url: "http://localhost:8000/feedback/comment",
+            data: qs.stringify(data)
+        }
+        axios(options)
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     const { items, item, pageSize, currentPage, totalItemsCount, loading, checkedList, search } = state
 
     return (
@@ -107,6 +123,7 @@ export const ItemsState = ({ children }) => {
             setTotalCount,
             setCheckedList,
             setRated,
+            setComment,
             items, item, pageSize, currentPage, totalItemsCount, loading, checkedList, search
         }}>
             {children}

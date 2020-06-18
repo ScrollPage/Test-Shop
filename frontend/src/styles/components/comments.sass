@@ -1,6 +1,10 @@
 .comments
     display: flex
     flex-direction: column
+    &-rating
+        display: flex
+        justify-content: center
+        margin-bottom: 15px
     &-header
         display: flex
         justify-content: space-between
@@ -12,7 +16,7 @@
 
 .comment
     display: flex
-    justify-content: space-between
+    // justify-content: space-between
     margin: 30px 0
     @include media("<=767px")
         flex-direction: column
@@ -50,7 +54,7 @@
     padding: 30px 20px
     h4 
         text-align: center
-        margin-bottom: 35px
+        margin-bottom: 10px
     textarea 
         resize: vertical
         max-height: 200px

@@ -36,13 +36,14 @@ def create_comment(request):
 
         response = try_add_rate(u, p, rating, email)
 
-        c = Comment(
+        c = Comment.objects.create(
             rating = rating,
             description = desc,
             first_name = first_name
         )
 
-        p.comment.add(c)
+
+        p.comments.add(c)
         p.save()
     else:
         response = 'forbidden'
