@@ -6,4 +6,3 @@ class Comment(models.Model):
     description = models.CharField(max_length = 400)
     rating = models.IntegerField(default = 5)
     date_commented = models.DateTimeField(auto_now_add = True, null = True)
-

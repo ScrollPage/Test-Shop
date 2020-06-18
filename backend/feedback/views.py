@@ -16,7 +16,7 @@ def add_rate(request, **kwargs):
 
         u = get_or_create_anon_user(email)[0]
         p = Product.objects.get(id = uid)
-        response = try_add_rate(u, p, rating, email)
+        response = try_add_rate(u, p, rating)
     else:
         response = HttpResponse('forbidden')
 
@@ -33,15 +33,14 @@ def create_comment(request):
         
         u = get_or_create_anon_user(email)
         p = Product.objects.get(id = uid)
-
-        response = try_add_rate(u, p, rating, email)
+        print(u in p.rated.all())
+        response = try_add_rate(u, p, rating)
 
         c = Comment.objects.create(
             rating = rating,
             description = desc,
             first_name = first_name
         )
-
 
         p.comments.add(c)
         p.save()
