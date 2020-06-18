@@ -17,7 +17,7 @@ import {
     SET_SEARCH,
     SET_FLAG_ITEM,
     SET_ORDERING,
-    SET_SLIDER
+    SET_SLIDER,
 } from '../types'
 
 export const ItemsState = ({ children }) => {
@@ -36,7 +36,7 @@ export const ItemsState = ({ children }) => {
         max: 19060,
         currentMin: store.get('currentMin') === undefined ? 0 : store.get('currentMin') ,
         currentMax: store.get('currentMax') === undefined ? 20000 : store.get('currentMax') ,
-        ordering: store.get('ordering') === undefined ? 0 : store.get('ordering') 
+        ordering: store.get('ordering') === undefined ? 0 : store.get('ordering')
         }
 
     const [state, dispatch] = useReducer(ItemsReducer, initialState)
@@ -50,9 +50,7 @@ export const ItemsState = ({ children }) => {
 
             if (state.checkedList.length === 0) {
                 url = `http://localhost:8000/api/null/${state.currentPage}/${state.pageSize}/${state.search}/${state.currentMin}/${state.currentMax}/${state.ordering}/`
-
                 urlLen = `http://localhost:8000/api/len/null/${state.search}/${state.currentMin}/${state.currentMax}/`
-
                 fl = false
             }
             const response = await axios.get(url)
@@ -85,6 +83,7 @@ export const ItemsState = ({ children }) => {
         }
         await axios(options)
             .then((response) => {
+                setFlag()
                 console.log(response.data)
             })
             .catch((error) => {
@@ -101,7 +100,6 @@ export const ItemsState = ({ children }) => {
         }
         await axios(options)
             .then((response) => {
-                setFlag()
                 console.log(response.data)
             })
             .catch((error) => {

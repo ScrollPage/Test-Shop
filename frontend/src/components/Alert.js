@@ -10,6 +10,7 @@ export const Alert = () => {
         setTimeout(() => {
             hide()
         }, 2000)
+        //eslint-disable-next-line
     }, [alert])
 
     if (!alert) return null
