@@ -35,7 +35,7 @@ export const AuthState = ({ children }) => {
                 store.remove('basket')
 
                 authSuccess(response.data.token)
-                autoLogout(3600 * 1000)
+                // autoLogout(3600 * 24)
                 show('Вы успешно вошли!', 'success')
                 console.log(response.data)
             })
