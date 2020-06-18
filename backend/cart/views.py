@@ -14,10 +14,13 @@ def add_to_cart(request):
     uid = data['uid']
     amount = int(data['amount'])
 
-    u = get_or_create_anon_user(email)
+    print(data)
 
+    info = get_or_create_anon_user(email)
+
+    u = info[0]
+    user_order = info[1]
     p = Product.objects.get(id = uid)
-    user_order = Order.objects.get(owner = u)
     order_item = user_order.items.filter(product = p).first()
 
     if order_item:

@@ -12,13 +12,13 @@ def add_rate(request, **kwargs):
         email = data.get('email', False)
         if email == 'undefined':
             email = False
-        rating = data['rating']
+        rating = int(data['rating'])
 
-        u = get_or_create_anon_user(email)
+        u = get_or_create_anon_user(email)[0]
         p = Product.objects.get(id = uid)
-        response = try_add_rate(u, p, rating)
+        response = try_add_rate(u, p, rating, email)
     else:
-        response = 'forbidden'
+        response = HttpResponse('forbidden')
 
     return response
 
@@ -27,14 +27,14 @@ def create_comment(request):
         data = request.POST
         desc = data['description']
         email = data['email']
-        rating = data['rating']
+        rating = int(data['rating'])
         uid = data['uid']
         first_name = data['first_name']
         
         u = get_or_create_anon_user(email)
         p = Product.objects.get(id = uid)
 
-        response = try_add_rate(u, p, rating)
+        response = try_add_rate(u, p, rating, email)
 
         c = Comment(
             rating = rating,
