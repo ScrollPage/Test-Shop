@@ -79,7 +79,7 @@ export const ItemsState = ({ children }) => {
 
     const setSearch = (search) => dispatch({type: SET_SEARCH, payload: search})    
 
-    const setRated = (id, email, rating) => {
+    const setRated = async (id, email, rating) => {
         const data = { uid: id, email, rating }
         const options = {
             method: 'POST',

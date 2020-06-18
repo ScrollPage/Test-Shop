@@ -1,19 +1,20 @@
 import React, { useEffect, useContext, useState } from 'react'
 import { useRouteMatch } from 'react-router-dom'
 import useReactRouter from 'use-react-router'
-
+import store from 'store'
 import { Button } from 'antd'
 import { Loader } from '../components/Loader'
 import { BasketCart } from '../components/BasketCart'
 import { ItemsContext } from '../context/items/ItemsContext'
 import { BasketContext } from '../context/basket/BasketContext'
 import StarRatings from 'react-star-ratings'
+import { Comments } from '../components/Comments'
 
 export const Item = () => {
 
     const { history } = useReactRouter()
-    const { fetchItemById, item, loading } = useContext(ItemsContext)
-    const { addItemToBasket, removeItemToBasket, setRated } = useContext(BasketContext)
+    const { fetchItemById, item, loading, setRated } = useContext(ItemsContext)
+    const { addItemToBasket, removeItemToBasket } = useContext(BasketContext)
     const match = useRouteMatch('/items/:id')
 
     const [ amount, setAmount ] = useState(0)
@@ -35,7 +36,8 @@ export const Item = () => {
 
     const changeRating = (newRating, name) => {
         setRating(newRating)
-        setRated(newRating)
+        setRated(item.id, store.get('email'), newRating)
+        // setReviews(reviews+1)
     }
 
     const renderSidebar = () => {
@@ -50,7 +52,7 @@ export const Item = () => {
                     <Button onClick={() => setAmount(amount + 1)}>+</Button>
                 </div>
                 <Button className="mb-4" size="large" type="primary" onClick={() => amount === 0 ? null : addItemToBasket(item, amount)}>Добавить в корзину</Button>
-                <Button className="mb-4" size="large" type="primary" onClick={() => removeItemToBasket(item)}>Удалить из корзины</Button>
+                <Button className="item-delete mb-4" size="large" type="primary" onClick={() => removeItemToBasket(item)}>Удалить из корзины</Button>
             </div>
         )
     }
@@ -72,6 +74,7 @@ export const Item = () => {
                                     // src={`..${item.image}`}
                                     // src={require("../uploads/Lumia1520-Front-Back-png.png")}
                                     // src={getImage()}
+                                    src={`https://picsum.photos/id/${item.id}/300/300`}
                                     style={{ height: '250px' }}
                                     className="mb-4"
                                     alt={item.name}>
@@ -98,6 +101,7 @@ export const Item = () => {
                     {item && renderSidebar()}
                 </div>
             </div>
+            <Comments item={item}/>
         </div>
 
     )
