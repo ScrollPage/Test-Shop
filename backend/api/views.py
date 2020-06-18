@@ -37,9 +37,9 @@ class ProductListView(generics.ListAPIView):
 		elif ordering == 2:
 			queryset = Product.objects.order_by('-price').filter(price__range = (mini, maxi))
 		elif ordering ==3:
-			queryset = Product.objects.order_by('-rating')
+			queryset = Product.objects.order_by('-rating').filter(price__range = (mini, maxi))
 		else:
-			queryset = Product.objects.all()
+			queryset = Product.objects.all().filter(price__range = (mini, maxi))
 
 		queryset = make_searched(search, queryset)
   
