@@ -14,7 +14,8 @@ import {
     SET_TOTAL_COUNT,
     FETCH_ITEM_BY_ID_SUCCESS,
     SET_CHECKED_LIST,
-    SET_SEARCH
+    SET_SEARCH,
+    SET_FLAG_ITEM
 } from '../types'
 
 export const ItemsState = ({ children }) => {
@@ -27,7 +28,8 @@ export const ItemsState = ({ children }) => {
         loading: false,
         error: null,
         checkedList: store.get('checkedList') === undefined ? ['Apple','Samsung','HTC','Lenovo','Nokia'] : store.get('checkedList'),
-        search: store.get('search') === undefined ? null : store.get('search')
+        search: store.get('search') === undefined ? null : store.get('search'),
+        flag: false
         }
 
     const [state, dispatch] = useReducer(ItemsReducer, initialState)
@@ -80,6 +82,8 @@ export const ItemsState = ({ children }) => {
 
     const setSearch = (search) => dispatch({type: SET_SEARCH, payload: search})    
 
+    const setFlag = () => dispatch({ type: SET_FLAG_ITEM })
+
     const setRated = async (id, email, rating) => {
         const data = { uid: id, email, rating }
         const options = {
@@ -105,6 +109,7 @@ export const ItemsState = ({ children }) => {
         }
         axios(options)
             .then((response) => {
+                setFlag()
                 console.log(response.data)
             })
             .catch((error) => {
@@ -112,7 +117,7 @@ export const ItemsState = ({ children }) => {
             });
     }
 
-    const { items, item, pageSize, currentPage, totalItemsCount, loading, checkedList, search } = state
+    const { items, item, pageSize, currentPage, totalItemsCount, loading, checkedList, search, flag } = state
 
     return (
         <ItemsContext.Provider value={{
@@ -124,7 +129,7 @@ export const ItemsState = ({ children }) => {
             setCheckedList,
             setRated,
             setComment,
-            items, item, pageSize, currentPage, totalItemsCount, loading, checkedList, search
+            items, item, pageSize, currentPage, totalItemsCount, loading, checkedList, search, flag
         }}>
             {children}
         </ItemsContext.Provider>

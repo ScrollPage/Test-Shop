@@ -6,11 +6,13 @@ import {
     SET_TOTAL_COUNT,
     FETCH_ITEM_BY_ID_SUCCESS,
     SET_CHECKED_LIST,
-    SET_SEARCH
+    SET_SEARCH,
+    SET_FLAG_ITEM
 } from '../types'
 
 const handlers = {
     [SET_LOADING]: state => ({...state, loading: true}),
+    [SET_FLAG_ITEM]: state => ({...state, flag: !state.flag}),
     [FETCH_ITEMS_SUCCESS]: (state, {payload}) => ({...state, items: payload, loading: false}),
     [FETCH_ITEM_BY_ID_SUCCESS]: (state, {payload}) => ({...state, item: payload, loading: false}),
     [FETCH_ERROR]: (state, {payload}) => ({...state, error: payload, loading: false}),
