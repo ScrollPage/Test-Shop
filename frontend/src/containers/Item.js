@@ -13,7 +13,7 @@ import { Comments } from '../components/Comments'
 export const Item = () => {
 
     const { history } = useReactRouter()
-    const { fetchItemById, item, loading, setRated } = useContext(ItemsContext)
+    const { fetchItemById, item, loading, setRated, flag } = useContext(ItemsContext)
     const { addItemToBasket, removeItemToBasket } = useContext(BasketContext)
     const match = useRouteMatch('/items/:id')
 
@@ -24,7 +24,7 @@ export const Item = () => {
     useEffect(() => {
         fetchItemById(match.params.id)
         // eslint-disable-next-line
-    }, [match.params.id])
+    }, [match.params.id, flag])
 
     useEffect(() => {
         if (item !== null) {
