@@ -15,7 +15,8 @@ def add_rate(request, **kwargs):
     if len(u) == 1:
         response = HttpRespone('refused')
     else:
-        p.add(Account, email = email)
+        u = Account.objects.het(email = email)
+        p.rated.add(Account = u)
         count = p.reviews
         new_rating = ((p.rating * count) + rating) / (count + 1)
         p.rating = round(new_rating, 1)
