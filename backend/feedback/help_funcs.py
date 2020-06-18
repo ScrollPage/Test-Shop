@@ -1,22 +1,29 @@
 from account.models import Account
+from cart.models import Order
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 
 def get_or_create_anon_user(email):
+    
     if email:
         u = get_object_or_404(Account, email = email)
     else:
         u = Account.objects.create_user(email = 'anonym@anonym.com', first_name = '', last_name = '', phone_number = '')
         u.email = f'unlogged_{u.id}@anonym.com'
         u.is_active = True
-        Order.objects.create(owner = u)
         u.save()
     
-    return u
+    try:
+        o = Order.objects.get(owner = u)
+    except:
+        o = Order.objects.create(owner = u)
+    
+    return (u, o)
 
-def try_add_rate(u, p, rating):
-    if u in p.rated:
-        response = HttpRespone('refused')
+def try_add_rate(u, p, rating, email):
+
+    if u in p.rated.all():
+        response = HttpResponse('refused')
     else:
         u = Account.objects.get(email = email)
         p.rated.add(u)

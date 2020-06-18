@@ -20,8 +20,8 @@ class Product(models.Model):
 	memory = models.CharField(max_length = 100)
 	rating = models.FloatField(default = 0)
 	reviews = models.IntegerField(default = 0)
-	comments = models.ManyToManyField(Comment)
-	rated = models.ManyToManyField(Account)
+	comments = models.ManyToManyField(Comment, blank = True)
+	rated = models.ManyToManyField(Account, blank = True)
 
 class ProductCount(models.Model):
 	total = models.IntegerField(default = 0)
