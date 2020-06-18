@@ -3,10 +3,9 @@ from api.models import Product
 from account.models import Account
 from cart.models import Order, OrderItem
 from cart.help_funcs import generate_token
-from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
+from feedback.help_funcs import get_or_create_anon_user
 
-@csrf_exempt
 def add_to_cart(request):
     data = request.POST
     email = data.get('email', False)
@@ -15,14 +14,7 @@ def add_to_cart(request):
     uid = data['uid']
     amount = int(data['amount'])
 
-    if email:
-        u = get_object_or_404(Account, email = email)
-    else:
-        u = Account.objects.create_user(email = 'anonym@anonym.com', first_name = '', last_name = '', phone_number = '')
-        u.email = f'unlogged_{u.id}@anonym.com'
-        u.is_active = True
-        Order.objects.create(owner = u)
-        u.save()
+    u = get_or_create_anon_user(email)
 
     p = Product.objects.get(id = uid)
     user_order = Order.objects.get(owner = u)
@@ -52,7 +44,6 @@ def add_to_cart(request):
 
     return response
 
-@csrf_exempt
 def delete_from_cart(request):
     data = request.POST
     email = data['email']
@@ -77,7 +68,6 @@ def delete_from_cart(request):
     
     return HttpResponse('ok')
 
-@csrf_exempt
 def clear_cart(request):
     data = request.POST
     email = data['email']

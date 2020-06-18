@@ -20,6 +20,7 @@ class ProductSerializer(serializers.ModelSerializer):
 			'memory',
 			'rating',
 			'reviews',
+			'comments',
 		]
 		depth = 2
 
