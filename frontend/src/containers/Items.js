@@ -6,6 +6,7 @@ import { Card } from '../components/Card'
 import { Layout } from './Layout'
 import { ItemsContext } from '../context/items/ItemsContext'
 import { BasketContext } from '../context/basket/BasketContext'
+import { SelectUI } from '../components/SelectUI'
 
 export const Items = () => {
 
@@ -36,6 +37,7 @@ export const Items = () => {
 
     return (
         <Layout>
+            <SelectUI />
             <div className="card-group row">
                 {
                     loading

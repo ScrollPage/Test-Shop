@@ -29,7 +29,11 @@ export const ItemsState = ({ children }) => {
         error: null,
         checkedList: store.get('checkedList') === undefined ? ['Apple','Samsung','HTC','Lenovo','Nokia'] : store.get('checkedList'),
         search: store.get('search') === undefined ? null : store.get('search'),
-        flag: false
+        flag: false, 
+        min: 0,
+        max: 20000,
+        currentMin: 0,
+        currentMax: 20000
         }
 
     const [state, dispatch] = useReducer(ItemsReducer, initialState)

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { ItemsContext } from '../context/items/ItemsContext'
+import { Button } from 'antd'
 
 export const Paginator = ({ totalItemsCount, pageSize, portionSize }) => {
 
@@ -29,20 +30,20 @@ export const Paginator = ({ totalItemsCount, pageSize, portionSize }) => {
     return (
         <div className="paginator btn-group mb-3" role="group">
             {portionNumber > 1 &&
-                <button className="btn btn-secondary" onClick={() => { setPortionNumber(portionNumber - 1) }}>PREV</button>}
+                <Button onClick={() => { setPortionNumber(portionNumber - 1) }}>PREV</Button>}
 
             {pages
                 .filter(index => index >= leftPortionPageNumber && index <= rightPortionPageNumber)
                 .map(index => {
-                    return <button
-                        className={currentPage === index ? "text-info btn btn-secondary" : "btn btn-secondary"}
+                    return <Button
+                        className={currentPage === index ? "button-active" : ""}
                         key={index}
                         onClick={() => pageChanged(index)}
-                    >{index}&nbsp;</button>
+                    >{index}&nbsp;</Button>
                 })}
 
             {portionNumber < portionCount &&
-                <button className="btn btn-secondary" onClick={() => { setPortionNumber(portionNumber + 1) }}>NEXT</button>}
+                <Button onClick={() => { setPortionNumber(portionNumber + 1) }}>NEXT</Button>}
         </div>
     )
 }

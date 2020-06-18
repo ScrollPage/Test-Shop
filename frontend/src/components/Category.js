@@ -28,8 +28,8 @@ export const Category = () => {
 
     return (
         <div className="category mt-3 mb-3">
-            <h3>Категории</h3>
             <hr />
+            <h3>Категории</h3>
             <div>
                 <div className="site-checkbox-all-wrapper">
                     <Checkbox
@@ -40,13 +40,13 @@ export const Category = () => {
                         Все
                     </Checkbox>
                 </div>
-                <hr />
                 <CheckboxGroup
                     options={plainOptions}
                     value={checkedList}
                     onChange={onChange}
                 />
             </div>
+            <hr />
         </div>
     )
 }

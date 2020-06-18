@@ -38,7 +38,6 @@ export const Comments = ({ item }) => {
         setRating(newRating)
     }
 
-
     const renderModel = () => (
         <div className="fixed-overlay">
             <div className="comments-modal">
