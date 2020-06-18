@@ -1,5 +1,6 @@
 from account.models import Account
 from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
 
 def get_or_create_anon_user(email):
     if email:

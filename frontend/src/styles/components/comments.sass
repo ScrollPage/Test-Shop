@@ -33,27 +33,32 @@
 
 .comments-modal
     position: absolute
-    top: 40%
+    top: 50%
     left: 50%
     margin-left: -300px
-    margin-top: -200px
+    margin-top: -150px
     @include media("<=767px")
+        margin-left: -200px
+    @include media("<=phone")
         margin-left: -150px
 
 .comments-container
     // position: relative
-    min-height: 400px
+    min-height: 300px
     width: 600px
     background-color: $white
-    padding: 40px 20px
+    padding: 30px 20px
     h4 
         text-align: center
+        margin-bottom: 35px
     textarea 
         resize: vertical
         max-height: 200px
         @include media("<=767px")
             max-height: 150px
     @include media("<=767px")
+        width: 400px
+    @include media("<=phone")
         width: 300px
 
 .comments-closed

@@ -1,14 +1,16 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useContext } from 'react'
 import StarRatings from 'react-star-ratings'
 import { CloseOutlined } from '@ant-design/icons';
 import { Form, Input, Button } from 'antd';
+import { AlertContext } from '../context/alert/AlertContext'
 
 export const Comments = ({ item }) => {
 
     const [modal, setModal] = useState(false)
 
-    const [name, setName] = useState('sdfsdf')
-    const [email, setEmail] = useState('')
+    // const [name, setName] = useState('sdfsdf')
+    // const [email, setEmail] = useState('')
+    const { show } = useContext(AlertContext)
 
     const layout = {
         labelCol: { span: 4 },
@@ -16,14 +18,17 @@ export const Comments = ({ item }) => {
     };
 
     const validateMessages = {
-        required: 'Поле не заполнено!',
-        types: {
-            email: 'Некорректный E-mail!',
-        }
+        required: 'Поле не заполнено!'
     };
 
     const onFinish = values => {
         console.log(values);
+        setTimeout(() => {
+            document.body.style.overflowY = 'scroll'
+            setModal(false)
+            show('Ваш комментраий успешно добавлен!', 'success')
+        }, 500)
+
     };
 
 
@@ -36,13 +41,10 @@ export const Comments = ({ item }) => {
                 <div className="comments-container">
                     <h4>Оставить отзыв</h4>
                     <Form name="nest-messages" {...layout} onFinish={onFinish} validateMessages={validateMessages}>
-                        <Form.Item value={name} name={['user', 'name']} label="Имя" rules={[{ required: true }]} >
-                            <Input value={name}/>
-                        </Form.Item>
-                        <Form.Item name={['user', 'email']} label="Email" rules={[{ type: 'email' }]}>
+                        <Form.Item name={'name'} label="Имя" rules={[{ required: true }]} >
                             <Input />
                         </Form.Item>
-                        <Form.Item name={['user', 'introduction']} label="Отзыв" rules={[{ required: true, max: 400 }]}>
+                        <Form.Item name={'introduction'} label="Отзыв" rules={[{ required: true, max: 400 }]}>
                             <Input.TextArea />
                         </Form.Item>
                         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }} >

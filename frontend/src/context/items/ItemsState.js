@@ -53,6 +53,7 @@ export const ItemsState = ({ children }) => {
             fetchError(e)
         }
     }
+    
     const fetchItemById = async id => {
         setLoading()
         try {

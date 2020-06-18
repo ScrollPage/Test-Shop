@@ -3,8 +3,11 @@ import Img from '../assets/player.jpg'
 import { Button } from 'antd'
 import { CloseOutlined } from '@ant-design/icons';
 import { motion } from 'framer-motion'
+import useReactRouter from 'use-react-router'
 
 export const BasketItem = ({ data, remove, add }) => {
+
+    const { history } = useReactRouter()
 
     const listVar = {
         hidden: { 
@@ -29,7 +32,11 @@ export const BasketItem = ({ data, remove, add }) => {
             variants={listVar}
         >
             <div className="basket-img">
-                <img src={Img} alt={data.name} />
+                <img 
+                    src={Img} 
+                    alt={data.name}
+                    onClick={() => history.push(`/items/:${data.product.id}`)}
+                />
             </div>
             <div className="basket-info">
                 <div className="basket-up">
@@ -37,7 +44,9 @@ export const BasketItem = ({ data, remove, add }) => {
                         <p>{data.product.price * data.amount}&nbsp;Р</p>
                     </div>
                     <div className="basket-name">
-                        <p>{data.product.name}</p>
+                        <p
+                        onClick={() => history.push(`/items/:${data.product.id}`)}
+                        >{data.product.name}</p>
                     </div>
                 </div>
                 <div className="basket-amount">
