@@ -1,16 +1,22 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import { Drower } from './Drower'
 import { MenuToggle } from './MenuToggle'
-
+import { BasketContext } from '../../context/basket/BasketContext'
 import { AuthContext } from '../../context/auth/AuthContext'
 
 export const Header = () => {
 
     const [menu, setMenu] = useState(false)
     const { token, onLogout } = useContext(AuthContext)
+    const { price, count, fetchBasket } = useContext(BasketContext)
     const isAuthenticated = !!token
+
+    useEffect(() => {
+        fetchBasket()
+    // eslint-disable-next-line
+    }, [price, count])
 
     return (
         <div className="header">
@@ -39,6 +45,7 @@ export const Header = () => {
                         <div className="header-right">
                             <div className="header-item">
                                 <NavLink to="/basket" className="nav-link">Корзина</NavLink>
+                                {count === 0 ? null : <span>{count}</span>}
                             </div>
                             <div className="header-item">
                                 {

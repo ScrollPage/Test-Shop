@@ -65,7 +65,7 @@ export const AuthState = ({ children }) => {
     const onLogout = () => { show('Вы успешно вышли!', 'success'); logout(); }
 
     const autoLogin = () => {
-        const token = store.get('token')
+        const token = store.get('token') 
         if (!token) {
             logout()
         } else {

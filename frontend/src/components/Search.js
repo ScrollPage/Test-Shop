@@ -6,7 +6,7 @@ export const Search = () => {
     const { search, setSearch, setCurrentPage } = useContext(ItemsContext)
 
     return (
-        <div className="input-group mt-4">
+        <div className="input-group">
             <input
                 onChange={event => {setSearch(event.target.value); setCurrentPage(1);}}
                 value={search === null ? '' : search}

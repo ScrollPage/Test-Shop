@@ -4,7 +4,6 @@ import useReactRouter from 'use-react-router'
 import store from 'store'
 import { Button } from 'antd'
 import { Loader } from '../components/Loader'
-import { BasketCart } from '../components/BasketCart'
 import { ItemsContext } from '../context/items/ItemsContext'
 import { BasketContext } from '../context/basket/BasketContext'
 import StarRatings from 'react-star-ratings'
@@ -42,7 +41,6 @@ export const Item = () => {
     const renderSidebar = () => {
         return (
             <div className="mt-4">
-                <BasketCart />
                 <h4 className="mt-4 mb-4">{item.name}</h4>
                 <p>Выберите количество:</p>
                 <div className="item-amount">
