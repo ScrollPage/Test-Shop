@@ -22,7 +22,6 @@ export const Basket = () => {
 
     useEffect(() => {
         fetchBasket()
-        console.log('asdasd')
     // eslint-disable-next
     }, [])
 

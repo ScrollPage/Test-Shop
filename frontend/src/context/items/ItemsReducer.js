@@ -9,7 +9,7 @@ import {
     SET_SEARCH,
     SET_FLAG_ITEM,
     SET_ORDERING,
-    SET_SLIDER
+    SET_SLIDER,
 } from '../types'
 
 const handlers = {

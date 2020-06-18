@@ -29,13 +29,13 @@ export const BasketItem = ({ data, remove, add }) => {
     return (
         <motion.div
             className="basket-item"
-            // variants={listVar}
+            variants={listVar}
         >
             <div className="basket-img">
                 <img 
                     src={Img} 
                     alt={data.name}
-                    onClick={() => history.push(`/items/:${data.product.id}`)}
+                    onClick={() => history.push(`/items/${data.product.id}`)}
                 />
             </div>
             <div className="basket-info">
@@ -45,7 +45,7 @@ export const BasketItem = ({ data, remove, add }) => {
                     </div>
                     <div className="basket-name">
                         <p
-                        onClick={() => history.push(`/items/:${data.product.id}`)}
+                        onClick={() => history.push(`/items/${data.product.id}`)}
                         >{data.product.name}</p>
                     </div>
                 </div>
