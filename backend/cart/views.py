@@ -43,7 +43,7 @@ def add_to_cart(request):
     if u.email.split('_')[0] == 'unlogged':
         response = HttpResponse(f'{u.email}')
     else:
-        response = HttpResponse('ok')
+        response = HttpResponse('added')
 
     return response
 
@@ -68,8 +68,11 @@ def delete_from_cart(request):
         user_order.total_price -= p.price * amount
         user_order.total_count -= amount
         user_order.save()
+        response = HttpResponse('successfully removed')
+    else:
+        responeso = HttpResponse('no such item in basket')
     
-    return HttpResponse('ok')
+    return response
 
 def clear_cart(request):
     data = request.POST
@@ -85,5 +88,4 @@ def clear_cart(request):
     order_to_clear.total_count = 0
     order_to_clear.save() 
     
-    return HttpResponse('ok')
-
+    return HttpResponse('cleared')
