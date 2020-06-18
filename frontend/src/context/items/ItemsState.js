@@ -45,15 +45,13 @@ export const ItemsState = ({ children }) => {
         setLoading()
         try {
             let fl = true
-            console.log(currentMin, currentMax)
             let url = `http://localhost:8000/api/${state.checkedList}/${state.currentPage}/${state.pageSize}/${state.search}/${state.currentMin}/${state.currentMax}/${state.ordering}/`
             let urlLen = `http://localhost:8000/api/len/${state.checkedList}/${state.search}/${state.currentMin}/${state.currentMax}/`
 
             if (state.checkedList.length === 0) {
-                url = `http://localhost:8000/api/null/${state.currentPage}/${state.pageSize}/${state.search}/${state.currentMin}/${state.currentMax}/${state.ordering}`
+                url = `http://localhost:8000/api/null/${state.currentPage}/${state.pageSize}/${state.search}/${state.currentMin}/${state.currentMax}/${state.ordering}/`
 
-                urlLen = `http://localhost:8000/api/len/${state.search}/${state.currentMin}/${state.currentMax}`
-                
+                urlLen = `http://localhost:8000/api/len/null/${state.search}/${state.currentMin}/${state.currentMax}/`
 
                 fl = false
             }
@@ -78,6 +76,39 @@ export const ItemsState = ({ children }) => {
         }
     }
 
+    const setRated = async (id, email, rating) => {
+        const data = { uid: id, email, rating }
+        const options = {
+            method: 'POST',
+            url: "http://localhost:8000/feedback/rating",
+            data: qs.stringify(data)
+        }
+        await axios(options)
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    const setComment = async (id, firstName, rating, description) => {
+        const data = { uid: id, email: store.get('email'), rating, first_name: firstName, description }
+        const options = {
+            method: 'POST',
+            url: "http://localhost:8000/feedback/comment",
+            data: qs.stringify(data)
+        }
+        await axios(options)
+            .then((response) => {
+                setFlag()
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     const fetchItemByIdSuccess = (item) => dispatch({ type: FETCH_ITEM_BY_ID_SUCCESS, payload: item })
 
     const fetchItemsSuccess = (items) => dispatch({ type: FETCH_ITEMS_SUCCESS, payload: items })
@@ -96,45 +127,9 @@ export const ItemsState = ({ children }) => {
 
     const setOrdering = (ordering) => dispatch({type: SET_ORDERING, payload: ordering})
 
-    const setSlider = (currentMin, currentMax) => {
-        // console.log(currentMin, currentMax)
-        dispatch({type: SET_SLIDER, payload: {currentMin, currentMax}})
-    }
+    const setSlider = (currentMin, currentMax) => dispatch({type: SET_SLIDER, payload: {currentMin, currentMax}})
 
     const setFlag = () => dispatch({ type: SET_FLAG_ITEM })
-
-    const setRated = async (id, email, rating) => {
-        const data = { uid: id, email, rating }
-        const options = {
-            method: 'POST',
-            url: "http://localhost:8000/feedback/rating",
-            data: qs.stringify(data)
-        }
-        axios(options)
-            .then((response) => {
-                console.log(response.data)
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
-
-    const setComment = async (id, firstName, rating, description) => {
-        const data = { uid: id, email: store.get('email'), rating, first_name: firstName, description }
-        const options = {
-            method: 'POST',
-            url: "http://localhost:8000/feedback/comment",
-            data: qs.stringify(data)
-        }
-        axios(options)
-            .then((response) => {
-                setFlag()
-                console.log(response.data)
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
 
     const { items, item, pageSize, currentPage, totalItemsCount, loading, checkedList, search, flag,
     min, max, currentMin, currentMax, ordering } = state

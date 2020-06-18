@@ -81,8 +81,9 @@ class ProductsCountView(generics.ListAPIView):
 			queryset = make_searched(search, queryset)
 
 		arr = [prod.price for prod in queryset]
-		mini = min(arr)
-		maxi = max(arr)
+		if len(arr) > 0:
+			mini = min(arr)
+			maxi = max(arr)
 
 		queryset =	{
 					'total': len(queryset),

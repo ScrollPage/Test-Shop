@@ -1,9 +1,11 @@
 import React, { useContext, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { BasketContext } from '../context/basket/BasketContext'
+import useReactRouter from 'use-react-router'
+
 
 export const BasketCart = () => {
 
+    const { history } = useReactRouter()
     const { price, count, fetchBasket } = useContext(BasketContext)
 
     useEffect(() => {
@@ -12,8 +14,9 @@ export const BasketCart = () => {
     }, [price, count])
 
     return (
-        <Link to="/basket" className="btn btn-lg btn-block btn-outline-primary">
-            {count} товаров - {price}&nbsp;₽
-        </Link>
+        <div className="basket-cart" onClick={() => history.push('/basket')}>
+            <p>{count} товаров</p>
+            <p>{price}&nbsp;₽</p>
+        </div>
     )
 }

@@ -44,16 +44,16 @@ export const BasketState = ({ children }) => {
 
     const setFlag = () => dispatch({ type: SET_FLAG })
 
-    const addItemToBasket = (item, amount = 1) => {
+    const addItemToBasket = async (item, amount = 1) => {
         const data = { uid: item.id, amount: amount, email: store.get('email') }
         const options = {
             method: 'POST',
             url: "http://localhost:8000/cart/add",
             data: qs.stringify(data)
         }
-        axios(options)
+        await axios(options)
             .then((response) => {
-                if (response.data !== 'ok') {
+                if (response.data !== 'added') {
                     store.set('email', response.data)
                 }
                 addItemToBasketSuccess(item, amount)
@@ -64,14 +64,14 @@ export const BasketState = ({ children }) => {
             });
     }
 
-    const removeItemToBasket = (item, amount = 1) => {
+    const removeItemToBasket = async (item, amount = 1) => {
         const data = { uid: item.id, amount: amount, email: store.get('email') }
         const options = {
             method: 'POST',
             url: "http://localhost:8000/cart/remove",
             data: qs.stringify(data)
         }
-        axios(options)
+        await axios(options)
             .then((response) => {
                 removeItemToBasketSuccess(item, amount)
                 setFlag()
@@ -81,14 +81,14 @@ export const BasketState = ({ children }) => {
             });
     }
 
-    const clearItemToBasket = () => {
+    const clearItemToBasket = async () => {
         const data = { email: store.get('email') }
         const options = {
             method: 'POST',
             url: "http://localhost:8000/cart/clear",
             data: qs.stringify(data)
         }
-        axios(options)
+        await axios(options)
             .then((response) => {
                 clearItemToBasketSuccess()
                 setFlag()

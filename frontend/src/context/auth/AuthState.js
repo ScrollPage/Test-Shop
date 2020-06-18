@@ -21,12 +21,12 @@ export const AuthState = ({ children }) => {
 
     const [state, dispatch] = useReducer(AuthReducer, initialState)
 
-    const authLogin = (email, password) => {
-        axios.post("http://localhost:8000/account/login", {
+    const authLogin = async (email, password) => {
+        await axios.post("http://localhost:8000/account/login", {
             username: email, password
         })
             .then((response) => {
-                const expirationDate = new Date(new Date().getTime() + 60 * 1000)
+                const expirationDate = new Date(new Date().getTime() + 3600 * 1000 * 24)
                 store.set('token', response.data.token)
                 store.set('expirationDate', expirationDate)
                 store.set('email', email)
@@ -35,7 +35,7 @@ export const AuthState = ({ children }) => {
                 store.remove('basket')
 
                 authSuccess(response.data.token)
-                // autoLogout(72000)
+                autoLogout(3600 * 1000)
                 show('Вы успешно вошли!', 'success')
                 console.log(response.data)
             })
@@ -45,8 +45,8 @@ export const AuthState = ({ children }) => {
             });
     }
 
-    const authRegister = (email, firstName, lastName, number, password) => {
-        axios.post("http://localhost:8000/account/register", {
+    const authRegister = async (email, firstName, lastName, number, password) => {
+        await axios.post("http://localhost:8000/account/register", {
             email: email, first_name: firstName, last_name: lastName, phone_number: number, password: password
         })
             .then((response) => {

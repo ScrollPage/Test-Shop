@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { Redirect } from 'react-router-dom'
 
@@ -15,13 +15,13 @@ import { AuthContext } from './context/auth/AuthContext';
 
 export const Routes = () => {
 
-    const { token } = useContext(AuthContext)
+    const { token, autoLogin } = useContext(AuthContext)
     const isAuthenticated = !!token
 
-    // useEffect(() => {
-        // autoLogin()
+    useEffect(() => {
+        autoLogin()
         // eslint-disable-next-line
-    // }, [])
+    }, [])
 
     let routes = (
         <Switch>

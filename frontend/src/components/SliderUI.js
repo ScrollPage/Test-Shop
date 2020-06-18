@@ -27,13 +27,12 @@ export const SliderUI = () => {
     <div className="sliderui mb-4" style={{ width: '80%', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
       <p style={{ fontSize: '1.2rem', fontWeight: '700' }} className="mb-4">Цена ОТ и ДО</p>
       <Slider
-        valueLabelDisplay="on"
+        valueLabelDisplay="auto"
         min={min}
         step={1000}
         max={max}
         value={value}
         onChange={handleChange}
-        valueLabelDisplay="auto"
         aria-labelledby="range-slider"
         marks={marks}
       />
