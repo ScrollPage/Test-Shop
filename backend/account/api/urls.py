@@ -7,4 +7,5 @@ urlpatterns = [
     path('login', obtain_auth_token, name = 'login'),
     path('authorization_confirm/<token>', api_views.AuthorizationConfirm.as_view(), name = 'confirm'),
     path('api/<email>', api_views.UserOverView.as_view(), name = 'over_view'),
+    path('data_change/<email>', api_views.UserDataChange.as_view(), name = 'data_change')
 ]
