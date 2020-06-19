@@ -24,3 +24,9 @@ class RegistrationSerializer(serializers.ModelSerializer):
         return account
 
 
+class UserDataChangeSerializer(serializers.ModelSerializer):
+
+    class Meta():
+        model = Account
+        fields = ['email', 'first_name', 'last_name', 'phone_number']
+
