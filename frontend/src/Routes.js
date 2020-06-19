@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { Redirect } from 'react-router-dom'
+import { AnimatePresence } from 'framer-motion'
 
 import { Main } from './containers/Main';
 import { Items } from './containers/Items';
@@ -54,6 +55,8 @@ export const Routes = () => {
     }
 
     return (
-        routes
+        <AnimatePresence>
+            {routes}
+        </AnimatePresence>
     )
 }

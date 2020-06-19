@@ -2,6 +2,7 @@ import React, { useReducer, useContext } from 'react'
 import axios from 'axios'
 import PropTypes from 'prop-types'
 import store from 'store'
+import qs from 'qs';
 import { AuthContext } from './AuthContext'
 import { AuthReducer } from './AuthReducer'
 import { AlertContext } from '../alert/AlertContext'
@@ -65,7 +66,7 @@ export const AuthState = ({ children }) => {
     const onLogout = () => { show('Вы успешно вышли!', 'success'); logout(); }
 
     const autoLogin = () => {
-        const token = store.get('token') 
+        const token = store.get('token')
         if (!token) {
             logout()
         } else {
@@ -97,12 +98,29 @@ export const AuthState = ({ children }) => {
         try {
             const response = await axios.get(`http://localhost:8000/account/api/${store.get('email')}`)
             fetchAccountSuccess(response.data[0])
-        } catch(e) {
+        } catch (e) {
             console.log(e)
         }
     }
 
-    const fetchAccountSuccess = (info) => dispatch({type: FETCH_ACCOUNT_SUCCESS, payload: info}) 
+    const fetchAccountSuccess = (info) => dispatch({ type: FETCH_ACCOUNT_SUCCESS, payload: info })
+
+    const changeAccount = async (email, firstName, lastName, number) => {
+        const data = { email, first_name: firstName, last_name: lastName, phone_number: number }
+        console.log(data)
+        const options = {
+            method: 'PUT',
+            url: `http://localhost:8000/account/data_change/${store.get('email')}/`,
+            data: qs.stringify(data)
+        }
+        await axios(options)
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 
     const { token, firstName, lastName, number, email } = state
 
@@ -116,6 +134,7 @@ export const AuthState = ({ children }) => {
             autoLogout,
             logout,
             fetchAccount,
+            changeAccount,
             token, firstName, lastName, number, email
         }}>
             {children}

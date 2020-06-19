@@ -10,34 +10,34 @@ import StarRatings from 'react-star-ratings'
 import { Comments } from '../components/Comments'
 
 export const Item = () => {
-
+    
     const { history } = useReactRouter()
     const { fetchItemById, item, loading, setRated, flag } = useContext(ItemsContext)
     const { addItemToBasket, removeItemToBasket } = useContext(BasketContext)
     const match = useRouteMatch('/items/:id')
-
+    
     const [ amount, setAmount ] = useState(0)
     const [ rating, setRating ] = useState(0)
     const [ reviews, setReviews ] = useState(0)
-
+    
     useEffect(() => {
         fetchItemById(match.params.id)
         // eslint-disable-next-line
     }, [match.params.id, flag])
-
+    
     useEffect(() => {
         if (item !== null) {
             setRating(item.rating)
             setReviews(item.reviews)
         }        
     }, [item])
-
+    
     const changeRating = (newRating, name) => {
         setRating(newRating)
         setRated(item.id, store.get('email'), newRating)
         // setReviews(reviews+1)
     }
-
+    
     const renderSidebar = () => {
         return (
             <div className="mt-4">

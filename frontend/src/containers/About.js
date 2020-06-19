@@ -22,8 +22,8 @@ export const About = () => {
         <div className="jumbotron">
             <div className="container">
                 <motion.h1 variants={itemTransition} initial="out" animate="in" exit="out" className="display-4">Информация</motion.h1>
-                <motion.p variants={itemTransition} initial="out" animate="in" exit="out" className="lead">Версия приложения: <strong>1.0.0</strong></motion.p>
-                <motion.p variants={itemTransition} initial="out" animate="in" exit="out" className="lead">Автор: <strong>0r20</strong></motion.p>
+                <motion.p variants={itemTransition} initial="out" animate="in" exit="out" className="lead">Версия приложения: <strong>2.0.0</strong></motion.p>
+                <motion.p variants={itemTransition} initial="out" animate="in" exit="out" className="lead">Авторы: <strong>0r20 && reqww</strong></motion.p>
             </div>
         </div>
     )

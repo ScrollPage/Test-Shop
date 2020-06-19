@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-import { ShoppingCartOutlined } from'@ant-design/icons';
+import { ShoppingCartOutlined } from '@ant-design/icons';
 import { Drower } from './Drower'
 import { MenuToggle } from './MenuToggle'
 import { BasketContext } from '../../context/basket/BasketContext'
@@ -18,6 +18,10 @@ export const Header = () => {
             <div className="cont">
                 <div className="ro">
                     <div className="header-logo">
+                        <div className="header-item">
+                            <NavLink to="/basket" className="nav-link nav-shipping"><ShoppingCartOutlined /></NavLink>
+                            {count === 0 ? null : <p>{count}</p>}
+                        </div>
                         <NavLink exact to="/" className="nav-link">Shop</NavLink>
                     </div>
                     <div className="header-body">
