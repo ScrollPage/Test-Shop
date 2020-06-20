@@ -2,60 +2,145 @@ import React, { useEffect, useContext } from 'react'
 import { AuthContext } from '../context/auth/AuthContext'
 import { Form, Input, Button } from 'antd';
 import store from 'store'
+import * as Yup from 'yup'
+import { UserOutlined, MailOutlined, PhoneOutlined, TeamOutlined } from '@ant-design/icons'
+import { useFormik } from 'formik'
+
+const validationSchema = Yup.object().shape({
+    email: Yup.string()
+        .email('Некорректный E-mail')
+        .required('Введите E-mail'),
+    firstName: Yup.string()
+        .min(3, 'Слишком короткое имя')
+        .required('Введите имя'),
+    lastName: Yup.string()
+        .min(3, 'Слишком короткая фамилия')
+        .required('Введите фамилию'),
+    number: Yup.string()
+        .min(11, 'Короткий номер телефона')
+        .max(11, 'Слишком длинный номер телефона')
+        .required('Введите телефон')
+})
+
+const errorMessege = (touched, messege) => {
+    if (!touched) {
+        return
+    }
+    if (messege) {
+        return messege
+    }
+}
 
 export const Info = () => {
 
-    const { changeAccount, fetchAccount, email, firstName, lastName, number } = useContext(AuthContext)
+    const { changeAccount, fetchAccount, email, firstName, lastName, number, loading } = useContext(AuthContext)
 
     useEffect(() => {
         fetchAccount()
         // eslint-disable-next-line
     }, [email, firstName, lastName, number])
 
-    const layout = {
-        labelCol: { span: 3 },
-        wrapperCol: { span: 8 },
-    };
+    const initialValues = {
+        email: `${email}`,
+        firstName:  `${firstName}`,
+        lastName: `${lastName}`,
+        number:  `${number}`
+    }
 
-    const validateMessages = {
-        required: 'Поле не заполнено!',
-        // len:'Длина должна быть 11 символов',
-        types: {
-            // email: 'Некорректный E-mail!',
-            // number: 'Некорректное число'
+    const formik = useFormik({
+        initialValues: initialValues,
+        validationSchema,
+        onSubmit: (values, { setSubmitting }) => {
+            console.log(values)
+            changeAccount(values.email, values.firstName, values.lastName, values.number)
+            setSubmitting(true)
+            setTimeout(() => {
+                setSubmitting(false)
+            }, 500)
         }
-    };
+    });
 
-    const onFinish = values => {
-        console.log(values);
-        changeAccount(values.email, values.firstName, values.lastName, values.number)
-        // setTimeout(() => {
-        // show('Вы успешно сменили данные!', 'success')
-        // }, 500)
-    };
+    const { handleSubmit, handleChange, handleBlur, isSubmitting, errors, touched, values } = formik
 
     return (
-        email === store.get('email') && 
-    <div className="info mt-4">
-        <Form name="nest-messages" {...layout} onFinish={onFinish} validateMessages={validateMessages}>
-            <Form.Item name={'email'} label="E-mail" rules={[{ type: 'email', message: 'Некорректный E-mail!'}]} initialValue={email}>
-                <Input />
-            </Form.Item>
-            <Form.Item name={'firstName'} label="Имя" rules={[{ required: true }]} initialValue={firstName}>
-                <Input />
-            </Form.Item>
-            <Form.Item name={'lastName'} label="Фамилия" rules={[{ required: true }]} initialValue={lastName}>
-                <Input />
-            </Form.Item>
-            <Form.Item name={'number'} label="Номер" rules={[{ required: true }]} initialValue={number}>
-                <Input />
-            </Form.Item>
-            <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 3 }}>
-                <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
-                    Сменить данные
-                </Button>
-            </Form.Item>
-        </Form>
-    </div>
+        loading || email !== store.get('email')
+            ? <p>Загрузка...</p>
+            : <div className="info mt-4">
+                <Form onFinish={handleSubmit} values={values}>
+                    <Form.Item
+                        name="email"
+                        hasFeedback
+                        help={errorMessege(touched.email, errors.email)}
+                        validateStatus={errors.email ? "error" : "success"}
+                        initialValue={email}
+                    >
+                        <Input
+                            id="reg__email"
+                            name="email"
+                            placeholder="E-mail"
+                            prefix={<MailOutlined />}
+                            value={values.email}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+                    </Form.Item>
+                    <Form.Item
+                        name="firstName"
+                        hasFeedback
+                        help={errorMessege(touched.firstName, errors.firstName)}
+                        validateStatus={errors.firstName ? "error" : "success"}
+                        initialValue={firstName}
+                    >
+                        <Input
+                            id="reg__firstName"
+                            name="firstName"
+                            placeholder="Имя"
+                            prefix={<UserOutlined />}
+                            value={values.firstName}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+                    </Form.Item>
+                    <Form.Item
+                        name="lastName"
+                        hasFeedback
+                        help={errorMessege(touched.lastName, errors.lastName)}
+                        validateStatus={errors.lastName ? "error" : "success"}
+                        initialValue={lastName}
+                    >
+                        <Input
+                            id="reg__lastName"
+                            name="lastName"
+                            placeholder="Фамилия"
+                            prefix={<TeamOutlined />}
+                            value={values.lastName}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+                    </Form.Item>
+                    <Form.Item
+                        name="number"
+                        hasFeedback
+                        help={errorMessege(touched.number, errors.number)}
+                        validateStatus={errors.number ? "error" : "success"}
+                        initialValue={number}
+                    >
+                        <Input
+                            id="reg__number"
+                            name="number"
+                            placeholder="Телефон"
+                            prefix={<PhoneOutlined />}
+                            value={values.number}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+                    </Form.Item>
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit" disabled={isSubmitting}>
+                            Сменить данные
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </div>
     )
 }

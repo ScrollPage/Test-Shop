@@ -22,7 +22,7 @@ export const Basket = () => {
 
     useEffect(() => {
         fetchBasket()
-    // eslint-disable-next
+        // eslint-disable-next
     }, [])
 
     useEffect(() => {
@@ -49,16 +49,16 @@ export const Basket = () => {
 
     const renderItems = () => (
         <AnimatePresence>
-            <motion.div
-                variants={containerVar}
-                initial="hidden"
-                animate="show"
-                exit="hidden"
+            <div
+            // variants={containerVar}
+            // initial="hidden"
+            // animate="show"
+            // exit="hidden"
             >
                 {basket.map(item => (
                     <BasketItem key={item.id} data={item} remove={removeItemToBasket} add={addItemToBasket} />
                 ))}
-            </motion.div>
+            </div>
         </AnimatePresence>
     )
 
@@ -75,7 +75,7 @@ export const Basket = () => {
                                     exit={{ opacity: 0 }} transition={{ duration: 1 }}
                                 >{count}&nbsp;{count === 1 ? 'ТОВАР' : count % 10 >= 5 || count === 0 ? 'ТОВАРОВ' : 'ТОВАРА'}&nbsp;В КОРЗИНЕ</motion.h4>
                                 {
-                                    loading 
+                                    loading
                                         ? <p>Корзина пуста</p>
                                         : basket.length === 0
                                             ? <p>Корзина пуста</p>

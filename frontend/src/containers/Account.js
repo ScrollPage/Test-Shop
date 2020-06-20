@@ -23,7 +23,7 @@ export const Account = () => {
         <div className="account">
             <div className="container mt-4">
                 <div className="row">
-                    <div className="col-md-3">
+                    <div className="col-md-3 mt-4">
                         {renderLinks()}
                     </div>
                     <div className="col-md-9">

@@ -24,7 +24,8 @@ export const Card = ({ item, addItemToBasket }) => {
         >
             <motion.div
                 className="card mb-3"
-                whileHover={{ boxShadow: '0px 0px 8px rgba(0, 0, 0, 0.4)', zIndex: 1 }}
+                whileHover={{ boxShadow: '0px 0px 16px rgba(0, 0, 0, 0.4)', zIndex: 1 }}
+                transition={{duration: 0.6}}
             >
                 <div className="card-img" >
                     <img

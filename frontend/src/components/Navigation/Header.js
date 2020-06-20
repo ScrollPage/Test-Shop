@@ -1,16 +1,17 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { Drower } from './Drower'
 import { MenuToggle } from './MenuToggle'
 import { BasketContext } from '../../context/basket/BasketContext'
 import { AuthContext } from '../../context/auth/AuthContext'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export const Header = () => {
 
     const [menu, setMenu] = useState(false)
     const { token, onLogout } = useContext(AuthContext)
-    const { price, count, fetchBasket } = useContext(BasketContext)
+    const { count } = useContext(BasketContext)
     const isAuthenticated = !!token
 
     return (
@@ -42,10 +43,14 @@ export const Header = () => {
                                 : null
                         }
                         <div className="header-right">
-                            <div className="header-item">
+                            <motion.div 
+                                className="header-item"
+                                drag
+                                dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+                            >
                                 <NavLink to="/basket" className="nav-link nav-shipping"><ShoppingCartOutlined /></NavLink>
-                                {count === 0 ? null : <p>{count}</p>}
-                            </div>
+                                {count === 0 ? null : <AnimatePresence exitBeforeEnter><motion.p transition={{duration: 1}} initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>{count}</motion.p></AnimatePresence>}
+                            </motion.div>
                             <div className="header-item">
                                 {
                                     isAuthenticated
