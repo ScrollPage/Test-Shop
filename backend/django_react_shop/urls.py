@@ -27,6 +27,7 @@ urlpatterns = [
     path("items/api/id/<pk>", views.SingleProductView.as_view(), name = "single_product_view"),
     path("api/len/<categoryId>/<search>/<min>/<max>/", views.ProductsCountView.as_view(), name = "products_count_view"),
     path('account/', include('account.api.urls')),
+    path('acc/', include('account.urls')),
     path('cart/', include('cart.urls')),
     path('cart/api/', include('cart.api.urls')),
     path('feedback/', include('feedback.urls')),
