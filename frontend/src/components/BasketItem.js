@@ -10,16 +10,16 @@ export const BasketItem = ({ data, remove, add }) => {
     const { history } = useReactRouter()
 
     const listVar = {
-        hidden: { 
+        hidden: {
             x: -100,
             opacity: 0
-         },
-        show: { 
+        },
+        show: {
             x: 0,
-            opacity: 1, 
-            transition: { 
+            opacity: 1,
+            transition: {
                 duration: 10,
-                type: "spring", 
+                type: "spring",
                 stiffness: 120,
                 damping: 11
             }
@@ -30,10 +30,13 @@ export const BasketItem = ({ data, remove, add }) => {
         <motion.div
             className="basket-item"
             variants={listVar}
+            initial="hidden"
+            animate="show"
+            exit="hidden"
         >
             <div className="basket-img">
-                <img 
-                    src={Img} 
+                <img
+                    src={Img}
                     alt={data.name}
                     onClick={() => history.push(`/items/${data.product.id}`)}
                 />
@@ -44,9 +47,7 @@ export const BasketItem = ({ data, remove, add }) => {
                         <p>{data.product.price * data.amount}&nbsp;Р</p>
                     </div>
                     <div className="basket-name">
-                        <p
-                        onClick={() => history.push(`/items/${data.product.id}`)}
-                        >{data.product.name}</p>
+                        <p onClick={() => history.push(`/items/${data.product.id}`)}>{data.product.name}</p>
                     </div>
                 </div>
                 <div className="basket-amount">

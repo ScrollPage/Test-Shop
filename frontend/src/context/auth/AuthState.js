@@ -6,7 +6,7 @@ import qs from 'qs';
 import { AuthContext } from './AuthContext'
 import { AuthReducer } from './AuthReducer'
 import { AlertContext } from '../alert/AlertContext'
-import { AUTH_SUCCESS, AUTH_LOGOUT, FETCH_ACCOUNT_SUCCESS } from '../types'
+import { AUTH_SUCCESS, AUTH_LOGOUT, FETCH_ACCOUNT_SUCCESS, SET_LOADING } from '../types'
 
 export const AuthState = ({ children }) => {
 
@@ -14,10 +14,11 @@ export const AuthState = ({ children }) => {
 
     const initialState = {
         token: store.get('token') === undefined ? null : store.get('token'),
-        email: "",
-        firstName: "",
-        lastName: "",
-        number: ""
+        email: null,
+        firstName: null,
+        lastName: null,
+        number: null,
+        loading: false
     }
 
     const [state, dispatch] = useReducer(AuthReducer, initialState)
@@ -36,6 +37,7 @@ export const AuthState = ({ children }) => {
                 store.remove('basket')
 
                 authSuccess(response.data.token)
+                // fetchAccount()
                 // autoLogout(3600 * 24)
                 show('Вы успешно вошли!', 'success')
                 console.log(response.data)
@@ -106,23 +108,48 @@ export const AuthState = ({ children }) => {
     const fetchAccountSuccess = (info) => dispatch({ type: FETCH_ACCOUNT_SUCCESS, payload: info })
 
     const changeAccount = async (email, firstName, lastName, number) => {
+        setLoading()
         const data = { email, first_name: firstName, last_name: lastName, phone_number: number }
-        console.log(data)
         const options = {
             method: 'PUT',
-            url: `http://localhost:8000/account/data_change/${store.get('email')}/`,
+            url: `http://localhost:8000/account/data_change/${store.get('email')}`,
+            data: qs.stringify(data)
+        }
+        await axios(options)
+            .then((response) => {
+                store.set('email', email)
+                fetchAccountSuccess(data)
+                show('Вы успешно сменили данные!', 'success')
+            })
+            .catch((error) => {
+                console.log(error);
+                show('Что-то пошло не так!', 'warning')
+            });
+    }
+
+    const changePassword = async ( password) => {
+        setLoading()
+        const data = { email: store.get('email'), password }
+        const options = {
+            method: 'POST',
+            url: "http://localhost:8000/acc/password_change",
             data: qs.stringify(data)
         }
         await axios(options)
             .then((response) => {
                 console.log(response.data)
+                show('Вы успешно сменили пароль!', 'success')
             })
             .catch((error) => {
                 console.log(error);
+                show('Что-то пошло не так!', 'warning')
             });
     }
 
-    const { token, firstName, lastName, number, email } = state
+
+    const setLoading = () => dispatch({type: SET_LOADING})
+
+    const { token, firstName, lastName, number, email, loading } = state
 
     return (
         <AuthContext.Provider value={{
@@ -135,7 +162,8 @@ export const AuthState = ({ children }) => {
             logout,
             fetchAccount,
             changeAccount,
-            token, firstName, lastName, number, email
+            changePassword,
+            token, firstName, lastName, number, email, loading
         }}>
             {children}
         </AuthContext.Provider>

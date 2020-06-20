@@ -100,6 +100,7 @@ export const ItemsState = ({ children }) => {
         }
         await axios(options)
             .then((response) => {
+                setFlag()
                 console.log(response.data)
             })
             .catch((error) => {

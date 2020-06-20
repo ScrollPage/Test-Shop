@@ -29,7 +29,7 @@ export const SliderUI = () => {
       <Slider
         valueLabelDisplay="auto"
         min={min}
-        step={1000}
+        step={100}
         max={max}
         value={value}
         onChange={handleChange}
