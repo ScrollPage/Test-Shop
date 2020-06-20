@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 export const Header = () => {
 
     const [menu, setMenu] = useState(false)
-    const { token, onLogout } = useContext(AuthContext)
+    const { token } = useContext(AuthContext)
     const { count } = useContext(BasketContext)
     const isAuthenticated = !!token
 
@@ -54,7 +54,7 @@ export const Header = () => {
                             <div className="header-item">
                                 {
                                     isAuthenticated
-                                        ? <NavLink exact to="/" className="nav-link active-none" onClick={() => onLogout()}>Выйти</NavLink>
+                                        ? null
                                         : <NavLink to="/log" className="nav-link">Войти</NavLink>
                                 }
                             </div>
