@@ -34,4 +34,4 @@ class CountSerializer(serializers.ModelSerializer):
 class ProductChangeSerializer(serializers.ModelSerializer):
 	class Meta():
 		model = Product
-		fields = ['name', 'price', 'description']
+		fields = ['id', 'name', 'price', 'description']
