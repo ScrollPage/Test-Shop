@@ -131,9 +131,8 @@ class ProductDataChange(generics.GenericAPIView):
 
 class ProductCreateView(generics.CreateAPIView):
 
-    queryset = Product.objects.all()
-    serializer_class = ProductChangeSerializer
-
+	queryset = Product.objects.all()
+	serializer_class = ProductChangeSerializer
 
 class ProductDeleteView(generics.GenericAPIView):
 
