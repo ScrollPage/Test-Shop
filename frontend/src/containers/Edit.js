@@ -62,7 +62,7 @@ export const Edit = () => {
 
     return (
         <div className="edit mt-4">
-            {loading 
+            {loading || !item
                 ? <p>Загрузка...</p>
                 : <>
                     <h4>Редактирование товара с id =&nbsp;{item.id}</h4>
