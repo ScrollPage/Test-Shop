@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from rest_framework import generics
-from api.serializers import ProductSerializer, CountSerializer
+from api.serializers import ProductSerializer, CountSerializer, ProductChangeSerializer
 from api.models import Product, ProductCount
 from api.help_classes import Categories
 from api.help_funcs import f, transform_cat, make_searched
 from django.http import HttpResponse
+from rest_framework.response import Response
+from rest_framework import status
 
 class ProductListView(generics.ListAPIView):
 	serializer_class = ProductSerializer
@@ -95,4 +97,34 @@ class ProductsCountView(generics.ListAPIView):
 				},
 
 		return queryset
+
+class AllProductsView(generics.ListAPIView):
+
+	queryset = Product.objects.all()
+	serializer_class = ProductChangeSerializer
+
+class ProductDataChange(generics.GenericAPIView):
+
+    serializer_class = ProductChangeSerializer
+
+    def get(self, request, uid):
+        try:
+            p = Product.objects.get(id = uid)
+        except Product.DoesNotExist:
+            return Response(f'Product {uid} is Not Found', status = status.HTTP_404_NOT_FOUND)
+        serializer = ProductChangeSerializer(p, many = False)
+        return Response(serializer.data)
+
+    def put(self, request, email):
+        try:
+            p = Product.objects.get(id = uid)
+        except Product.DoesNotExist:
+            return Response(f'Product {uid} is Not Found', status = status.HTTP_404_NOT_FOUND)
+
+        serializer = ProductChangeSerializer(p, request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status = status.HTTP_202_ACCEPTED)
+        else:
+            return Response(serializer.data, status = status.HTTP_400_BAD_REQUEST)
 

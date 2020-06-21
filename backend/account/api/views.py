@@ -19,7 +19,7 @@ class RegistrationView(generics.CreateAPIView):
 
 class UserOverView(generics.ListAPIView):
 
-    serializer_class =  RegistrationSerializer
+    serializer_class =  UserDataChangeSerializer
 
     def get_queryset(self):
         email = self.kwargs['email']

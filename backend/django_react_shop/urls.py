@@ -26,6 +26,8 @@ urlpatterns = [
     path("api/<categoryId>/<page>/<amount>/<search>/<min>/<max>/<ordering>/", views.ProductListView.as_view(), name = "api_post_list"),
     path("items/api/id/<pk>", views.SingleProductView.as_view(), name = "single_product_view"),
     path("api/len/<categoryId>/<search>/<min>/<max>/", views.ProductsCountView.as_view(), name = "products_count_view"),
+    path('all/', views.AllProductsView.as_view(), name = 'all_products'),
+    path('product_edit/<uid>', views.ProductDataChange.as_view(), name = 'product_edit'),
     path('account/', include('account.api.urls')),
     path('acc/', include('account.urls')),
     path('cart/', include('cart.urls')),
