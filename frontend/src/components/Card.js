@@ -12,7 +12,6 @@ export const Card = ({ item, addItemToBasket }) => {
     const { history } = useReactRouter()
     const shortDescription = `${R.take(20, item.description)}...`
 
-
     return (
         <motion.div
             initial={{ opacity: 0 }}

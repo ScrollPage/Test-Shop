@@ -37,6 +37,7 @@ export const AuthState = ({ children }) => {
                 store.remove('basket')
 
                 authSuccess(response.data.token)
+                fetchAccount()
 
                 show('Вы успешно вошли!', 'success')
                 console.log(response.data)
@@ -90,6 +91,7 @@ export const AuthState = ({ children }) => {
         store.remove('basket')
         store.remove('search')
         store.remove('ordering')
+        store.remove('isAdmin')
         dispatch({
             type: AUTH_LOGOUT
         })
@@ -99,6 +101,8 @@ export const AuthState = ({ children }) => {
         try {
             const response = await axios.get(`http://localhost:8000/account/api/${store.get('email')}`)
             fetchAccountSuccess(response.data[0])
+            store.set('isAdmin', response.data[0])
+            // console.log(response.data[0])
         } catch (e) {
             console.log(e)
         }
@@ -144,7 +148,6 @@ export const AuthState = ({ children }) => {
                 show('Что-то пошло не так!', 'warning')
             });
     }
-
 
     const setLoading = () => dispatch({type: SET_LOADING})
 
