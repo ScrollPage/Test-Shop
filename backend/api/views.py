@@ -115,11 +115,11 @@ class ProductDataChange(generics.GenericAPIView):
         serializer = ProductChangeSerializer(p, many = False)
         return Response(serializer.data)
 
-    def put(self, request, email):
+    def put(self, request, uid):
         try:
             p = Product.objects.get(id = uid)
         except Product.DoesNotExist:
-            return Response(f'Product {uid} is Not Found', status = status.HTTP_404_NOT_FOUND)
+            return Response(f'Product with id = {uid} is Not Found', status = status.HTTP_404_NOT_FOUND)
 
         serializer = ProductChangeSerializer(p, request.data)
         if serializer.is_valid():
