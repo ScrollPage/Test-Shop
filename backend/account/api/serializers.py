@@ -28,5 +28,5 @@ class UserDataChangeSerializer(serializers.ModelSerializer):
 
     class Meta():
         model = Account
-        fields = ['email', 'first_name', 'last_name', 'phone_number']
+        fields = ['email', 'first_name', 'last_name', 'phone_number', 'is_superuser']
 

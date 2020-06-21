@@ -30,3 +30,8 @@ class CountSerializer(serializers.ModelSerializer):
 		fields = [
 			"total",
 		]
+
+class ProductChangeSerializer(serializers.ModelSerializer):
+	class Meta():
+		model = Product
+		exclude = ['rated', 'comments', 'reviews', 'rating']
