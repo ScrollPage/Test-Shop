@@ -29,6 +29,7 @@ urlpatterns = [
     path('all/', views.AllProductsView.as_view(), name = 'all_products'),
     path('product_edit/<uid>', views.ProductDataChange.as_view(), name = 'product_edit'),
     path('create_product', views.ProductCreateView.as_view(), name = 'create'),
+    path('delete_product/<uid>', views.ProductDeleteView.as_view(), name = 'delete'),
     path('account/', include('account.api.urls')),
     path('acc/', include('account.urls')),
     path('cart/', include('cart.urls')),
