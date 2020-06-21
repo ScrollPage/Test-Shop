@@ -14,7 +14,7 @@ export const Admin = () => {
     const renderItems = () => {
         return items.map((item, index) => {
             return (
-                <div key={index + item.id} className="admin-product">
+                <div key={index} className="admin-product">
                     <div className="product-number">
                         {item.id}
                     </div>
