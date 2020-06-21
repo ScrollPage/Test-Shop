@@ -32,8 +32,8 @@ export const ItemsState = ({ children }) => {
         checkedList: store.get('checkedList') === undefined ? ['Apple', 'Samsung', 'HTC', 'Lenovo', 'Nokia'] : store.get('checkedList'),
         search: store.get('search') === undefined ? null : store.get('search'),
         flag: false,
-        min: 13480,
-        max: 19060,
+        min: -1,
+        max: 100000,
         currentMin: store.get('currentMin') === undefined ? 0 : store.get('currentMin'),
         currentMax: store.get('currentMax') === undefined ? 20000 : store.get('currentMax'),
         ordering: store.get('ordering') === undefined ? 0 : store.get('ordering')
@@ -136,6 +136,23 @@ export const ItemsState = ({ children }) => {
             });
     }
 
+    const addItem = async (values) => {
+        const data = values
+        console.log(values)
+        const options = {
+            method: 'POST',
+            url: "http://localhost:8000/create_product/",
+            data: qs.stringify(data)
+        }
+        await axios(options)
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     const fetchItemByIdSuccess = (item) => dispatch({ type: FETCH_ITEM_BY_ID_SUCCESS, payload: item })
 
     const fetchItemsSuccess = (items) => dispatch({ type: FETCH_ITEMS_SUCCESS, payload: items })
@@ -175,6 +192,7 @@ export const ItemsState = ({ children }) => {
             setOrdering,
             fetchItemsAdmin,
             changeItem,
+            addItem,
             items, item, pageSize, currentPage, totalItemsCount, loading, checkedList, search, flag,
             min, max, currentMin, currentMax, ordering
         }}>

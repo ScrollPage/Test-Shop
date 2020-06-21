@@ -130,8 +130,7 @@ export const AuthState = ({ children }) => {
             });
     }
 
-    const changePassword = async ( password) => {
-        setLoading()
+    const changePassword = async (password) => {
         const data = { email: store.get('email'), password }
         const options = {
             method: 'POST',

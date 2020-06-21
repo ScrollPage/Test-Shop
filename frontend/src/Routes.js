@@ -13,6 +13,7 @@ import { About } from './containers/About';
 import { Account } from './containers/Account';
 import { Admin } from './containers/Admin';
 import { Edit } from './containers/Edit';
+import { Add } from './containers/Add';
 import { Logout } from './components/Navigation/Logout';
 import { AuthContext } from './context/auth/AuthContext';
 
@@ -48,6 +49,7 @@ export const Routes = () => {
                 <Route path="/account" component={Account} />
                 {store.get('isAdmin') ? <Route path="/admin" component={Admin} /> : null}
                 {store.get('isAdmin') ? <Route path="/edit/:id" component={Edit} /> : null}
+                {store.get('isAdmin') ? <Route path="/add" component={Add} /> : null}
                 <Redirect to={"/"} />
             </Switch>
         )

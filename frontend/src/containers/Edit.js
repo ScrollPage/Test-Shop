@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { ItemsContext } from '../context/items/ItemsContext'
 import { useRouteMatch } from 'react-router-dom'
-import { Form, Input, Button, TextArea } from 'antd';
+import { Form, Input, Button } from 'antd';
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
 
