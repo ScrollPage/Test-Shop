@@ -128,15 +128,9 @@ class ProductDataChange(generics.GenericAPIView):
         else:
             return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
-class ProductCreateView(generics.GenericAPIView):
-	serializer_class = ProductChangeSerializer
 
-	def post(self, requset):
-		data = request.POST
-		serializer = ProductChangeSerializer(data = data)
-		if serializer.is_valid():
-			serializer.save()
-			return Response(serializer.data, status = status.HTTP_201_CREATED)
-		else:
-			return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+class ProductCreateView(generics.CreateAPIView):
+
+    queryset = Product.objects.all()
+    serializer_class = ProductChangeSerializer
 
