@@ -134,3 +134,25 @@ class ProductCreateView(generics.CreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductChangeSerializer
 
+
+class ProductDeleteView(generics.GenericAPIView):
+
+	serializer_class = ProductChangeSerializer
+
+	def get(self, request, uid):
+		try:
+			p = Product.objects.get(id = uid)
+		except Product.DoesNotExist:
+			return Response(f'Product {uid} is Not Found', status = status.HTTP_404_NOT_FOUND)
+
+		serializer = ProductChangeSerializer(p, many = False)
+		return Response(serializer.data)
+
+	def delete(self, request, uid):
+		try:
+			p = Product.objects.get(id = uid)
+		except Product.DoesNotExist:
+			return Response(f'Product with id = {uid} is Not Found', status = status.HTTP_404_NOT_FOUND)
+
+		p.delete()
+		return Response(status = status.HTTP_200_OK)
