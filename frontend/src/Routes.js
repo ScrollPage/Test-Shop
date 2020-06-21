@@ -19,11 +19,6 @@ export const Routes = () => {
     const { token } = useContext(AuthContext)
     const isAuthenticated = !!token
 
-    // useEffect(() => {
-        // autoLogin()
-        // eslint-disable-next-line
-    // }, [])
-
     let routes = (
         <Switch>
             <Route path="/" component={Main} exact />
@@ -44,8 +39,6 @@ export const Routes = () => {
                 <Route path="/items" component={Items} exact />
                 <Route path="/items/:id" component={Item} />
                 <Route path="/basket" component={Basket} />
-                <Route path="/reg" component={Reg} />
-                <Route path="/log" component={Log} />
                 <Route path="/about" component={About} />
                 <Route path="/logout" component={Logout} />
                 <Route path="/account" component={Account} />
@@ -53,10 +46,7 @@ export const Routes = () => {
             </Switch>
         )
     }
-
     return (
-        <AnimatePresence>
-            {routes}
-        </AnimatePresence>
+        routes
     )
 }

@@ -49,7 +49,7 @@ export const Header = () => {
                                 dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
                             >
                                 <NavLink to="/basket" className="nav-link nav-shipping"><ShoppingCartOutlined /></NavLink>
-                                {count === 0 ? null : <AnimatePresence exitBeforeEnter><motion.p transition={{duration: 1}} initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>{count}</motion.p></AnimatePresence>}
+                                <AnimatePresence>{count === 0 ? null : <motion.p transition={{duration: 1}} initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>{count}</motion.p>}</AnimatePresence>
                             </motion.div>
                             <div className="header-item">
                                 {

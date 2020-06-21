@@ -9,14 +9,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 export const Basket = () => {
 
-    const containerVar = {
-        show: {
-            transition: {
-                staggerChildren: 0.1
-            }
-        }
-    }
-
     const { removeItemToBasket, clearItemToBasket, addItemToBasket, fetchBasket, basket, loading, price, count } = useContext(BasketContext)
     const { history } = useReactRouter()
 
@@ -48,18 +40,11 @@ export const Basket = () => {
     )
 
     const renderItems = () => (
-        <AnimatePresence>
-            <div
-            // variants={containerVar}
-            // initial="hidden"
-            // animate="show"
-            // exit="hidden"
-            >
-                {basket.map(item => (
-                    <BasketItem key={item.id} data={item} remove={removeItemToBasket} add={addItemToBasket} />
-                ))}
-            </div>
-        </AnimatePresence>
+        <div>
+            {basket.map((item, index) => (
+                <BasketItem key={index + item.id} data={item} remove={removeItemToBasket} add={addItemToBasket} />
+            ))}
+        </div>
     )
 
     return (
@@ -74,14 +59,14 @@ export const Basket = () => {
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }} transition={{ duration: 1 }}
                                 >{count}&nbsp;{count === 1 ? 'ТОВАР' : count % 10 >= 5 || count === 0 ? 'ТОВАРОВ' : 'ТОВАРА'}&nbsp;В КОРЗИНЕ</motion.h4>
-                                {
-                                    loading
-                                        ? <p>Корзина пуста</p>
+                                <AnimatePresence>
+                                    {loading
+                                        ? <p>Загрузка...</p>
                                         : basket.length === 0
                                             ? <p>Корзина пуста</p>
                                             : renderItems()}
+                                </AnimatePresence>
                             </div>
-                            {}
                         </div>
                     </div>
                     <div className="col-md-3 mb-4">
