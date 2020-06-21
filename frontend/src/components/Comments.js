@@ -2,14 +2,15 @@ import React, { Fragment, useState } from 'react'
 import StarRatings from 'react-star-ratings'
 import { Modal } from './Modal'
 import { Button } from 'antd';
+import * as R from 'ramda'
 
 export const Comments = ({ item }) => {
 
     const [modal, setModal] = useState(false)
-        
+
     return (
         <>
-            {modal && <Modal setModal={setModal} item={item}/>}
+            {modal && <Modal setModal={setModal} item={item} />}
             <div className="comments">
                 <div className="comments-header">
                     {item && <h4>Отзывы о товаре&nbsp;{item.name}</h4>}
@@ -29,7 +30,7 @@ export const Comments = ({ item }) => {
                                 <div className="comment">
                                     <div className="comment-info">
                                         <p>{comment.first_name}</p>
-                                        <p>{comment.date_commented}</p>
+                                        <p>{R.slice(0, 10, comment.date_commented)}&nbsp;{R.slice(11, 16, comment.date_commented)}</p>
                                         <StarRatings
                                             rating={comment.rating}
                                             starRatedColor="gold"

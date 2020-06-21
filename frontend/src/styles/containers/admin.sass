@@ -5,26 +5,44 @@
     &-product
         display: flex
         flex-direction: row
-        // justify-content: space-around
-        // padding: 10px   
         border: 1px solid #b3b3b3
+        position: relative
+    &-header
+        display: flex
+        justify-content: space-between
+        margin-bottom: 10px 
+        .input-group
+            width: 300px
+        button
+            width: 300px
+            height: 38px
+
 
 .product
+    &-close
+        position: absolute
+        right: 5px
+        top: 0rem
+        &:hover
+            cursor: pointer
+            svg 
+                color: red
     &-field
         padding: 20px
-        width: 30%
+        width: 25%
         border-right: 1px solid #b3b3b3
         text-align: center
     &-edit
         padding: 10px
-        width: 5%
+        width: 15%
         border-right: 1px solid #b3b3b3
         text-align: center
     &-number
         padding: 20px
-        width: 5%
+        width: 10%
         border-right: 1px solid #b3b3b3
         text-align: center
+
 .edit
     display: flex
     align-items: center

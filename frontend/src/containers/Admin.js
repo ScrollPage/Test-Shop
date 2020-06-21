@@ -1,21 +1,31 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import * as R from 'ramda'
 import { ItemsContext } from '../context/items/ItemsContext'
 import { Link } from 'react-router-dom'
 import { Button } from 'antd'
 import useReactRouter from 'use-react-router'
+import { CloseOutlined } from'@ant-design/icons';
 
 export const Admin = () => {
 
     const { history } = useReactRouter()
-    const { fetchItemsAdmin, items, loading } = useContext(ItemsContext)
+    const { fetchItemsAdmin, items, loading, deleteItem } = useContext(ItemsContext)
 
     useEffect(() => {
         fetchItemsAdmin()
+        //eslint-disable-next-line
     }, [])
 
+    const [ search, setSearch ]= useState('')
+
+    const applySearch = (item) => R.contains(
+        search.toUpperCase(), item.name.toUpperCase()
+    )
+
     const renderItems = () => {
-        return items.map((item, index) => {
+        return items
+        .filter((item) => applySearch(item))
+        .map((item, index) => {
             return (
                 <div key={index} className="admin-product">
                     <div className="product-number">
@@ -24,6 +34,7 @@ export const Admin = () => {
                     <div className="product-field">
                         {item.name}
                     </div>
+                    {item.id === 1 && console.log(item)}
                     <div className="product-field">
                         {item.price}
                     </div>
@@ -31,7 +42,13 @@ export const Admin = () => {
                         {`${R.take(20, item.description)}...`}
                     </div>
                     <div className="product-edit">
-                        <Link to={`edit/${item.id}`}>Edit</Link>
+                        <Link to={`edit/${item.id}`}>Изменить</Link>
+                    </div>
+                    <div 
+                        className="product-close"
+                        onClick={() => deleteItem(item.id)}
+                    >
+                        <CloseOutlined />
                     </div>
                 </div>
             )
@@ -42,7 +59,36 @@ export const Admin = () => {
     return (
         <div className="container">
             <div className="admin">
-                <Button onClick={() => history.push("/add")}>Добавить товар</Button>
+                <div className="admin-header">
+                    <div className="input-group">
+                        <input
+                            onChange={event => setSearch(event.target.value)}
+                            value={search}
+                            type="text"
+                            className="form-control"
+                            placeholder="Поиск..."
+                            aria-describedby="basic-addon2"
+                        />
+                        <div className="input-group-append">
+                            <span className="input-group-text" id="basic-addon2" onClick={() => setSearch('')}>Очистить</span>
+                        </div>
+                    </div>
+                    <Button onClick={() => history.push("/add")} type="primary">Добавить товар</Button>
+                </div>
+                <div className="admin-product">
+                    <div className="product-number">
+                        id
+                    </div>
+                    <div className="product-field">
+                        Название
+                    </div>
+                    <div className="product-field">
+                        Цена
+                    </div>
+                    <div className="product-field">
+                        Описание
+                    </div>
+                </div>
                 {loading
                     ? <p>Загрузка...</p>
                     : items.length === 0

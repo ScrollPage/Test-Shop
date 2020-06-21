@@ -136,16 +136,30 @@ export const ItemsState = ({ children }) => {
             });
     }
 
-    const addItem = async (values) => {
-        const data = values
-        console.log(values)
+    const addItem = async (values, category) => {
+        const data = { ...values, categoryId: category }
         const options = {
             method: 'POST',
-            url: "http://localhost:8000/create_product/",
+            url: "http://localhost:8000/create_product",
             data: qs.stringify(data)
         }
         await axios(options)
             .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    const deleteItem = async (id) => {
+        const options = {
+            method: 'DELETE',
+            url: `http://localhost:8000/product_delete/${id}`,
+        }
+        await axios(options)
+            .then((response) => {
+                setFlag()
                 console.log(response.data)
             })
             .catch((error) => {
@@ -193,6 +207,7 @@ export const ItemsState = ({ children }) => {
             fetchItemsAdmin,
             changeItem,
             addItem,
+            deleteItem,
             items, item, pageSize, currentPage, totalItemsCount, loading, checkedList, search, flag,
             min, max, currentMin, currentMax, ordering
         }}>

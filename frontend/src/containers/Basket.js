@@ -14,7 +14,7 @@ export const Basket = () => {
 
     useEffect(() => {
         fetchBasket()
-        // eslint-disable-next
+        // eslint-disable-next-line
     }, [])
 
     useEffect(() => {

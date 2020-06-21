@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { ItemsContext } from '../context/items/ItemsContext'
-import { useRouteMatch } from 'react-router-dom'
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Radio } from 'antd';
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
 
@@ -31,12 +30,13 @@ export const Add = () => {
         initialValues: {
             name: "false",
             price: "false",
-            description: "false"
+            description: "false",
+            category: '1'
         },
         validationSchema,
         onSubmit: (values, { resetForm, setSubmitting }) => {
             setSubmitting(true)
-            addItem(values)
+            addItem(values, values.category)
             setTimeout(() => {
                 resetForm()
                 setSubmitting(false)
@@ -50,6 +50,18 @@ export const Add = () => {
         <div className="edit mt-4">
             <h4>Добавление товара</h4>
             <Form onFinish={handleSubmit}>
+                <Form.Item
+                    name="category"
+                    initialValue="1"
+                >
+                    <Radio.Group value={values.category} onChange={handleChange} id="edit_category" name="category"> 
+                        <Radio.Button value="1">Apple</Radio.Button>
+                        <Radio.Button value="2">Samsung</Radio.Button>
+                        <Radio.Button value="3">HTC</Radio.Button>
+                        <Radio.Button value="4">Lenovo</Radio.Button>
+                        <Radio.Button value="5">Nokia</Radio.Button>
+                    </Radio.Group>
+                </Form.Item>
                 <Form.Item
                     name="name"
                     hasFeedback
