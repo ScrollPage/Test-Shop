@@ -18,8 +18,7 @@ export const AuthState = ({ children }) => {
         firstName: null,
         lastName: null,
         number: null,
-        loading: false,
-        isAdmin: store.get('isAdmin') === undefined ? false : store.get('isAdmin')
+        loading: false
     }
 
     const [state, dispatch] = useReducer(AuthReducer, initialState)
