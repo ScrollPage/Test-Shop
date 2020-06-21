@@ -7,7 +7,7 @@ import { AuthContext } from '../../context/auth/AuthContext'
 
 export function Drower({ onClose, isOpen }) {
 
-    const { token, onLogout } = useContext(AuthContext)
+    const { token } = useContext(AuthContext)
     const isAuthenticated = !!token
 
     return (
@@ -36,7 +36,7 @@ export function Drower({ onClose, isOpen }) {
                     <li>
                         {
                             isAuthenticated 
-                             ? <NavLink exact to="/" className="nav-link active-none" onClick={() => {onClose(); onLogout();}}>Выйти</NavLink> 
+                             ? null
                              : <NavLink to="/log" className="nav-link" onClick={() => {onClose();}}>Войти</NavLink>
                         }
                     </li>

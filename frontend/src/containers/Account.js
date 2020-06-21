@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link, Switch, Route } from 'react-router-dom'
 import { Orders } from '../components/Orders'
 import { Info } from '../components/Info'
 import { Change } from '../components/Change'
 import useReactRouter from 'use-react-router'
+import { AuthContext } from '../context/auth/AuthContext'
 
 export const Account = () => {
 
     const { history } = useReactRouter()
+    const { onLogout } = useContext(AuthContext)
     const path = history.location.pathname
 
     const renderLinks = () => (
@@ -15,6 +17,7 @@ export const Account = () => {
             <Link to="/account/orders" className={path === "/account/orders" ? "nav-link active" : "nav-link"}>Заказы</Link>
             <Link to="/account/info" className={path === "/account/info" ? "nav-link active" : "nav-link"}>Информация</Link>
             <Link to="/account/change" className={path === "/account/change" ? "nav-link active" : "nav-link"}>Сменить пароль</Link>
+            <Link to="/" className="nav-link active-none" onClick={() => onLogout()}>Выйти</Link>
             {/* <Link>Выход</Link> */}
         </div>
     )

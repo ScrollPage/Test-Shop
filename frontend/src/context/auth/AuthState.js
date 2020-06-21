@@ -18,7 +18,8 @@ export const AuthState = ({ children }) => {
         firstName: null,
         lastName: null,
         number: null,
-        loading: false
+        loading: false,
+        isAdmin: store.get('isAdmin') === undefined ? false : store.get('isAdmin')
     }
 
     const [state, dispatch] = useReducer(AuthReducer, initialState)
@@ -37,8 +38,7 @@ export const AuthState = ({ children }) => {
                 store.remove('basket')
 
                 authSuccess(response.data.token)
-                // fetchAccount()
-                // autoLogout(3600 * 24)
+
                 show('Вы успешно вошли!', 'success')
                 console.log(response.data)
             })
