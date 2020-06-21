@@ -34,4 +34,4 @@ class CountSerializer(serializers.ModelSerializer):
 class ProductChangeSerializer(serializers.ModelSerializer):
 	class Meta():
 		model = Product
-		exclude = ['rated', 'comments', 'reviews', 'rating']
+		fields = ['name', 'price', 'description']
