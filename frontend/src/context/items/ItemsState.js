@@ -27,17 +27,17 @@ export const ItemsState = ({ children }) => {
         pageSize: 9,
         currentPage: store.get('currentPage') === undefined ? 1 : store.get('currentPage'),
         totalItemsCount: 0,
-        loading: false,
+        loading: true,
         error: null,
-        checkedList: store.get('checkedList') === undefined ? ['Apple','Samsung','HTC','Lenovo','Nokia'] : store.get('checkedList'),
+        checkedList: store.get('checkedList') === undefined ? ['Apple', 'Samsung', 'HTC', 'Lenovo', 'Nokia'] : store.get('checkedList'),
         search: store.get('search') === undefined ? null : store.get('search'),
-        flag: false, 
+        flag: false,
         min: 13480,
         max: 19060,
-        currentMin: store.get('currentMin') === undefined ? 0 : store.get('currentMin') ,
-        currentMax: store.get('currentMax') === undefined ? 20000 : store.get('currentMax') ,
+        currentMin: store.get('currentMin') === undefined ? 0 : store.get('currentMin'),
+        currentMax: store.get('currentMax') === undefined ? 20000 : store.get('currentMax'),
         ordering: store.get('ordering') === undefined ? 0 : store.get('ordering')
-        }
+    }
 
     const [state, dispatch] = useReducer(ItemsReducer, initialState)
 
@@ -55,7 +55,7 @@ export const ItemsState = ({ children }) => {
             }
             const response = await axios.get(url)
 
-            if (fl) {fetchItemsSuccess(response.data)} else fetchItemsSuccess([])
+            if (fl) { fetchItemsSuccess(response.data) } else fetchItemsSuccess([])
             const length = await axios.get(urlLen)
             setTotalCount(length.data[0].total)
 
@@ -108,6 +108,34 @@ export const ItemsState = ({ children }) => {
             });
     }
 
+    const fetchItemsAdmin = async () => {
+        setLoading()
+        try {
+            const url = 'http://localhost:8000/all/'
+            const response = await axios.get(url)
+            fetchItemsSuccess(response.data)
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
+    const changeItem = async (id, name, price, description) => {
+        const data = { name, price, description }
+        const options = {
+            method: 'PUT',
+            url: `http://localhost:8000/product_edit/${id}`,
+            data: qs.stringify(data)
+        }
+        await axios(options)
+            .then((response) => {
+                setFlag()
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     const fetchItemByIdSuccess = (item) => dispatch({ type: FETCH_ITEM_BY_ID_SUCCESS, payload: item })
 
     const fetchItemsSuccess = (items) => dispatch({ type: FETCH_ITEMS_SUCCESS, payload: items })
@@ -120,18 +148,18 @@ export const ItemsState = ({ children }) => {
 
     const setTotalCount = (totalItemsCount) => dispatch({ type: SET_TOTAL_COUNT, payload: totalItemsCount })
 
-    const setCheckedList = (checkedList) => dispatch({type: SET_CHECKED_LIST, payload: checkedList})
+    const setCheckedList = (checkedList) => dispatch({ type: SET_CHECKED_LIST, payload: checkedList })
 
-    const setSearch = (search) => dispatch({type: SET_SEARCH, payload: search})    
+    const setSearch = (search) => dispatch({ type: SET_SEARCH, payload: search })
 
-    const setOrdering = (ordering) => dispatch({type: SET_ORDERING, payload: ordering})
+    const setOrdering = (ordering) => dispatch({ type: SET_ORDERING, payload: ordering })
 
-    const setSlider = (currentMin, currentMax) => dispatch({type: SET_SLIDER, payload: {currentMin, currentMax}})
+    const setSlider = (currentMin, currentMax) => dispatch({ type: SET_SLIDER, payload: { currentMin, currentMax } })
 
     const setFlag = () => dispatch({ type: SET_FLAG_ITEM })
 
     const { items, item, pageSize, currentPage, totalItemsCount, loading, checkedList, search, flag,
-    min, max, currentMin, currentMax, ordering } = state
+        min, max, currentMin, currentMax, ordering } = state
 
     return (
         <ItemsContext.Provider value={{
@@ -145,6 +173,8 @@ export const ItemsState = ({ children }) => {
             setComment,
             setSlider,
             setOrdering,
+            fetchItemsAdmin,
+            changeItem,
             items, item, pageSize, currentPage, totalItemsCount, loading, checkedList, search, flag,
             min, max, currentMin, currentMax, ordering
         }}>
