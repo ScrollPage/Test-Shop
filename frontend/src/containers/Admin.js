@@ -2,9 +2,12 @@ import React, { useEffect, useContext } from 'react'
 import * as R from 'ramda'
 import { ItemsContext } from '../context/items/ItemsContext'
 import { Link } from 'react-router-dom'
+import { Button } from 'antd'
+import useReactRouter from 'use-react-router'
 
 export const Admin = () => {
 
+    const { history } = useReactRouter()
     const { fetchItemsAdmin, items, loading } = useContext(ItemsContext)
 
     useEffect(() => {
@@ -39,6 +42,7 @@ export const Admin = () => {
     return (
         <div className="container">
             <div className="admin">
+                <Button onClick={() => history.push("/add")}>Добавить товар</Button>
                 {loading
                     ? <p>Загрузка...</p>
                     : items.length === 0
