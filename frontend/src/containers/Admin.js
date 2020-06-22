@@ -9,12 +9,12 @@ import { CloseOutlined } from'@ant-design/icons';
 export const Admin = () => {
 
     const { history } = useReactRouter()
-    const { fetchItemsAdmin, items, loading, deleteItem } = useContext(ItemsContext)
+    const { fetchItemsAdmin, items, loading, deleteItem, flag } = useContext(ItemsContext)
 
     useEffect(() => {
         fetchItemsAdmin()
         //eslint-disable-next-line
-    }, [])
+    }, [flag])
 
     const [ search, setSearch ]= useState('')
 
@@ -31,10 +31,12 @@ export const Admin = () => {
                     <div className="product-number">
                         {item.id}
                     </div>
+                    <div className="product-number">
+                        {item.categoryId}
+                    </div>
                     <div className="product-field">
                         {item.name}
                     </div>
-                    {item.id === 1 && console.log(item)}
                     <div className="product-field">
                         {item.price}
                     </div>
@@ -78,6 +80,9 @@ export const Admin = () => {
                 <div className="admin-product">
                     <div className="product-number">
                         id
+                    </div>
+                    <div className="product-number">
+                        cat
                     </div>
                     <div className="product-field">
                         Название

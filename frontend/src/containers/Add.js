@@ -3,6 +3,7 @@ import { ItemsContext } from '../context/items/ItemsContext'
 import { Form, Input, Button, Radio } from 'antd';
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
+import useReactRouter from 'use-react-router'
 
 const validationSchema = Yup.object().shape({
     name: Yup.string()
@@ -24,6 +25,7 @@ const errorMessege = (touched, messege) => {
 
 export const Add = () => {
 
+    const { history } = useReactRouter()
     const { addItem } = useContext(ItemsContext)
 
     const formik = useFormik({
@@ -40,6 +42,7 @@ export const Add = () => {
             setTimeout(() => {
                 resetForm()
                 setSubmitting(false)
+                history.push("/admin")
             }, 500)
         }
     });

@@ -32,7 +32,7 @@ export const ItemsState = ({ children }) => {
         checkedList: store.get('checkedList') === undefined ? ['Apple', 'Samsung', 'HTC', 'Lenovo', 'Nokia'] : store.get('checkedList'),
         search: store.get('search') === undefined ? null : store.get('search'),
         flag: false,
-        min: -1,
+        min: 0,
         max: 100000,
         currentMin: store.get('currentMin') === undefined ? 0 : store.get('currentMin'),
         currentMax: store.get('currentMax') === undefined ? 20000 : store.get('currentMax'),
@@ -155,7 +155,7 @@ export const ItemsState = ({ children }) => {
     const deleteItem = async (id) => {
         const options = {
             method: 'DELETE',
-            url: `http://localhost:8000/product_delete/${id}`,
+            url: `http://localhost:8000/delete_product/${id}`,
         }
         await axios(options)
             .then((response) => {
