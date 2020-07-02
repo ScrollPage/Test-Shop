@@ -1,11 +1,12 @@
 import React, { useContext, useEffect } from 'react'
-// import { BasketContext } from '../context/basket/BasketContext'
 import useReactRouter from 'use-react-router'
 import { Button } from 'antd'
 import { BasketItem } from '../components/BasketItem'
 import { BasketContext } from '../context/basket/BasketContext'
 import store from 'store'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
+import { useTransition } from 'react-spring'
+import { v4 } from 'uuid' 
 
 export const Basket = () => {
 
@@ -39,11 +40,20 @@ export const Basket = () => {
         </div>
     )
 
+    const transitions = useTransition(basket, item => item.id, {
+        from: { opacity: 0 },
+        enter: { opacity: 1 },
+        leave: { opacity: 0 },
+        config: {
+            duration: 1000
+        }
+    })
+
     const renderItems = () => (
         <div>
-            {basket.map((item, index) => (
-                <BasketItem key={index + item.id} data={item} remove={removeItemToBasket} add={addItemToBasket} />
-            ))}
+            {transitions.map(({ item, props, key }) => item &&
+                <BasketItem key={v4()} data={item} props={props} remove={removeItemToBasket} add={addItemToBasket} />
+            )}
         </div>
     )
 
@@ -59,13 +69,11 @@ export const Basket = () => {
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }} transition={{ duration: 1 }}
                                 >{count}&nbsp;{count === 1 ? 'ТОВАР' : count % 10 >= 5 || count === 0 ? 'ТОВАРОВ' : 'ТОВАРА'}&nbsp;В КОРЗИНЕ</motion.h4>
-                                <AnimatePresence>
-                                    {loading
-                                        ? <p>Загрузка...</p>
-                                        : basket.length === 0
-                                            ? <p>Корзина пуста</p>
-                                            : renderItems()}
-                                </AnimatePresence>
+                                {loading
+                                    ? <p>Загрузка...</p>
+                                    : basket.length === 0
+                                        ? <p>Корзина пуста</p>
+                                        : renderItems()}
                             </div>
                         </div>
                     </div>

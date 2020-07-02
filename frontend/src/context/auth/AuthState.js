@@ -7,6 +7,7 @@ import { AuthContext } from './AuthContext'
 import { AuthReducer } from './AuthReducer'
 import { AlertContext } from '../alert/AlertContext'
 import { AUTH_SUCCESS, AUTH_LOGOUT, FETCH_ACCOUNT_SUCCESS, SET_LOADING } from '../types'
+import {localhost} from '../../config'
 
 export const AuthState = ({ children }) => {
 
@@ -24,7 +25,7 @@ export const AuthState = ({ children }) => {
     const [state, dispatch] = useReducer(AuthReducer, initialState)
 
     const authLogin = async (email, password) => {
-        await axios.post("http://localhost:8000/account/login", {
+        await axios.post(`${localhost}/account/login`, {
             username: email, password
         })
             .then((response) => {
@@ -49,7 +50,7 @@ export const AuthState = ({ children }) => {
     }
 
     const authRegister = async (email, firstName, lastName, number, password) => {
-        await axios.post("http://localhost:8000/account/register", {
+        await axios.post(`${localhost}/account/register`, {
             email: email, first_name: firstName, last_name: lastName, phone_number: number, password: password
         })
             .then((response) => {
@@ -99,7 +100,7 @@ export const AuthState = ({ children }) => {
 
     const fetchAccount = async () => {
         try {
-            const response = await axios.get(`http://localhost:8000/account/api/${store.get('email')}`)
+            const response = await axios.get(`${localhost}/account/api/${store.get('email')}`)
             fetchAccountSuccess(response.data[0])
             store.set('isAdmin', response.data[0])
             // console.log(response.data[0])
@@ -115,7 +116,7 @@ export const AuthState = ({ children }) => {
         const data = { email, first_name: firstName, last_name: lastName, phone_number: number }
         const options = {
             method: 'PUT',
-            url: `http://localhost:8000/account/data_change/${store.get('email')}`,
+            url: `${localhost}/account/data_change/${store.get('email')}`,
             data: qs.stringify(data)
         }
         await axios(options)
@@ -134,7 +135,7 @@ export const AuthState = ({ children }) => {
         const data = { email: store.get('email'), password }
         const options = {
             method: 'POST',
-            url: "http://localhost:8000/acc/password_change",
+            url: `${localhost}/acc/password_change`,
             data: qs.stringify(data)
         }
         await axios(options)

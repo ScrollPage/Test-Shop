@@ -13,6 +13,8 @@ import { BasketReducer } from './BasketReducer'
 import store from 'store'
 import axios from 'axios'
 import qs from 'qs';
+import {localhost} from '../../config'
+
 export const BasketState = ({ children }) => {
 
     const initialState = {
@@ -28,7 +30,7 @@ export const BasketState = ({ children }) => {
     const fetchBasket = async () => {
         setLoading()
         try {
-            const url = `http://localhost:8000/cart/api/get_order/${store.get('email')}`
+            const url = `${localhost}/cart/api/get_order/${store.get('email')}`
             const response = await axios.get(url)
             const data = response.data[0]
             fetchBasketSuccess(data.items, data.total_price, data.total_count)  
@@ -48,7 +50,7 @@ export const BasketState = ({ children }) => {
         const data = { uid: item.id, amount: amount, email: store.get('email') }
         const options = {
             method: 'POST',
-            url: "http://localhost:8000/cart/add",
+            url: `${localhost}/cart/add`,
             data: qs.stringify(data)
         }
         await axios(options)
@@ -68,7 +70,7 @@ export const BasketState = ({ children }) => {
         const data = { uid: item.id, amount: amount, email: store.get('email') }
         const options = {
             method: 'POST',
-            url: "http://localhost:8000/cart/remove",
+            url: `${localhost}/cart/remove`,
             data: qs.stringify(data)
         }
         await axios(options)
@@ -85,7 +87,7 @@ export const BasketState = ({ children }) => {
         const data = { email: store.get('email') }
         const options = {
             method: 'POST',
-            url: "http://localhost:8000/cart/clear",
+            url: `${localhost}/cart/clear`,
             data: qs.stringify(data)
         }
         await axios(options)

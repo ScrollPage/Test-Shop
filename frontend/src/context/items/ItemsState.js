@@ -5,6 +5,7 @@ import { ItemsContext } from './ItemsContext'
 import { ItemsReducer } from './ItemsReducer'
 import store from 'store'
 import qs from 'qs';
+import {localhost} from '../../config'
 
 import {
     SET_LOADING,
@@ -45,12 +46,12 @@ export const ItemsState = ({ children }) => {
         setLoading()
         try {
             let fl = true
-            let url = `http://localhost:8000/api/${state.checkedList}/${state.currentPage}/${state.pageSize}/${state.search}/${state.currentMin}/${state.currentMax}/${state.ordering}/`
-            let urlLen = `http://localhost:8000/api/len/${state.checkedList}/${state.search}/${state.currentMin}/${state.currentMax}/`
+            let url = `${localhost}/api/${state.checkedList}/${state.currentPage}/${state.pageSize}/${state.search}/${state.currentMin}/${state.currentMax}/${state.ordering}/`
+            let urlLen = `${localhost}/api/len/${state.checkedList}/${state.search}/${state.currentMin}/${state.currentMax}/`
 
             if (state.checkedList.length === 0) {
-                url = `http://localhost:8000/api/null/${state.currentPage}/${state.pageSize}/${state.search}/${state.currentMin}/${state.currentMax}/${state.ordering}/`
-                urlLen = `http://localhost:8000/api/len/null/${state.search}/${state.currentMin}/${state.currentMax}/`
+                url = `${localhost}/api/null/${state.currentPage}/${state.pageSize}/${state.search}/${state.currentMin}/${state.currentMax}/${state.ordering}/`
+                urlLen = `${localhost}/api/len/null/${state.search}/${state.currentMin}/${state.currentMax}/`
                 fl = false
             }
             const response = await axios.get(url)
@@ -67,7 +68,7 @@ export const ItemsState = ({ children }) => {
     const fetchItemById = async id => {
         setLoading()
         try {
-            const response = await axios.get(`http://localhost:8000/items/api/id/${id}`)
+            const response = await axios.get(`${localhost}/items/api/id/${id}`)
             fetchItemByIdSuccess(response.data)
         } catch (e) {
             fetchError(e)
@@ -78,7 +79,7 @@ export const ItemsState = ({ children }) => {
         const data = { uid: id, email, rating }
         const options = {
             method: 'POST',
-            url: "http://localhost:8000/feedback/rating",
+            url: `${localhost}/feedback/rating`,
             data: qs.stringify(data)
         }
         await axios(options)
@@ -95,7 +96,7 @@ export const ItemsState = ({ children }) => {
         const data = { uid: id, email: store.get('email'), rating, first_name: firstName, description }
         const options = {
             method: 'POST',
-            url: "http://localhost:8000/feedback/comment",
+            url: `${localhost}/feedback/comment`,
             data: qs.stringify(data)
         }
         await axios(options)
@@ -111,7 +112,7 @@ export const ItemsState = ({ children }) => {
     const fetchItemsAdmin = async () => {
         setLoading()
         try {
-            const url = 'http://localhost:8000/all/'
+            const url = '${localhost}/all/'
             const response = await axios.get(url)
             fetchItemsSuccess(response.data)
         } catch(e) {
@@ -123,7 +124,7 @@ export const ItemsState = ({ children }) => {
         const data = { name, price, description }
         const options = {
             method: 'PUT',
-            url: `http://localhost:8000/product_edit/${id}`,
+            url: `${localhost}/product_edit/${id}`,
             data: qs.stringify(data)
         }
         await axios(options)
@@ -140,7 +141,7 @@ export const ItemsState = ({ children }) => {
         const data = { ...values, categoryId: category }
         const options = {
             method: 'POST',
-            url: "http://localhost:8000/create_product",
+            url: `${localhost}/create_product`,
             data: qs.stringify(data)
         }
         await axios(options)
@@ -155,7 +156,7 @@ export const ItemsState = ({ children }) => {
     const deleteItem = async (id) => {
         const options = {
             method: 'DELETE',
-            url: `http://localhost:8000/delete_product/${id}`,
+            url: `${localhost}/delete_product/${id}`,
         }
         await axios(options)
             .then((response) => {

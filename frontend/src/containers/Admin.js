@@ -21,6 +21,7 @@ export const Admin = () => {
     const applySearch = (item) => R.contains(
         search.toUpperCase(), item.name.toUpperCase()
     )
+    
 
     const renderItems = () => {
         return items

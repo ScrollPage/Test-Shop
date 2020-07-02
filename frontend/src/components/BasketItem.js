@@ -2,38 +2,15 @@ import React from 'react'
 import Img from '../assets/player.jpg'
 import { Button } from 'antd'
 import { CloseOutlined } from '@ant-design/icons';
-import { motion } from 'framer-motion'
 import useReactRouter from 'use-react-router'
+import { animated } from 'react-spring'
 
-export const BasketItem = ({ data, remove, add }) => {
+export const BasketItem = ({ data, remove, add, props }) => {
 
     const { history } = useReactRouter()
 
-    const listVar = {
-        hidden: {
-            x: -100,
-            opacity: 0
-        },
-        show: {
-            x: 0,
-            opacity: 1,
-            transition: {
-                duration: 10,
-                type: "spring",
-                stiffness: 120,
-                damping: 11
-            }
-        }
-    }
-
     return (
-        <motion.div
-            className="basket-item"
-            variants={listVar}
-            initial="hidden"
-            animate="show"
-            exit="hidden"
-        >
+        <animated.div className="basket-item" style={props}>
             <div className="basket-img">
                 <img
                     src={Img}
@@ -60,6 +37,6 @@ export const BasketItem = ({ data, remove, add }) => {
             <div className="basket-delete" onClick={() => remove(data.product, data.amount)}>
                 <CloseOutlined />
             </div>
-        </motion.div>
+        </animated.div>
     )
 }

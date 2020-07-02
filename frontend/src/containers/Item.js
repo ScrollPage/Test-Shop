@@ -66,11 +66,6 @@ export const Item = () => {
                             :
                             <div className="jumbotron text-center">
                                 <img
-                                    // src={require(`..${item.image}`)}
-                                    // src={require(`../uploads/${item.image}`)}
-                                    // src={`..${item.image}`}
-                                    // src={require("../uploads/Lumia1520-Front-Back-png.png")}
-                                    // src={getImage()}
                                     src={`https://picsum.photos/id/${item.id}/300/300`}
                                     style={{ height: '250px' }}
                                     className="mb-4"
@@ -100,6 +95,6 @@ export const Item = () => {
             </div>
             <Comments item={item}/>
         </div>
-
+        
     )
 }
