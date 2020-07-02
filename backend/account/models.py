@@ -18,8 +18,6 @@ class MyAccountManager(BaseUserManager):
             phone_number = phone_number
         )
 
-        print(user.first_name)
-
         user.set_password(password)
         user.save(using = self._db)
 
