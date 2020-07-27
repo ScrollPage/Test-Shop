@@ -74,7 +74,7 @@ class ProductsCountView(generics.ListAPIView):
 		maxi = int(self.kwargs['max'])
 		categoryId = categoryId.split(",")
 
-		
+
 		if len(categoryId) == 5:
 			queryset = Product.objects.filter(price__range = (mini, maxi))
 			queryset = make_searched(search, queryset)
