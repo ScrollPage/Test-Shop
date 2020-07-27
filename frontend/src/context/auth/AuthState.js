@@ -102,8 +102,7 @@ export const AuthState = ({ children }) => {
         try {
             const response = await axios.get(`${localhost}/account/api/${store.get('email')}`)
             fetchAccountSuccess(response.data[0])
-            store.set('isAdmin', response.data[0])
-            // console.log(response.data[0])
+            store.set('isAdmin', response.data[0].is_superuser)
         } catch (e) {
             console.log(e)
         }
