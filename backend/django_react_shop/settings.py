@@ -148,9 +148,6 @@ APPEND_SLASH = False
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-REACT_DOMEN = 'http://localhost:3000'
-DJANGO_DOMEN = 'http://localhost:8000'
-
 # Это я добавил
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True

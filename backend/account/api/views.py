@@ -69,5 +69,3 @@ class UserDataChange(generics.GenericAPIView):
             return Response(serializer.data, status = status.HTTP_202_ACCEPTED)
         else:
             return Response(serializer.data, status = status.HTTP_400_BAD_REQUEST)
-
-

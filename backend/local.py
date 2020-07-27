@@ -1,0 +1,1 @@
+SECRET_KEY = 'cvx&ylb92=6se=4=cbf=l53hodgscfo@g&bi(7yy9fy+vgb!yk'
